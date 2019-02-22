@@ -29,7 +29,8 @@ There are 3 major components in Room:
   
 ### Code examples
 
-User.
+**User**
+
 ```
 @Entity(tableName = "users")
 public class User {
@@ -47,7 +48,8 @@ public class User {
 }
 ```
 
-UserDao
+**UserDao**
+
 ```
 @Dao
 public interface UserDao {
@@ -72,7 +74,7 @@ public interface UserDao {
 }
 ```
 
-AppDatabase
+**AppDatabase**
 
 ```
 @Database(entities = {User.class, Book.class}, version = 1)
@@ -82,7 +84,7 @@ public abstract class AppDatabase extends RoomDatabase {
 }
 ```
 
-Instantiation. Probably singleton. Use Room.inMemoryDatabaseBuilder() for in memory DB.
+**Instantiation**. Probably singleton. Use Room.inMemoryDatabaseBuilder() for in memory DB.
 
 ```
 AppDatabase db = Room.databaseBuilder(getApplicationContext(),
