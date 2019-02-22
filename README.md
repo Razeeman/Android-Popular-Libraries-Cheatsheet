@@ -140,7 +140,7 @@ AppDatabase db = Room.databaseBuilder(getApplicationContext(),
 
 ## Dagger2
 
-A fast dependency injector for Android and Java. Compile-time evolution. Uses code generation and is based on annotations.
+A fast dependency injector for Android and Java. Compile-time evaluation. Uses code generation and is based on annotations.
 
 ```java
 dependencies {
