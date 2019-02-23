@@ -30,9 +30,7 @@ There are 3 major components in Room:
 
   Allow abstraction of the the database communication. Easier to mock in tests (compared to running direct sql queries). Automatically does the conversion from Cursor to application classes. All queries in Dao are verified while compile. Can be either an interface or an abstract class.
   
-### Code examples
-
-**User**
+### Entity
 
 ```java
 @Entity(tableName = "users")
@@ -51,7 +49,7 @@ public class User {
 }
 ```
 
-**UserDao**
+###  Dao
 
 ```java
 @Dao
@@ -80,8 +78,7 @@ public interface UserDao {
 }
 ```
 
-**AppDatabase**
-
+### Database
 ```java
 @Database(entities = {User.class, Book.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
@@ -90,7 +87,9 @@ public abstract class AppDatabase extends RoomDatabase {
 }
 ```
 
-**Instantiation**. Expensive, so probably singleton. Outside of the main thread. Use Room.inMemoryDatabaseBuilder() for in memory DB.
+### Instantiation
+
+Expensive, so probably singleton. Outside of the main thread. Use Room.inMemoryDatabaseBuilder() for in memory DB.
 
 ```java
 AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -98,7 +97,9 @@ AppDatabase db = Room.databaseBuilder(getApplicationContext(),
 db.userDao().insert(user);
 ```
 
-**TypeConverters**. Specifies additional type converters that Room can use. The TypeConverter is added to the scope of the element so if you put it on a class / interface, all methods / fields in that class will be able to use the converters.
+### TypeConverters
+
+Specifies additional type converters that Room can use. The TypeConverter is added to the scope of the element so if you put it on a class / interface, all methods / fields in that class will be able to use the converters.
 
 ```java
  // example converter for java.util.Date
@@ -121,7 +122,7 @@ public class Employee {
 }
 ```
 
-**Migration**.
+### Migration
 
 ```java
 public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
@@ -144,7 +145,7 @@ A fast dependency injector for Android and Java. Compile-time evaluation. Uses c
 
 ```java
 dependencies {
-  compile 'com.google.dagger:dagger:2.21'
+  implementation 'com.google.dagger:dagger:2.21'
   annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
 }
 ```
@@ -299,6 +300,130 @@ class MyPresenter {
 ```
 
 ## Retrofit
+
+Type-safe HTTP client. Provides a powerful framework for authenticating and interacting with APIs and sending network requests with OkHttp. Automatically serialises the JSON response using a POJO. For conversion uses GSON or several other converters.
+
+```java
+dependencies {
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    
+    // Or any other available converter.
+    implementation ‘com.google.code.gson:gson:2.8.0’
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+}
+```
+
+### Data model to store parsed json
+
+Class structure is mirroring json structure.
+
+```json
+[
+    {
+        "id": 1,
+        "name": "John Jameson",
+        "email": "johnjameson@example.com",
+    },
+    {
+        "id": 2,
+        "name": "James Johnson",
+        "email": "jamesjohnson@example.com",
+    },
+    {
+        "id": 3,
+        "name": "Jenna Juliano",
+        "email": "jennajuliano@example.com",
+    }
+]
+```
+
+```java
+public class User {
+    @SerializedName("id")
+    int mId;
+
+    @SerializedName("name")
+    String mName;
+    
+    @SerializedName("email")
+    String mEmail;
+
+    // Constructor, getters, setters.
+}
+```
+
+### Instantiation
+
+Expensive. So probably singleton.
+
+```java
+public static final String BASE_URL = "http://api.myservice.com/";
+Retrofit retrofit = new Retrofit.Builder()
+    .baseUrl(BASE_URL)
+    .addConverterFactory(GsonConverterFactory.create())
+    .build();
+```
+
+### Endpoints
+
+The endpoints are defined inside of an interface using special retrofit annotations to encode details about the parameters and request method. The return value is always a parameterized Call<T>. This is just a callback given by the retrofit to perform the request synchronously or asynchronously.
+
+```java
+public interface ApiServiceInterface  {
+    @GET("users/{username}")
+    Call<User> getUser(@Path("username") String username);
+
+    @GET("group/{id}/users")
+    Call<List<User>> groupList(@Path("id") int groupId, @Query("sort") String sort);
+
+    @POST("users/new")
+    Call<User> createUser(@Body User user);
+}
+```
+
+- **@Path** variable substitution for the API endpoint (i.e. username will be swapped for {username} in the URL endpoint).
+
+- **@Query** specifies the query key name with the value of the annotated parameter. 
+
+- **@Body** payload for the POST call (serialized from a Java object to a JSON string)
+
+- **@Header** specifies the header with the value of the annotated parameter
+
+### Invocation
+
+enqueue() asynchronously sends the request on the background thread and notifies your app with a callback when a response comes back.
+
+```java
+User user = new User(123, "John Doe");
+ApiServiceInterface apiService = retrofit.create(ApiServiceInterface.class);
+
+Call<User> call = apiService.createuser(user);
+call.enqueue(new Callback<User>() {
+    @Override
+    public void onResponse(Call<User> call, Response<User> response) {
+        // code
+    }
+
+    @Override
+    public void onFailure(Call<User> call, Throwable t) {
+        // Log error
+    }
+});
+
+Call<User> call = apiService.getUser("John Doe");
+call.enqueue(new Callback<User>() {
+    @Override
+    public void onResponse(Call<User> call, Response<User> response) {
+        int statusCode = response.code();
+        User newUser = response.body();
+    }
+
+    @Override
+    public void onFailure(Call<User> call, Throwable t) {
+        // Log error
+    }
+});
+```
 
 ## Glide
 
