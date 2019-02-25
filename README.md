@@ -13,14 +13,12 @@
 The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access. Provides compile time verification of SQL queries.
 
 ```java
-dependencies {
-    def room_version = "2.1.0-alpha04"
+dependencies {   
+    implementation "androidx.room:room-runtime:2.1.0-alpha0"
+    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha0"
     
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    
-    // android.arch.persistence.room:runtime:1.1.0
-    // android.arch.persistence.room:compiler:1.1.0
+    // android.arch.persistence.room:runtime:1.1.1
+    // android.arch.persistence.room:compiler:1.1.1
 }
 ```
 
