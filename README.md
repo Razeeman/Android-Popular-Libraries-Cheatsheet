@@ -14,8 +14,8 @@ The Room persistence library provides an abstraction layer over SQLite to allow 
 
 ```java
 dependencies {   
-    implementation "androidx.room:room-runtime:2.1.0-alpha0"
-    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha0"
+    implementation "androidx.room:room-runtime:2.1.0-alpha04"
+    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha04"
     
     // android.arch.persistence.room:runtime:1.1.1
     // android.arch.persistence.room:compiler:1.1.1
