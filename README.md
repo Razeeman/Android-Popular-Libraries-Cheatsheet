@@ -140,7 +140,7 @@ AppDatabase db = Room.databaseBuilder(getApplicationContext(),
         .build();
 ```
 
-## Dagger 2
+## Dagger 2 [![Maven Central][dagger-mavenbadge-svg]][dagger-mavencentral]
 
 A fast dependency injector for Android and Java. Compile-time evaluation. Uses code generation and is based on annotations.
 
@@ -316,7 +316,7 @@ class MyPresenter {
 }
 ```
 
-## Retrofit
+## Retrofit [![Maven Central][retrofit-mavenbadge-svg]][retrofit-mavencentral]
 
 Type-safe HTTP client. Provides a powerful framework for authenticating and interacting with APIs and sending network requests with OkHttp. Automatically serialises the JSON response using a POJO. For conversion uses GSON or several other converters.
 
@@ -442,7 +442,7 @@ call.enqueue(new Callback<User>() {
 });
 ```
 
-## Glide
+## Glide [![Maven Central][glide-mavenbadge-svg]][glide-mavencentral]
 
 Glide is a fast and efficient image loading library for Android focused on smooth scrolling. Glide offers an easy to use API, a performant and extensible resource decoding pipeline and automatic resource pooling. Glide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Uses HttpUrlConnection.
 
@@ -542,6 +542,11 @@ GlideApp.with(fragment)
 
 Unlike Glide.with() options like centerCrop() and placeholder() are available directly on the builder and don’t need to be passed in as a separate RequestOptions object.
 
-## Picasso
-
 ## RxJava
+
+[dagger-mavencentral]: https://search.maven.org/artifact/com.google.dagger/dagger
+[dagger-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
+[retrofit-mavencentral]: https://search.maven.org/artifact/com.squareup.retrofit2/retrofit
+[retrofit-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.squareup.retrofit2/retrofit/badge.svg
+[glide-mavencentral]: https://search.maven.org/artifact/com.github.bumptech.glide/glide
+[glide-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide/badge.svg
