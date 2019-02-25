@@ -8,7 +8,7 @@
 - [RxJava](#rxjava)
 
 <a name="room"></a>
-# Room
+# Room [![Maven Google][room-mavenbadge-svg]][room-mavengoogle]
 
 The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access. Provides compile time verification of SQL queries.
 
@@ -695,6 +695,8 @@ RxJava 2 features several base classes you can discover operators on:
 
 **Runtime**. This is the state when the flows are actively emitting items, errors or completion signals. Practically, this is when the body of the given example above executes.
 
+[room-mavengoogle]: https://mvnrepository.com/artifact/androidx.room/room-runtime
+[room-mavenbadge-svg]: https://img.shields.io/badge/maven%20google--green.svg
 [dagger-mavencentral]: https://search.maven.org/artifact/com.google.dagger/dagger
 [dagger-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
 [retrofit-mavencentral]: https://search.maven.org/artifact/com.squareup.retrofit2/retrofit
