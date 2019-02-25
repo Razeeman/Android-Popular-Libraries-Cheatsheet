@@ -464,7 +464,7 @@ dependencies {
 }
 ```
 
-### Glide. Basic Usage
+### Glide. Usage
 
 ```java
 Glide.with(fragment)
@@ -478,7 +478,12 @@ GlideApp.with(context)
     .override(300, 200)
     .placeholder(R.drawable.placeholder)
     .error(R.drawable.imagenotfound)
+    .thumbnail(Glide.with(this)
+        .load(fastLoadUrl)
+        .apply(requestOption))
+    .transition(DrawableTransitionOptions.withCrossFade())
     .centerCrop()
+    .listener(MyImageRequestListener(this))
     .into(imageView);
 ```
 
