@@ -325,7 +325,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     
     // Or any other available converter.
-    implementation ‘com.google.code.gson:gson:2.8.0’
+    implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 }
 ```
@@ -549,7 +549,7 @@ RxJava is a Java VM implementation of Reactive Extensions: a library for composi
 ```java
 dependencies {
     implementation "io.reactivex.rxjava2:rxjava:2.2.7"
-    implementation ‘io.reactivex.rxjava2:rxandroid:2.1.1’
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
 }
 ```
 
