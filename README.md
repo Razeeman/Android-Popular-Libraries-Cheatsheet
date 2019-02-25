@@ -1,6 +1,14 @@
 # Android Essential Libraries Cheatsheet
 
-## Room
+## Contents
+- [Room](#room)
+- [Dagger 2](#dagger-2)
+- [Retrofit](#retrofit)
+- [Glide](#glide)
+- [RxJava](#rxjava)
+
+<a name="room"></a>
+# Room
 
 The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access. Provides compile time verification of SQL queries.
 
@@ -140,7 +148,8 @@ AppDatabase db = Room.databaseBuilder(getApplicationContext(),
         .build();
 ```
 
-## Dagger 2 [![Maven Central][dagger-mavenbadge-svg]][dagger-mavencentral]
+<a name="dagger-2"></a>
+# Dagger 2 [![Maven Central][dagger-mavenbadge-svg]][dagger-mavencentral]
 
 A fast dependency injector for Android and Java. Compile-time evaluation. Uses code generation and is based on annotations.
 
@@ -316,7 +325,8 @@ class MyPresenter {
 }
 ```
 
-## Retrofit [![Maven Central][retrofit-mavenbadge-svg]][retrofit-mavencentral]
+<a name="retrofit"></a>
+# Retrofit [![Maven Central][retrofit-mavenbadge-svg]][retrofit-mavencentral]
 
 Type-safe HTTP client. Provides a powerful framework for authenticating and interacting with APIs and sending network requests with OkHttp. Automatically serialises the JSON response using a POJO. For conversion uses GSON or several other converters.
 
@@ -442,7 +452,8 @@ call.enqueue(new Callback<User>() {
 });
 ```
 
-## Glide [![Maven Central][glide-mavenbadge-svg]][glide-mavencentral]
+<a name="glide"></a>
+# Glide [![Maven Central][glide-mavenbadge-svg]][glide-mavencentral]
 
 Glide is a fast and efficient image loading library for Android focused on smooth scrolling. Glide offers an easy to use API, a performant and extensible resource decoding pipeline and automatic resource pooling. Glide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Uses HttpUrlConnection.
 
@@ -542,7 +553,8 @@ GlideApp.with(fragment)
 
 Unlike Glide.with() options like centerCrop() and placeholder() are available directly on the builder and don’t need to be passed in as a separate RequestOptions object.
 
-## RxJava [![Maven Central][rxjava-mavenbadge-svg]][rxjava-mavencentral] RxAndroid [![Maven Central][rxandroid-mavenbadge-svg]][rxandroid-mavencentral]
+<a name="rxjava"></a>
+# RxJava [![Maven Central][rxjava-mavenbadge-svg]][rxjava-mavencentral] RxAndroid [![Maven Central][rxandroid-mavenbadge-svg]][rxandroid-mavencentral]
 
 RxJava is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences. It extends the observer pattern to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety and concurrent data structures.
 
@@ -602,6 +614,9 @@ public class HelloWorld {
         Flowable.just("Hello world").subscribe(System.out::println);
     }
 }
+
+Produces:
+Hello world
 ```
 
 ```java
