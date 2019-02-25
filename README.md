@@ -542,7 +542,64 @@ GlideApp.with(fragment)
 
 Unlike Glide.with() options like centerCrop() and placeholder() are available directly on the builder and don’t need to be passed in as a separate RequestOptions object.
 
-## RxJava
+## RxJava [![Maven Central][rxjava-mavenbadge-svg]][rxjava-mavencentral]
+
+RxJava is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences. It extends the observer pattern to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety and concurrent data structures.
+
+```java
+dependencies {
+    implementation "io.reactivex.rxjava2:rxjava:2.2.7"
+}
+```
+
+### Observer Pattern
+
+The observer pattern is a software design pattern in which an object, called the **subject**, maintains a list of its dependents, called **observers**, and **notifies** them automatically of any state changes, usually by calling one of their methods. It is mainly used to implement distributed event handling systems, in "event driven" software. Addresses the following problems:
+
+- A one-to-many dependency between objects should be defined without making the objects tightly coupled.
+- It should be ensured that when one object changes state an open-ended number of dependent objects are updated automatically.
+- It should be possible that one object can notify an open-ended number of other objects.
+
+### RxJava. Base usage
+
+```java
+Flowable.just("Hello world")
+    .subscribe(new Consumer<String>() {
+        @Override public void accept(String s) {
+            System.out.println(s);
+        }
+    });
+```
+
+Or with java8 lambdas and method references.
+
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        Flowable.just("Hello world").subscribe(System.out::println);
+    }
+}
+```
+
+### RxJava. Base classes
+
+RxJava 2 features several base classes you can discover operators on:
+
+- **io.reactivex.Flowable**: 0..N flows, supporting Reactive-Streams and backpressure
+- **io.reactivex.Observable**: 0..N flows, no backpressure,
+- **io.reactivex.Single**: a flow of exactly 1 item or an error,
+- **io.reactivex.Completable**: a flow without items but only a completion or error signal,
+- **io.reactivex.Maybe**: a flow with no items, exactly one item or an error.
+
+### RxJava. Terminology
+
+**Upstream, downstream**. The dataflows in RxJava consist of a source, zero or more intermediate steps followed by a data consumer or combinator step (where the step is responsible to consume the dataflow by some means). For operator2, looking to the left towards the source, is called the **upstream**. Looking to the right towards the subscriber/consumer, is called the **downstream**.
+
+```java
+source.operator1().operator2().operator3().subscribe(consumer);
+```
+
+
 
 [dagger-mavencentral]: https://search.maven.org/artifact/com.google.dagger/dagger
 [dagger-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
@@ -550,3 +607,5 @@ Unlike Glide.with() options like centerCrop() and placeholder() are available di
 [retrofit-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.squareup.retrofit2/retrofit/badge.svg
 [glide-mavencentral]: https://search.maven.org/artifact/com.github.bumptech.glide/glide
 [glide-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide/badge.svg
+[rxjava-mavencentral]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxjava
+[rxjava-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg
