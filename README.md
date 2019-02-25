@@ -444,6 +444,99 @@ call.enqueue(new Callback<User>() {
 
 ## Glide
 
+Glide is a fast and efficient image loading library for Android focused on smooth scrolling. Glide offers an easy to use API, a performant and extensible resource decoding pipeline and automatic resource pooling. Glide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Uses HttpUrlConnection.
+
+- Smart and automatic **downsampling** and **caching** minimize storage overhead and decode times.
+- Aggressive **re-use of resources** like byte arrays and Bitmaps minimizes expensive garbage collections and heap fragmentation.
+- Deep **lifecycle integration** ensures that only requests for active Fragments and Activities are prioritized and that Applications release resources when neccessary to avoid being killed when backgrounded.
+
+By default, Glide checks multiple layers of caches before starting a new request for an image:
+
+- Active resources - Is this image displayed in another View right now?
+- Memory cache - Was this image recently loaded and still in memory?
+- Resource - Has this image been decoded, transformed, and written to the disk cache before?
+- Data - Was the data this image was obtained from written to the disk cache before?
+
+```java
+dependencies {
+    compile 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+}
+```
+
+### Glide. Basic Usage
+
+```java
+Glide.with(fragment)
+    .load(myUrl)
+    .into(imageView);
+```
+
+```java
+GlideApp.with(context)
+    .load(myUrl)
+    .override(300, 200)
+    .placeholder(R.drawable.placeholder)
+    .error(R.drawable.imagenotfound)
+    .centerCrop()
+    .into(imageView);
+```
+
+### Glide. Background Threads
+
+```java
+FutureTarget<Bitmap> futureTarget =
+    Glide.with(context)
+        .asBitmap()
+        .load(url)
+        .submit(width, height);
+
+Bitmap bitmap = futureTarget.get();
+
+// Do something with the Bitmap and then when you're done with it:
+Glide.with(context).clear(futureTarget);
+```
+
+### Glide. RequestOptions
+
+Most options in Glide can be applied using the RequestOptions class and the apply() method. Options among others:
+
+- Placeholders
+- Transformations
+- Caching Strategies
+- Component specific options, like encode quality, or decode Bitmap configurations.
+
+```java
+RequestOptions cropOptions = new RequestOptions().centerCrop(context);
+...
+Glide.with(fragment)
+    .load(url)
+    .apply(cropOptions)
+    .into(imageView);
+```
+
+### Glide. Generated API
+
+Hand writing custom subclasses of RequestOptions is challenging and produces a less fluent API. Generate API allows access all options in RequestBuilder, RequestOptions and any included integration libraries in a single fluent API. Generated after rebuild.
+
+- Integration libraries can extend Glide’s API with custom options.
+- Applications can extend Glide’s API by adding methods that bundle commonly used options.
+
+```java
+@GlideModule
+public final class MyAppGlideModule extends AppGlideModule {}
+```
+
+```java
+GlideApp.with(fragment)
+    .load(myUrl)
+    .placeholder(R.drawable.placeholder)
+    .centerCrop()
+    .into(imageView);
+```
+
+Unlike Glide.with() options like centerCrop() and placeholder() are available directly on the builder and don’t need to be passed in as a separate RequestOptions object.
+
 ## Picasso
 
 ## RxJava
