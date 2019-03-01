@@ -339,7 +339,7 @@ The scope is defined with a given name, where the name could be any name e.g. @S
 
 Dagger provides @Singleton scope annotation. It is just a usual named scope defined the same way but with a name Singleton. @Singleton annotation doesn't provide singleton functionality by itself. It's developer's responsibility to make sure that the Component with @Singleton annotation created only once. Otherwise every Component will have it's own version of @Singleton object.
 
-Lifecycle of scoped objects tied to the lifecycle of the Component. If Component built it application its instances of scoped objects will live as long as application or until manually cleared. This is useful for application level dependencies like ApplicationContext. If Component is built in activity, scoped instances will be cleared on destroy of activity.
+Lifecycle of scoped objects tied to the lifecycle of the Component. Components live as long as you want it to or as long as class that created component wasn't destroyed (like android activity or fragment). If Component built it application its instances of scoped objects will live as long as application or until manually cleared. This is useful for application level dependencies like ApplicationContext. If Component is built in activity, scoped instances will be cleared on destroy of activity.
 
 ### Dagger 2. Component dependencies.
 
@@ -351,6 +351,7 @@ If at least one provide method in a module has a scope annotation the Component 
 
 ```java
 @Component (modules={ContextModule.class, OtherModule.class})
+@Singleton
 interface AppComponent {
     // Providing dependencies to children.
     @Named("ApplicationContext") Context anyName();
@@ -361,6 +362,7 @@ interface AppComponent {
 
 ```java
 @Component (dependencies={AppComponent.class}, modules={ActivityModule.class})
+@ActivityScope
 interface ActivityComponent {
     // Context and MyDatabase available from parent and can be passed futher.
     @Named("ApplicationContext") Context anyName();
@@ -368,7 +370,7 @@ interface ActivityComponent {
 }
 ```
 
-Initialization.
+Instantiation.
 
 ```java
 appComponent = DaggerAppComponent.builder()
@@ -378,6 +380,41 @@ appComponent = DaggerAppComponent.builder()
 activityComponent = DaggerActivityComponent.builder()
     .appComponent(appComponent)
     .build();
+```
+
+### Dagger 2. Subcomponents.
+
+Same goal as component dependencies, different approach.
+
+- Parent component is obliged to declare Subcomponents getters inside its interface.
+- Subcomponent has access to all parents objects.
+- Subcomponent can only have one parent.
+
+```java
+@Component (modules={ContextModule.class, OtherModule.class})
+@Singleton
+interface AppComponent {
+    ActivityComponent plusActivityComponent(ActivityModule activityModule);
+    // injects
+}
+```
+
+```java
+@Subcomponent (modules={ActivityModule.class})
+@ActivityScope
+interface ActivityComponent {
+    // injects
+}
+```
+
+Instantiation.
+
+```java
+appComponent = DaggerAppComponent.builder()
+    .contextModule(new ContextModule(getApplicationContext()))
+    .otherModule(new OtherModule())
+    .build();
+activityComponent = appComponent.plusActivityComponent(new ActivityModule());
 ```
 
 <a name="retrofit"></a>
