@@ -264,7 +264,7 @@ class ContextModule {
     
     @Provides
     @Named("ApplicationContext")
-    Context getContext() {
+    Context anyName() {
     	return context;
     }
 }
@@ -284,7 +284,7 @@ class MyDatabase {
 Component connects dependants that ask for dependencies with modules that provides them.
 
 ```java
-@Component (modules={ContextModule.class})
+@Component (modules={ContextModule.class, OtherModule.class})
 interface MyComponent {
     void inject(MyPresenter presenter);
 }
@@ -300,6 +300,7 @@ class MyApplication extends Application {
     void onCreate() {
         component = DaggerMyComponent.builder()
             .contextModule(new ContextModule(getApplicationContext()))
+            .otherModule(new OtherModule())
             .build();
     }
     
@@ -321,6 +322,62 @@ class MyPresenter {
         MyApplication.getMyComponent().inject(this);
     }
 }
+```
+
+### Dagger 2. Scopes
+
+Scope determines the lifetime of a variable. If we do not specify any Scope annotation, the Component will create a new instance every time the dependency is injected, whereas if we do specify a Scope Component can retain the instance for future use.
+
+The scope is defined with a given name, where the name could be any name e.g. @Singleton, @ActivityScope, @FragmentScope, @WhateverScope. 
+
+```java
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ScopeName {
+}
+```
+
+Dagger provides @Singleton scope annotation. It is just a usual named scope defined the same way but with a name Singleton. @Singleton annotation doesn't provide singleton functionality by itself. It's developer's responsibility to make sure that the Component with @Singleton annotation created only once. Otherwise every Component will have it's own version of @Singleton object.
+
+Lifecycle of scoped objects tied to the lifecycle of the Component. If Component built it application its instances of scoped objects will live as long as application or until manually cleared. This is useful for application level dependencies like ApplicationContext. If Component is built in activity, scoped instances will be cleared on destroy of activity.
+
+### Dagger 2. Component dependencies.
+
+If at least one provide method in a module has a scope annotation the Component should have the same scope annotation. Which means that if you want named scope, you need a separate Component for it. Components can depend on each other.
+
+- Two dependent components cannot have the same Scope.
+- Parent component must explicitly declare objects which can be used in child components.
+- Component can depend on other components.
+
+```java
+@Component (modules={ContextModule.class, OtherModule.class})
+interface AppComponent {
+    // Providing dependencies to children.
+    @Named("ApplicationContext") Context anyName();
+    MyDatabase anyOtherName();
+    // injects
+}
+```
+
+```java
+@Component (dependencies={AppComponent.class}, modules={ActivityModule.class})
+interface ActivityComponent {
+    // Context and MyDatabase available from parent and can be passed futher.
+    @Named("ApplicationContext") Context anyName();
+    // injects
+}
+```
+
+Initialization.
+
+```java
+appComponent = DaggerAppComponent.builder()
+    .contextModule(new ContextModule(getApplicationContext()))
+    .otherModule(new OtherModule())
+    .build();
+activityComponent = DaggerActivityComponent.builder()
+    .appComponent(appComponent)
+    .build();
 ```
 
 <a name="retrofit"></a>
