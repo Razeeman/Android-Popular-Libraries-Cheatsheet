@@ -8,6 +8,7 @@
 - [RxJava](#rxjava)
 - [JUnit](#junit)
 - [Mockito](#mockito)
+- [Espresso](#espresso)
 
 <a name="room"></a>
 # Room [![Maven Google][room-mavenbadge-svg]][room-mavengoogle]
@@ -792,7 +793,7 @@ RxJava 2 features several base classes you can discover operators on:
 <a name="junit"></a>
 # JUnit 4 [![Maven Central][junit4-mavenbadge-svg]][junit4-mavencentral]
 
-Most popular testing framework available for Java.
+Popular unit testing framework.
 
 ```java
 dependencies {
@@ -812,7 +813,7 @@ JUnit assumes that all test methods can be executed in an arbitrary order. Well-
 
 By default, the Android Plug-in for Gradle executes your local unit tests against a modified version of the android.jar library, which does not contain any actual code. Instead, method calls to Android classes from your unit test throw an exception. This is to make sure you test only your code and do not depend on any particular behavior of the Android platform (that you have not explicitly built or mocked).
 
-### Basic unit test
+### JUnit. Basic test
 
 ```java
 public class CalculatorTest {
@@ -936,6 +937,90 @@ public void testVerify()  {
 }
 ```
 
+<a name="espresso"></a>
+# Espresso [![Maven Google][espresso-mavenbadge-svg]][espresso-mavengoogle]
+
+UI testing framework. Provides APIs for writing UI tests to simulate user interactions within an app. Provides automatic synchronization of test actions with the UI of the app you are testing. Espresso detects when the main thread is idle, so it is able to run test commands at the appropriate time, improving the reliability of tests. Uses a separate apk to run tests.
+
+```java
+dependencies {
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'
+    
+    // old namespace 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+```
+
+### Instrumented (or Instrumentation, or UI) tests
+
+Located at module-name/src/androidTest/java/ .
+
+You can run instrumented unit tests on a physical device or emulator, which doesn't involve any mocking or stubbing of the framework. Because this form of testing involves significantly slower execution times than local unit tests, however, it's best to rely on this method only when it's essential to evaluate your app's behavior against actual device hardware.
+
+### Espresso. Tests structure
+
+- Activity will be launched using the @Rule annotation. By default the rule will be initialised and the activity will be launched before running every @Before method. Destroyed after running the @After method.
+
+- Use JUnit annotations: @Test, @BeforeClass, @Before, @After, @AfterClass.
+
+- Find the UI component you want to test in an Activity (for example, a sign-in button in the app) by calling the onView() method, or the onData() method for AdapterView controls, with specified matcher parameter.
+
+- Simulate a specific user interaction to perform on that UI component, by calling the ViewInteraction.perform() or DataInteraction.perform() method and passing in the user action (for example, click on the sign-in button). To sequence multiple actions on the same UI component, chain them using a comma-separated list in your method argument.
+
+- Use the ViewAssertions methods with ViewInteraction.check() or DataInteraction.check() to check that the UI reflects the expected state or behavior, after these user interactions are performed.
+
+### Espresso. Basic test
+
+```java
+@RunWith(AndroidJUnit4.class)
+public class ActivityTest {
+
+    @Rule
+    public final ActivityTestRule<MyActivity> mActivityTestRule
+            = new ActivityTestRule<>(MyActivity.class);
+
+    @Test
+    public void basicTest() {
+        onView(withId(R.id.my_view)).perform(click()).check(matches(isDisplayed()));
+    }
+}
+```
+
+### Espresso. Test examples
+
+```java
+// Testing view visibility.
+onView(withText(R.string.some_text)).check(matches(isDisplayed()));
+onView(withId(R.id.some_view)).check(matches(not(isDisplayed())));
+onView(withText(containsString("some_word"))).check(doesNotExist());
+onView(allOf(
+    hasSibling(withText(R.string.prefs_date)),
+    withText(R.string.prefs_not_set)))
+    .check(matches(isDisplayed()));
+
+// Checking view positioning.
+onView(withText(R.string.some_text)).check(isCompletelyAbove(withText(R.string.other_text)));
+
+// Clicking view on a ViewPager.
+onView(allOf(withText(R.string.some_text), isCompletelyDisplayed())).perform(click());
+
+// Typing text in EditText.
+onView(withId(android.R.id.edit)).perform(typeText(text));
+
+// Picking date on DatePicker.
+onView(withClassName(equalTo(DatePicker.class.getName())))
+    .perform(PickerActions.setDate(year, month, day));
+
+// Scrolling ScrollView.
+onView(withId(R.id.some_view)).perform(scrollTo()).check(matches(isDisplayed()));
+
+// Scrolling RecyclerView.
+onView(withId(R.id.recycler_view))
+    .perform(RecyclerViewActions.scrollTo(hasDescendant(withText(R.string.some_text))));
+```
+    
+
+
+
 [room-mavengoogle]: https://mvnrepository.com/artifact/androidx.room/room-runtime
 [room-mavenbadge-svg]: https://img.shields.io/badge/maven%20google--green.svg
 [dagger-mavencentral]: https://search.maven.org/artifact/com.google.dagger/dagger
@@ -948,7 +1033,9 @@ public void testVerify()  {
 [rxjava-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg
 [rxandroid-mavencentral]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxandroid
 [rxandroid-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxandroid/badge.svg
-[mockito-mavencentral]: https://search.maven.org/artifact/org.mockito/mockito-core
-[mockito-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/org.mockito/mockito-core/badge.svg
 [junit4-mavencentral]: https://search.maven.org/artifact/junit/junit
 [junit4-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/junit/junit/badge.svg
+[mockito-mavencentral]: https://search.maven.org/artifact/org.mockito/mockito-core
+[mockito-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/org.mockito/mockito-core/badge.svg
+[espresso-mavengoogle]: https://mvnrepository.com/artifact/androidx.test.espresso/espresso-core
+[espresso-mavenbadge-svg]: https://img.shields.io/badge/maven%20google--green.svg
