@@ -874,7 +874,7 @@ A mock object is a dummy implementation for an interface or a class in which you
 
 - To create a mock object for an Android dependency, add the @Mock annotation before the field declaration or use mock() method.
 - Initialize mocks with MockitoAnnotations.initMocks(this).
-- To stub the behavior of the dependency, you can specify a condition and return value when the condition is met by using the when() and thenReturn() methods.
+- To stub the behavior of the dependency, you can specify a condition and return value when the condition is met by using the when().thenReturn() or doReturn().when(). The latter doesn't call the real method and can be used to avoid excepcions.
 
 ```java
 public class PreferencesHelperTest {
