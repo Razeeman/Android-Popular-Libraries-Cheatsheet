@@ -915,7 +915,7 @@ public void testSpy() {
 }
 ```
 
-### Mockito. Bebehavior testing
+### Mockito. Behavior testing
 
 You can use the verify() method on the mock object to verify that the specified conditions are met. For example, you can verify that a method has been called with certain parameters.
 
@@ -938,7 +938,7 @@ public void testVerify()  {
 ```
 
 <a name="powermock"></a>
-### PowerMock
+# PowerMock [![Maven Central][powermock-mavenbadge-svg]][powermock-mavencentral]
 
 PowerMock is a framework that extends other mock libraries such as Mockito and EasyMock, but adds more capacity. PowerMock uses custom classloader and bytecode manipulation to allow mocking of static methods, builders, final classes, private methods and more. So we can test our code without modifying it, thanks to the fact that the mock objects are hooked to the code to be tested in execution time. By using reflection this framework allows you to modify even private attributes of the class.
 
@@ -966,7 +966,7 @@ public class YourTestCase {
 - **Whitebox.getInternalState(..)** to get a non-public member of an instance or class.
 - **Whitebox.invokeMethod(..)** to invoke a non-public method of an instance or class.
 - **Whitebox.invokeConstructor(..)** to create an instance of a class with a private constructor.
-- **UseWhitebox.invokeMethod(..)** to invoke a private method.
+- **Whitebox.invokeMethod(..)** to invoke a private method.
 - **WhiteBox.invokeConstructor(..)** to instantiate a class with a private constructor.
 
 ```java
@@ -998,11 +998,11 @@ public void testAddService() throws Exception {
 
 ### PowerMock. Suppressing Unwanted Behavior
 
-- **suppress(constructor(EvilParent.class))** to suppress all constructors for the EvilParent class.
 - **Whitebox.newInstance(ClassWithEvilConstructor.class)** to instantiate a class without invoking the constructor what so ever.
-- **suppress(method(ClassWithEvilMethod.class, "methodName"))** to suppress the method with name "methodName" in the ClassWithEvilMethod class.
-- **suppress(field(ClassWithEvilField.class, "fieldName"))** to suppress the field with name "fieldName" in the ClassWithEvilField class.
-- **@SuppressStaticInitializationFor("org.mycompany.ClassWithEvilStaticInitializer")** annotation to remove the static initializer for the the org.mycompany.ClassWithEvilStaticInitializer class.
+- **suppress(constructor(EvilParent.class))** to suppress all constructors for the EvilParent class.
+- **suppress(method(ClassWithEvilMethod.class, "methodName"))** to suppress the method in the class.
+- **suppress(field(ClassWithEvilField.class, "fieldName"))** to suppress the field in the class.
+- **@SuppressStaticInitializationFor("org.mycompany.SomeClass")** annotation to remove the static initializer for the class.
 
 <a name="espresso"></a>
 # Espresso [![Maven Google][espresso-mavenbadge-svg]][espresso-mavengoogle]
