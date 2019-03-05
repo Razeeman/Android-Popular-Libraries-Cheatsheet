@@ -6,6 +6,7 @@
 - [Retrofit](#retrofit)
 - [Glide](#glide)
 - [RxJava](#rxjava)
+- [Mockito](#mockito)
 
 <a name="room"></a>
 # Room [![Maven Google][room-mavenbadge-svg]][room-mavengoogle]
@@ -787,6 +788,70 @@ RxJava 2 features several base classes you can discover operators on:
 
 **Runtime**. This is the state when the flows are actively emitting items, errors or completion signals. Practically, this is when the body of the given example above executes.
 
+<a name="mockito"></a>
+# Mockito [![Maven Central][mockito-mavenbadge-svg]][mockito-mavencentral]
+### with JUnit 4 framework [![Maven Central][junit4-mavenbadge-svg]][junit4-mavencentral]
+
+Most popular Mocking framework for unit tests written in Java.
+
+```java
+dependencies {
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.24.5'
+}
+```
+
+### Unit tests
+
+Located at module-name/src/test/java/ .
+
+Unit tests run on local machine only. These tests are compiled to run locally on the Java Virtual Machine (JVM) to minimize execution time.
+
+Running unit tests against your code, you can easily verify that the logic of individual units is correct. Running unit tests after every build helps you to quickly catch and fix software regressions introduced by code changes to your app. A unit test generally exercises the functionality of the smallest possible unit of code (which could be a method, class, or component) in a repeatable way.
+
+By default, the Android Plug-in for Gradle executes your local unit tests against a modified version of the android.jar library, which does not contain any actual code. Instead, method calls to Android classes from your unit test throw an exception. This is to make sure you test only your code and do not depend on any particular behavior of the Android platform (that you have not explicitly built or mocked).
+
+If you have minimal Android dependencies and need to test specific interactions between a component and its dependency within your app, use a mocking framework to stub out external dependencies in your code. That way, you can easily test that your component interacts with the dependency in an expected way. By substituting Android dependencies with mock objects, you can isolate your unit test from the rest of the Android system while verifying that the correct methods in those dependencies are called.
+
+### Basic unit test
+
+```java
+public class EmailValidatorTest {
+    @Test
+    public void emailValidator_CorrectEmailSimple_ReturnsTrue() {
+        assertThat(EmailValidator.isValidEmail("name@email.com")).isTrue();
+    }
+}
+```
+
+### Mockito. Mock dependencies
+
+- To create a mock object for an Android dependency, add the @Mock annotation before the field declaration.
+- Initialize mocks with MockitoAnnotations.initMocks(this).
+- To stub the behavior of the dependency, you can specify a condition and return value when the condition is met by using the when() and thenReturn() methods.
+
+```java
+public class PreferencesHelperTest {
+
+    @Mock private SharedPreferences mSharedPreferences;
+    private PreferencesHelper mPreferencesHelper;
+
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        mPreferencesHelper = new PreferencesHelper(mSharedPreferences);
+    }
+
+    @Test
+    public void getDateOfDeathUTC() {
+        when(mSharedPreferences.getString(eq(SharedPreferencesHelper.KEY_NAME), anyString()))
+                .thenReturn(TEST_STRING);
+
+        assertEquals(mPreferencesHelper.getSetting(), TEST_STRING);
+    }
+}
+```
+
 [room-mavengoogle]: https://mvnrepository.com/artifact/androidx.room/room-runtime
 [room-mavenbadge-svg]: https://img.shields.io/badge/maven%20google--green.svg
 [dagger-mavencentral]: https://search.maven.org/artifact/com.google.dagger/dagger
@@ -799,3 +864,7 @@ RxJava 2 features several base classes you can discover operators on:
 [rxjava-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg
 [rxandroid-mavencentral]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxandroid
 [rxandroid-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxandroid/badge.svg
+[mockito-mavencentral]: https://search.maven.org/artifact/org.mockito/mockito-core
+[mockito-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/org.mockito/mockito-core/badge.svg
+[junit4-mavencentral]: https://search.maven.org/artifact/junit/junit
+[junit4-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/junit/junit/badge.svg
