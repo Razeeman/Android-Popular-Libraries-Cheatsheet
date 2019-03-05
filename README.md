@@ -8,6 +8,7 @@
 - [RxJava](#rxjava)
 - [JUnit](#junit)
 - [Mockito](#mockito)
+- [PowerMock](#powermock)
 - [Espresso](#espresso)
 
 <a name="room"></a>
@@ -936,6 +937,73 @@ public void testVerify()  {
 }
 ```
 
+<a name="powermock"></a>
+### PowerMock
+
+PowerMock is a framework that extends other mock libraries such as Mockito and EasyMock, but adds more capacity. PowerMock uses custom classloader and bytecode manipulation to allow mocking of static methods, builders, final classes, private methods and more. So we can test our code without modifying it, thanks to the fact that the mock objects are hooked to the code to be tested in execution time. By using reflection this framework allows you to modify even private attributes of the class.
+
+```java
+dependencies {
+    testImplementation 'org.powermock:powermock-core:2.0.0' 
+}
+```
+
+### PowerMock. Test setup
+
+```java
+@RunWith(PowerMockRunner.class)
+@PrepareForTest( { YourClassWithEgStaticMethod.class })
+public class YourTestCase {
+...
+}
+```
+
+### PowerMock. Bypass encapsulation
+
+**Whitebox** class provides a set of methods which could you help bypass encapsulation if it required. Usually, it's not a good idea to get/modify non-public fields, but sometimes it's only way to cover code by test for future refactoring.
+
+- **Whitebox.setInternalState(..)** to set a non-public member of an instance or class.
+- **Whitebox.getInternalState(..)** to get a non-public member of an instance or class.
+- **Whitebox.invokeMethod(..)** to invoke a non-public method of an instance or class.
+- **Whitebox.invokeConstructor(..)** to create an instance of a class with a private constructor.
+- **UseWhitebox.invokeMethod(..)** to invoke a private method.
+- **WhiteBox.invokeConstructor(..)** to instantiate a class with a private constructor.
+
+```java
+public class ServiceHolder {
+	private final Set<Object> services = new HashSet<Object>();
+
+	public void addService(Object service) { services.add(service); }
+	public void removeService(Object service) { services.remove(service); }
+}
+
+@Test
+public void testAddService() throws Exception {
+    ServiceHolder tested = new ServiceHolder();
+    final Object service = new Object();
+
+    tested.addService(service);
+
+    // This is how you get the private services set using PowerMock
+    Set<String> services = Whitebox.getInternalState(tested, "services");
+    // Or
+    Set<String> services = Whitebox.getInternalState(tested, Set.class);
+
+    assertEquals("Size of the \"services\" Set should be 1",
+        1, services.size());
+    assertSame("The services Set should didn't contain the expect service",
+        service, services.iterator().next());
+}
+```
+
+### PowerMock. Suppressing Unwanted Behavior
+
+- **suppress(constructor(EvilParent.class))** to suppress all constructors for the EvilParent class.
+- **Whitebox.newInstance(ClassWithEvilConstructor.class)** to instantiate a class without invoking the constructor what so ever.
+- **suppress(method(ClassWithEvilMethod.class, "methodName"))** to suppress the method with name "methodName" in the ClassWithEvilMethod class.
+- **suppress(field(ClassWithEvilField.class, "fieldName"))** to suppress the field with name "fieldName" in the ClassWithEvilField class.
+- **@SuppressStaticInitializationFor("org.mycompany.ClassWithEvilStaticInitializer")** annotation to remove the static initializer for the the org.mycompany.ClassWithEvilStaticInitializer class.
+
 <a name="espresso"></a>
 # Espresso [![Maven Google][espresso-mavenbadge-svg]][espresso-mavengoogle]
 
@@ -968,6 +1036,12 @@ You can run instrumented unit tests on a physical device or emulator, which does
 - Use the ViewAssertions methods with ViewInteraction.check() or DataInteraction.check() to check that the UI reflects the expected state or behavior, after these user interactions are performed.
 
 ### Espresso. Basic test
+
+```java
+onView(ViewMatcher)
+    .perform(ViewAction)
+    .check(ViewAssertion);
+```
 
 ```java
 @RunWith(AndroidJUnit4.class)
@@ -1016,7 +1090,7 @@ onView(withId(R.id.some_view)).perform(scrollTo()).check(matches(isDisplayed()))
 onView(withId(R.id.recycler_view))
     .perform(RecyclerViewActions.scrollTo(hasDescendant(withText(R.string.some_text))));
 ```
-    
+
 
 
 
@@ -1032,9 +1106,12 @@ onView(withId(R.id.recycler_view))
 [rxjava-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg
 [rxandroid-mavencentral]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxandroid
 [rxandroid-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxandroid/badge.svg
+
 [junit4-mavencentral]: https://search.maven.org/artifact/junit/junit
 [junit4-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/junit/junit/badge.svg
 [mockito-mavencentral]: https://search.maven.org/artifact/org.mockito/mockito-core
 [mockito-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/org.mockito/mockito-core/badge.svg
+[powermock-mavencentral]: https://search.maven.org/artifact/org.powermock/powermock-core
+[powermock-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/org.powermock/powermock-core/badge.svg
 [espresso-mavengoogle]: https://mvnrepository.com/artifact/androidx.test.espresso/espresso-core
 [espresso-mavenbadge-svg]: https://img.shields.io/badge/maven%20google--green.svg
