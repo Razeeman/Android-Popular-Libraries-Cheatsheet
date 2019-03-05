@@ -6,6 +6,7 @@
 - [Retrofit](#retrofit)
 - [Glide](#glide)
 - [RxJava](#rxjava)
+- [JUnit](#junit)
 - [Mockito](#mockito)
 
 <a name="room"></a>
@@ -342,7 +343,7 @@ Dagger provides @Singleton scope annotation. It is just a usual named scope defi
 
 Lifecycle of scoped objects tied to the lifecycle of the Component. Components live as long as you want it to or as long as class that created component wasn't destroyed (like android activity or fragment). If Component built it application its instances of scoped objects will live as long as application or until manually cleared. This is useful for application level dependencies like ApplicationContext. If Component is built in activity, scoped instances will be cleared on destroy of activity.
 
-### Dagger 2. Component dependencies.
+### Dagger 2. Component dependencies
 
 If at least one provide method in a module has a scope annotation the Component should have the same scope annotation. Which means that if you want named scope, you need a separate Component for it. Components can depend on each other.
 
@@ -383,7 +384,7 @@ activityComponent = DaggerActivityComponent.builder()
     .build();
 ```
 
-### Dagger 2. Subcomponents.
+### Dagger 2. Subcomponents
 
 Same goal as component dependencies, different approach.
 
@@ -730,7 +731,7 @@ observable
     .subscribe(observer);
 ```
 
-Same with lambas.
+Same with lambdas.
 
 ```java
 Observable.just("A", "B", "C", "D", "E").
@@ -788,16 +789,14 @@ RxJava 2 features several base classes you can discover operators on:
 
 **Runtime**. This is the state when the flows are actively emitting items, errors or completion signals. Practically, this is when the body of the given example above executes.
 
-<a name="mockito"></a>
-# Mockito [![Maven Central][mockito-mavenbadge-svg]][mockito-mavencentral]
-### with JUnit 4 framework [![Maven Central][junit4-mavenbadge-svg]][junit4-mavencentral]
+<a name="junit"></a>
+# JUnit 4 [![Maven Central][junit4-mavenbadge-svg]][junit4-mavencentral]
 
-Most popular Mocking framework for unit tests written in Java.
+Most popular testing framework available for Java.
 
 ```java
 dependencies {
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.24.5'
 }
 ```
 
@@ -809,24 +808,71 @@ Unit tests run on local machine only. These tests are compiled to run locally on
 
 Running unit tests against your code, you can easily verify that the logic of individual units is correct. Running unit tests after every build helps you to quickly catch and fix software regressions introduced by code changes to your app. A unit test generally exercises the functionality of the smallest possible unit of code (which could be a method, class, or component) in a repeatable way.
 
-By default, the Android Plug-in for Gradle executes your local unit tests against a modified version of the android.jar library, which does not contain any actual code. Instead, method calls to Android classes from your unit test throw an exception. This is to make sure you test only your code and do not depend on any particular behavior of the Android platform (that you have not explicitly built or mocked).
+JUnit assumes that all test methods can be executed in an arbitrary order. Well-written test code should not assume any order, i.e., tests should not depend on other tests.
 
-If you have minimal Android dependencies and need to test specific interactions between a component and its dependency within your app, use a mocking framework to stub out external dependencies in your code. That way, you can easily test that your component interacts with the dependency in an expected way. By substituting Android dependencies with mock objects, you can isolate your unit test from the rest of the Android system while verifying that the correct methods in those dependencies are called.
+By default, the Android Plug-in for Gradle executes your local unit tests against a modified version of the android.jar library, which does not contain any actual code. Instead, method calls to Android classes from your unit test throw an exception. This is to make sure you test only your code and do not depend on any particular behavior of the Android platform (that you have not explicitly built or mocked).
 
 ### Basic unit test
 
 ```java
-public class EmailValidatorTest {
+public class CalculatorTest {
     @Test
-    public void emailValidator_CorrectEmailSimple_ReturnsTrue() {
-        assertThat(EmailValidator.isValidEmail("name@email.com")).isTrue();
+    public void calculatorTest_multiplicationOfZeroShouldReturnZero() {
+        MyCalculator calc = new MyCalculator();
+        assertEquals(0, calc.multiply(10, 0), "10 x 0 must be 0");
     }
 }
 ```
 
+### JUnit. Annotations
+
+- **@Test** Identifies a method as a test method.
+
+- **@BeforeClass** Executed once, before the start of all tests. It is used to perform time intensive activities, for example, to connect to a database. Methods need to be static.
+
+- **@Before** Executed before each test. It is used to prepare the test environment (e.g., read input data, initialize the class).
+
+- **@After** Executed after each test. It is used to cleanup the test environment (e.g., delete temporary data, restore defaults). It can also save memory by cleaning up expensive memory structures.
+
+- **@AfterClass** Executed once, after all tests have been finished. It is used to perform clean-up activities, for example, to disconnect from a database. Methods need to be static.
+
+- **@Ignore or @Ignore("Why disabled")** Marks that the test should be disabled. This is useful when the underlying code has been changed and the test case has not yet been adapted. Or if the execution time of this test is too long to be included.
+
+- **@Test (expected = Exception.class)** Fails if the method does not throw the named exception.
+
+- **@Test(timeout = 100)** Fails if the method takes longer than 100 milliseconds.
+
+### JUnit. Assert statements
+
+- fail([message])
+- assertTrue([message,] boolean condition)
+- assertFalse([message,] boolean condition)
+- assertEquals([message,] expected, actual)
+- assertEquals([message,] expected, actual, tolerance)
+- assertNull([message,] object)
+- assertNotNull([message,] object)
+- assertSame([message,] expected, actual)
+- assertNotSame([message,] expected, actual)
+
+<a name="mockito"></a>
+# Mockito [![Maven Central][mockito-mavenbadge-svg]][mockito-mavencentral]
+
+Most popular Mocking framework for unit tests written in Java. Cannot mock static methods and private methods.
+
+```java
+dependencies {
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.24.5'
+}
+```
+
+If you have minimal Android dependencies and need to test specific interactions between a component and its dependency within your app, use a mocking framework to stub out external dependencies in your code. That way, you can easily test that your component interacts with the dependency in an expected way. By substituting Android dependencies with mock objects, you can isolate your unit test from the rest of the Android system while verifying that the correct methods in those dependencies are called.
+
+A mock object is a dummy implementation for an interface or a class in which you define the output of certain method calls. Mock objects are configured to perform a certain behavior during a test. They typically record the interaction with the system and tests can validate that.
+
 ### Mockito. Mock dependencies
 
-- To create a mock object for an Android dependency, add the @Mock annotation before the field declaration.
+- To create a mock object for an Android dependency, add the @Mock annotation before the field declaration or use mock() method.
 - Initialize mocks with MockitoAnnotations.initMocks(this).
 - To stub the behavior of the dependency, you can specify a condition and return value when the condition is met by using the when() and thenReturn() methods.
 
@@ -849,6 +895,44 @@ public class PreferencesHelperTest {
 
         assertEquals(mPreferencesHelper.getSetting(), TEST_STRING);
     }
+}
+```
+
+### Mockito. Spy
+
+**@Spy** or the **spy()** method can be used to wrap a real object. Every call, unless specified otherwise, is delegated to the object.
+
+```java
+@Test
+public void testSpy() {
+    List<String> list = new LinkedList<>();
+    List<String> spy = spy(list);
+
+    doReturn("foo").when(spy).get(0);
+
+    assertEquals("foo", spy.get(0));
+}
+```
+
+### Mockito. Bebehavior testing
+
+You can use the verify() method on the mock object to verify that the specified conditions are met. For example, you can verify that a method has been called with certain parameters.
+
+```java
+@Test
+public void testVerify()  {
+    MyClass test = Mockito.mock(Someclass.class);
+
+    test.someEntryMethod(12);
+
+    verify(test).someMethod(ArgumentMatchers.eq(12));
+    verify(test, times(2)).someMethod();
+    verify(test, never()).someMethod("never called");
+    verify(test, atLeastOnce()).someMethod("called at least once");
+    verify(test, atLeast(2)).someMethod("called at least twice");
+    verify(test, times(5)).someMethod("called five times");
+    verify(test, atMost(3)).someMethod("called at most 3 times");
+    verifyNoMoreInteractions(test);
 }
 ```
 
