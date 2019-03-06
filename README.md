@@ -104,7 +104,7 @@ Expensive, so probably singleton. Outside of the main thread. Use Room.inMemoryD
 
 ```java
 AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-        AppDatabase.class, "database-name").build();
+	AppDatabase.class, "database-name").build();
 db.userDao().insert(user);
 ```
 
@@ -115,21 +115,21 @@ Specifies additional type converters that Room can use. The TypeConverter is add
 ```java
  // example converter for java.util.Date
  public static class DateConverter {
-    @TypeConverter
-    public Date fromLong(Long value) { return value == null ? null : new Date(value); }
+	@TypeConverter
+	public Date fromLong(Long value) { return value == null ? null : new Date(value); }
 
-    @TypeConverter
-    public Long fromDate(Date date) { return date == null ? null : date.getTime() }
+	@TypeConverter
+	public Long fromDate(Date date) { return date == null ? null : date.getTime() }
 }
 ```
 ```java
 @Entity()
 public class Employee {
-   @PrimaryKey
-   public long id;
- 
-   @TypeConverters({DateConverter.class})
-   public Date date;
+	@PrimaryKey
+	public long id;
+
+	@TypeConverters({DateConverter.class})
+	public Date date;
 }
 ```
 
@@ -146,8 +146,8 @@ public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
 
 AppDatabase db = Room.databaseBuilder(getApplicationContext(),
         AppDatabase.class, "database-name")
-        .addMigrations(MyDatabase.MIGRATION_1_2)
-        .build();
+        	.addMigrations(MyDatabase.MIGRATION_1_2)
+        	.build();
 ```
 
 <a name="dagger"></a>
@@ -157,8 +157,8 @@ A fast dependency injector for Android and Java. Compile-time evaluation. Uses c
 
 ```java
 dependencies {
-  implementation 'com.google.dagger:dagger:2.21'
-  annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
+	implementation 'com.google.dagger:dagger:2.21'
+	annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
 }
 ```
 
@@ -183,7 +183,7 @@ public class MyPresenter {
 
     MyPresenter() {
         // Specify a specific implementation in the constructor instead of using dependency injection
-        database = new MyDatabase(context);
+		database = new MyDatabase(context);
     }
 }
 ```
@@ -318,7 +318,6 @@ Invocation of dependency injection. Presenter asks for database, component injec
 
 ```java
 class MyPresenter {
-
     @Inject 
     MyDatabase db;
     
@@ -337,7 +336,7 @@ The scope is defined with a given name, where the name could be any name e.g. @S
 ```java
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-    public @interface ScopeName {
+public @interface ScopeName {
 }
 ```
 
@@ -357,7 +356,7 @@ If at least one provide method in a module has a scope annotation the Component 
 @Component (modules={ContextModule.class, OtherModule.class})
 @Singleton
 interface AppComponent {
-    // Providing dependencies to children.
+	// Providing dependencies to children.
     @Named("ApplicationContext") Context anyName();
     MyDatabase anyOtherName();
     // injects
@@ -398,7 +397,7 @@ Same goal as component dependencies, different approach.
 @Component (modules={ContextModule.class, OtherModule.class})
 @Singleton
 interface AppComponent {
-    ActivityComponent plusActivityComponent(ActivityModule activityModule);
+	ActivityComponent plusActivityComponent(ActivityModule activityModule);
     // injects
 }
 ```
@@ -656,8 +655,8 @@ RxJava is a Java VM implementation of Reactive Extensions: a library for composi
 
 ```java
 dependencies {
-    implementation "io.reactivex.rxjava2:rxjava:2.2.7"
-    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 }
 ```
 
@@ -737,10 +736,10 @@ Same with lambdas.
 
 ```java
 Observable.just("A", "B", "C", "D", "E").
-    .subscribeOn(Schedulers.io())
+	.subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
     .subscribe(
-        s -> Log.d(TAG, s),                               //OnNext
+		s -> Log.d(TAG, s),                               //OnNext
         e -> Log.e(TAG, "onError: " + e.getMessage()),    //OnError
         () -> Log.d(TAG, "All items emitted"),            //OnComplete
         d -> Log.d(TAG, "onSubscribe")                    //onSubscribe
@@ -798,8 +797,8 @@ Field and method binding for Android views which uses annotation processing to g
 
 ```java
 dependencies {
-  implementation 'com.jakewharton:butterknife:10.1.0'
-  annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+	implementation 'com.jakewharton:butterknife:10.1.0'
+	annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 }
 ```
 
@@ -874,7 +873,7 @@ Popular unit testing framework.
 
 ```java
 dependencies {
-    testImplementation 'junit:junit:4.12'
+	testImplementation 'junit:junit:4.12'
 }
 ```
 
@@ -1021,7 +1020,7 @@ PowerMock is a framework that extends other mock libraries such as Mockito and E
 
 ```java
 dependencies {
-    testImplementation 'org.powermock:powermock-core:2.0.0' 
+	testImplementation 'org.powermock:powermock-core:2.0.0' 
 }
 ```
 
@@ -1126,7 +1125,7 @@ public class ActivityTest {
 
     @Rule
     public final ActivityTestRule<MyActivity> mActivityTestRule
-            = new ActivityTestRule<>(MyActivity.class);
+		= new ActivityTestRule<>(MyActivity.class);
 
     @Test
     public void basicTest() {
