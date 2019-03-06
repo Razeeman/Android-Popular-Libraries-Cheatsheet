@@ -750,8 +750,7 @@ GlideApp.with(fragment)
 Unlike Glide.with() options like centerCrop() and placeholder() are available directly on the builder and don’t need to be passed in as a separate RequestOptions object.
 
 <a name="rxjava"></a>
-# RxJava [![Maven][rxjava-mavenbadge]][rxjava-maven] [![Source][rxjava-sourcebadge]][rxjava-source]
-## RxAndroid [![Maven][rxandroid-mavenbadge]][rxandroid-maven] [![Source][rxandroid-sourcebadge]][rxandroid-source]
+# RxJava [![Maven][rxjava-mavenbadge]][rxjava-maven] [![Source][rxjava-sourcebadge]][rxjava-source] RxAndroid [![Maven][rxandroid-mavenbadge]][rxandroid-maven] [![Source][rxandroid-sourcebadge]][rxandroid-source]
 
 RxJava is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences. It extends the observer pattern to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety and concurrent data structures.
 
@@ -1174,7 +1173,7 @@ public void testAddService() throws Exception {
 }
 ```
 
-### PowerMock. Suppressing Unwanted Behavior
+### PowerMock. Suppressing unwanted behavior
 
 - **Whitebox.newInstance(ClassWithEvilConstructor.class)** to instantiate a class without invoking the constructor what so ever.
 - **suppress(constructor(EvilParent.class))** to suppress all constructors for the EvilParent class.
