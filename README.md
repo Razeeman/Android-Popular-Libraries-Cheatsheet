@@ -106,7 +106,7 @@ Expensive, so probably singleton. Outside of the main thread. Use Room.inMemoryD
 
 ```java
 AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-	AppDatabase.class, "database-name").build();
+    AppDatabase.class, "database-name").build();
 db.userDao().insert(user);
 ```
 
@@ -117,21 +117,21 @@ Specifies additional type converters that Room can use. The TypeConverter is add
 ```java
  // example converter for java.util.Date
  public static class DateConverter {
-	@TypeConverter
-	public Date fromLong(Long value) { return value == null ? null : new Date(value); }
+    @TypeConverter
+    public Date fromLong(Long value) { return value == null ? null : new Date(value); }
 
-	@TypeConverter
-	public Long fromDate(Date date) { return date == null ? null : date.getTime() }
+    @TypeConverter
+    public Long fromDate(Date date) { return date == null ? null : date.getTime() }
 }
 ```
 ```java
 @Entity()
 public class Employee {
-	@PrimaryKey
-	public long id;
+    @PrimaryKey
+    public long id;
 
-	@TypeConverters({DateConverter.class})
-	public Date date;
+    @TypeConverters({DateConverter.class})
+    public Date date;
 }
 ```
 
@@ -148,8 +148,8 @@ public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
 
 AppDatabase db = Room.databaseBuilder(getApplicationContext(),
         AppDatabase.class, "database-name")
-        	.addMigrations(MyDatabase.MIGRATION_1_2)
-        	.build();
+            .addMigrations(MyDatabase.MIGRATION_1_2)
+            .build();
 ```
 
 <a name="dagger"></a>
@@ -159,8 +159,8 @@ A fast dependency injector for Android and Java. Compile-time evaluation. Uses c
 
 ```java
 dependencies {
-	implementation 'com.google.dagger:dagger:2.21'
-	annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
+    implementation 'com.google.dagger:dagger:2.21'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
 }
 ```
 
@@ -185,7 +185,7 @@ public class MyPresenter {
 
     MyPresenter() {
         // Specify a specific implementation in the constructor instead of using dependency injection
-		database = new MyDatabase(context);
+        database = new MyDatabase(context);
     }
 }
 ```
@@ -250,7 +250,7 @@ class MyDatabase {
 }
 
 class MyPresenter {
-  	MyPresenter(MyDatabase db) {
+    MyPresenter(MyDatabase db) {
     }
 }
 ```
@@ -271,7 +271,7 @@ class ContextModule {
     @Provides
     @Named("ApplicationContext")
     Context anyName() {
-    	return context;
+        return context;
     }
 }
 ```
@@ -358,7 +358,7 @@ If at least one provide method in a module has a scope annotation the Component 
 @Component (modules={ContextModule.class, OtherModule.class})
 @Singleton
 interface AppComponent {
-	// Providing dependencies to children.
+    // Providing dependencies to children.
     @Named("ApplicationContext") Context anyName();
     MyDatabase anyOtherName();
     // injects
@@ -399,7 +399,7 @@ Same goal as component dependencies, different approach.
 @Component (modules={ContextModule.class, OtherModule.class})
 @Singleton
 interface AppComponent {
-	ActivityComponent plusActivityComponent(ActivityModule activityModule);
+    ActivityComponent plusActivityComponent(ActivityModule activityModule);
     // injects
 }
 ```
@@ -429,7 +429,7 @@ A Java serialization/deserialization library to convert Java Objects into JSON a
 
 ```java
 dependencies {
-	implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
 ```
 
@@ -467,7 +467,7 @@ public class UserNested {
 }
 
 public class UserAddress {  
-	String street;
+    String street;
     String houseNumber;
     String city;
     String country;
@@ -837,7 +837,7 @@ Same with lambdas.
 
 ```java
 Observable.just("A", "B", "C", "D", "E").
-	.subscribeOn(Schedulers.io())
+    .subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
     .subscribe(
 		s -> Log.d(TAG, s),                               //OnNext
@@ -898,8 +898,8 @@ Field and method binding for Android views which uses annotation processing to g
 
 ```java
 dependencies {
-	implementation 'com.jakewharton:butterknife:10.1.0'
-	annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 }
 ```
 
@@ -912,21 +912,21 @@ dependencies {
 
 ```java
 class ExampleActivity extends Activity {
-	@BindView(R.id.user) EditText username;
-	@BindView(R.id.pass) EditText password;
+    @BindView(R.id.user) EditText username;
+    @BindView(R.id.pass) EditText password;
 
-	@BindString(R.string.login_error) String loginErrorMessage;
+    @BindString(R.string.login_error) String loginErrorMessage;
 
-	@OnClick(R.id.submit) void submit() {
+    @OnClick(R.id.submit) void submit() {
 		// TODO call server...
-	}
+    }
 
-	@Override public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	setContentView(R.layout.simple_activity);
-	ButterKnife.bind(this);
-		// TODO Use fields...
-	}
+    @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.simple_activity);
+    ButterKnife.bind(this);
+        // TODO Use fields...
+    }
 }
 ```
 
@@ -950,14 +950,14 @@ Action and Setter interfaces allow specifying simple behavior.
 
 ```java
 static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
-	@Override public void apply(View view, int index) {
-		view.setEnabled(false);
-	}
+    @Override public void apply(View view, int index) {
+        view.setEnabled(false);
+    }
 };
 static final ButterKnife.Setter<View, Boolean> ENABLED = new ButterKnife.Setter<View, Boolean>() {
-	@Override public void set(View view, Boolean value, int index) {
-		view.setEnabled(value);
-	}
+    @Override public void set(View view, Boolean value, int index) {
+        view.setEnabled(value);
+    }
 };
 ```
 
@@ -974,7 +974,7 @@ Popular unit testing framework.
 
 ```java
 dependencies {
-	testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
 ```
 
@@ -1056,7 +1056,6 @@ A mock object is a dummy implementation for an interface or a class in which you
 
 ```java
 public class PreferencesHelperTest {
-
     @Mock private SharedPreferences mSharedPreferences;
     private PreferencesHelper mPreferencesHelper;
 
@@ -1067,9 +1066,9 @@ public class PreferencesHelperTest {
     }
 
     @Test
-    public void getDateOfDeathUTC() {
+    public void getPreference() {
         when(mSharedPreferences.getString(eq(SharedPreferencesHelper.KEY_NAME), anyString()))
-                .thenReturn(TEST_STRING);
+			.thenReturn(TEST_STRING);
 
         assertEquals(mPreferencesHelper.getSetting(), TEST_STRING);
     }
@@ -1121,7 +1120,7 @@ PowerMock is a framework that extends other mock libraries such as Mockito and E
 
 ```java
 dependencies {
-	testImplementation 'org.powermock:powermock-core:2.0.0' 
+    testImplementation 'org.powermock:powermock-core:2.0.0' 
 }
 ```
 
@@ -1148,10 +1147,10 @@ public class YourTestCase {
 
 ```java
 public class ServiceHolder {
-	private final Set<Object> services = new HashSet<Object>();
+    private final Set<Object> services = new HashSet<Object>();
 
-	public void addService(Object service) { services.add(service); }
-	public void removeService(Object service) { services.remove(service); }
+    public void addService(Object service) { services.add(service); }
+    public void removeService(Object service) { services.remove(service); }
 }
 
 @Test
