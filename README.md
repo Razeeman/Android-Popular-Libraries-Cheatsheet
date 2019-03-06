@@ -8,6 +8,7 @@
 - [Glide](#glide)
 - [RxJava](#rxjava)
 - [Butter Knife](#butterknife)
+#### Testing
 - [JUnit](#junit)
 - [Mockito](#mockito)
 - [PowerMock](#powermock)
@@ -424,7 +425,7 @@ activityComponent = appComponent.plusActivityComponent(new ActivityModule());
 <a name="gson"></a>
 # GSON [![Maven Central][gson-mavenbadge-svg]][gson-mavencentral]
 
-A Java serialization/deserialization library to convert Java Objects into JSON and back. Can work with arbitrary Java objects including pre-existing objects that you do not have source-code of.
+A Java serialization/deserialization library to convert Java Objects into JSON and back. Can work with arbitrary Java objects including pre-existing objects that you do not have source-code of. Internally, utilizes a JsonReader class.
 
 ```java
 dependencies {
@@ -435,21 +436,22 @@ dependencies {
 ### GSON. Primitives Examples
 
 ```java
-// Serialization
 Gson gson = new Gson();
-gson.toJson(1);            // ==> 1
-gson.toJson("abcd");       // ==> "abcd"
-gson.toJson(new Long(10)); // ==> 10
-int[] values = { 1 };
-gson.toJson(values);       // ==> [1]
 
-// Deserialization
+gson.toJson(1);              // ==> 1
+gson.toJson(new Integer(1)); // ==> 1
 int one = gson.fromJson("1", int.class);
 Integer one = gson.fromJson("1", Integer.class);
 Long one = gson.fromJson("1", Long.class);
+
+gson.toJson("abcd");         // ==> "abcd"
+String str = gson.fromJson("\"abcd\"", String.class);
+
+int[] values = { 1 };
+gson.toJson(values);         // ==> [1]
+Integer[] newValues = gson.fromJson("[1]", Integer[].class);
+
 Boolean false = gson.fromJson("false", Boolean.class);
-String str = gson.fromJson("\"abc\"", String.class);
-String[] anotherStr = gson.fromJson("[\"abc\"]", String[].class);
 ```
 
 ### GSON. Object Examples
@@ -496,6 +498,28 @@ Produces:
     }
 }
 ```
+
+### GSON. Builder
+
+Use GsonBuilder in order to change certain settings and customized configuration.
+
+```java
+GsonBuilder gsonBuilder = new GsonBuilder();
+gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+gsonBuilder.serializeNulls();
+gsonBuilder.setExclusionStrategies(new ExclusionStrategy() { ... });
+gsonBuilder.excludeFieldsWithModifiers(Modifier.STATIC, Modifier.FINAL);
+gsonBuilder.setLenient();
+Gson gson = gsonBuilder.create();
+```
+
+### GSON. Annotations
+
+- **@Expose(serialize = false, deserialize = false)** to control exposure.
+
+- **@SerializedName(value = "fullName", alternate = "username")** to change the automated matching to and from the JSON.
+
+- **@Since(version_num) and @Until(version_num)** with **builder.setVersion(version_num)** to control exposure with versioning.
 
 <a name="retrofit"></a>
 # Retrofit [![Maven Central][retrofit-mavenbadge-svg]][retrofit-mavencentral]
