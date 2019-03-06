@@ -15,7 +15,7 @@
 - [Espresso](#espresso)
 
 <a name="room"></a>
-# Room [![Maven Google][room-mavenbadge-svg]][room-mavengoogle]
+# Room [![Maven][room-mavenbadge]][room-maven] [![Source][room-sourcebadge]][room-source]
 
 The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access. Provides compile time verification of SQL queries.
 
@@ -153,7 +153,7 @@ AppDatabase db = Room.databaseBuilder(getApplicationContext(),
 ```
 
 <a name="dagger"></a>
-# Dagger [![Maven Central][dagger-mavenbadge-svg]][dagger-mavencentral] [![Source][dagger-source-svg]][dagger-source]
+# Dagger [![Maven][dagger-mavenbadge]][dagger-maven] [![Source][dagger-sourcebadge]][dagger-source]
 
 A fast dependency injector for Android and Java. Compile-time evaluation. Uses code generation and is based on annotations.
 
@@ -423,7 +423,7 @@ activityComponent = appComponent.plusActivityComponent(new ActivityModule());
 ```
 
 <a name="gson"></a>
-# GSON [![Maven Central][gson-mavenbadge-svg]][gson-mavencentral]
+# GSON [![Maven][gson-mavenbadge]][gson-maven] [![Source][gson-sourcebadge]][gson-source]
 
 A Java serialization/deserialization library to convert Java Objects into JSON and back. Can work with arbitrary Java objects including pre-existing objects that you do not have source-code of. Internally, utilizes a JsonReader class.
 
@@ -522,7 +522,7 @@ Gson gson = gsonBuilder.create();
 - **@Since(version_num) and @Until(version_num)** with **builder.setVersion(version_num)** to control exposure with versioning.
 
 <a name="retrofit"></a>
-# Retrofit [![Maven Central][retrofit-mavenbadge-svg]][retrofit-mavencentral]
+# Retrofit [![Maven][retrofit-mavenbadge]][retrofit-maven] [![Source][retrofit-sourcebadge]][retrofit-source]
 
 Type-safe HTTP client. Provides a powerful framework for authenticating and interacting with APIs and sending network requests with OkHttp. Automatically serialises the JSON response using a POJO. For conversion uses GSON or several other converters.
 
@@ -649,7 +649,7 @@ call.enqueue(new Callback<User>() {
 ```
 
 <a name="glide"></a>
-# Glide [![Maven Central][glide-mavenbadge-svg]][glide-mavencentral]
+# Glide [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source]
 
 Glide is a fast and efficient image loading library for Android focused on smooth scrolling. Glide offers an easy to use API, a performant and extensible resource decoding pipeline and automatic resource pooling. Glide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Uses HttpUrlConnection.
 
@@ -750,7 +750,8 @@ GlideApp.with(fragment)
 Unlike Glide.with() options like centerCrop() and placeholder() are available directly on the builder and don’t need to be passed in as a separate RequestOptions object.
 
 <a name="rxjava"></a>
-# RxJava [![Maven Central][rxjava-mavenbadge-svg]][rxjava-mavencentral] RxAndroid [![Maven Central][rxandroid-mavenbadge-svg]][rxandroid-mavencentral]
+# RxJava [![Maven][rxjava-mavenbadge]][rxjava-maven] [![Source][rxjava-sourcebadge]][rxjava-source]
+## RxAndroid [![Maven][rxandroid-mavenbadge]][rxandroid-maven] [![Source][rxandroid-sourcebadge]][rxandroid-source]
 
 RxJava is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences. It extends the observer pattern to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety and concurrent data structures.
 
@@ -892,7 +893,7 @@ RxJava 2 features several base classes you can discover operators on:
 **Runtime**. This is the state when the flows are actively emitting items, errors or completion signals. Practically, this is when the body of the given example above executes.
 
 <a name="butterknife"></a>
-# Butter Knife [![Maven Central][butterknife-mavenbadge-svg]][butterknife-mavencentral]
+# Butter Knife [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source]
 
 Field and method binding for Android views which uses annotation processing to generate boilerplate code. Instead of slow reflection, code is generated to perform the view look-ups. Calling bind delegates to this generated code that you can see and debug.
 
@@ -968,7 +969,7 @@ ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
 ```
 
 <a name="junit"></a>
-# JUnit [![Maven Central][junit-mavenbadge-svg]][junit-mavencentral]
+# JUnit [![Maven][junit-mavenbadge]][junit-maven] [![Source][junit-sourcebadge]][junit-source]
 
 Popular unit testing framework.
 
@@ -1033,7 +1034,7 @@ public class CalculatorTest {
 - assertNotSame([message,] expected, actual)
 
 <a name="mockito"></a>
-# Mockito [![Maven Central][mockito-mavenbadge-svg]][mockito-mavencentral]
+# Mockito [![Maven][mockito-mavenbadge]][mockito-maven] [![Source][mockito-sourcebadge]][mockito-source]
 
 Most popular Mocking framework for unit tests written in Java. Cannot mock static methods and private methods.
 
@@ -1115,7 +1116,7 @@ public void testVerify()  {
 ```
 
 <a name="powermock"></a>
-# PowerMock [![Maven Central][powermock-mavenbadge-svg]][powermock-mavencentral]
+# PowerMock [![Maven][powermock-mavenbadge]][powermock-maven] [![Source][powermock-sourcebadge]][powermock-source]
 
 PowerMock is a framework that extends other mock libraries such as Mockito and EasyMock, but adds more capacity. PowerMock uses custom classloader and bytecode manipulation to allow mocking of static methods, builders, final classes, private methods and more. So we can test our code without modifying it, thanks to the fact that the mock objects are hooked to the code to be tested in execution time. By using reflection this framework allows you to modify even private attributes of the class.
 
@@ -1182,7 +1183,7 @@ public void testAddService() throws Exception {
 - **@SuppressStaticInitializationFor("org.mycompany.SomeClass")** annotation to remove the static initializer for the class.
 
 <a name="espresso"></a>
-# Espresso [![Maven Google][espresso-mavenbadge-svg]][espresso-mavengoogle]
+# Espresso [![Maven][espresso-mavenbadge]][espresso-maven] [![Source][espresso-sourcebadge]][espresso-source]
 
 UI testing framework. Provides APIs for writing UI tests to simulate user interactions within an app. Provides automatic synchronization of test actions with the UI of the app you are testing. Espresso detects when the main thread is idle, so it is able to run test commands at the appropriate time, improving the reliability of tests. Uses a separate apk to run tests.
 
@@ -1271,42 +1272,62 @@ onView(withId(R.id.recycler_view))
 
 
 
-[room-mavengoogle]: https://mvnrepository.com/artifact/androidx.room/room-runtime
-[room-mavenbadge-svg]: https://img.shields.io/badge/maven%20google--brightgreen.svg
+[room-maven]: https://mvnrepository.com/artifact/androidx.room/room-runtime
+[room-mavenbadge]: https://img.shields.io/badge/maven%20google--brightgreen.svg
+[room-source]: https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/room/
+[room-sourcebadge]: https://img.shields.io/badge/source-google-orange.svg
 
-[dagger-mavencentral]: https://search.maven.org/artifact/com.google.dagger/dagger
-[dagger-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
+[dagger-maven]: https://search.maven.org/artifact/com.google.dagger/dagger
+[dagger-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
 [dagger-source]: https://github.com/google/dagger
-[dagger-source-svg]: https://img.shields.io/badge/source-github-orange.svg
+[dagger-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
-[gson-mavencentral]: https://search.maven.org/artifact/com.google.code.gson/gson
-[gson-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.google.code.gson/gson/badge.svg
+[gson-maven]: https://search.maven.org/artifact/com.google.code.gson/gson
+[gson-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.code.gson/gson/badge.svg
 [gson-source]: https://github.com/google/gson
-[gson-source-svg]: https://img.shields.io/badge/source-github-orange.svg
+[gson-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
-[retrofit-mavencentral]: https://search.maven.org/artifact/com.squareup.retrofit2/retrofit
-[retrofit-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.squareup.retrofit2/retrofit/badge.svg
+[retrofit-maven]: https://search.maven.org/artifact/com.squareup.retrofit2/retrofit
+[retrofit-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.squareup.retrofit2/retrofit/badge.svg
+[retrofit-source]: https://github.com/square/retrofit
+[retrofit-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
-[glide-mavencentral]: https://search.maven.org/artifact/com.github.bumptech.glide/glide
-[glide-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide/badge.svg
+[glide-maven]: https://search.maven.org/artifact/com.github.bumptech.glide/glide
+[glide-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide/badge.svg
+[glide-source]: https://github.com/bumptech/glide
+[glide-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
-[rxjava-mavencentral]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxjava
-[rxjava-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg
+[rxjava-maven]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxjava
+[rxjava-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg
+[rxjava-source]: https://github.com/ReactiveX/RxJava
+[rxjava-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
-[rxandroid-mavencentral]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxandroid
-[rxandroid-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxandroid/badge.svg
+[rxandroid-maven]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxandroid
+[rxandroid-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxandroid/badge.svg
+[rxandroid-source]: https://github.com/ReactiveX/RxAndroid
+[rxandroid-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
-[butterknife-mavencentral]: https://search.maven.org/artifact/com.jakewharton/butterknife
-[butterknife-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton/butterknife/badge.svg
+[butterknife-maven]: https://search.maven.org/artifact/com.jakewharton/butterknife
+[butterknife-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton/butterknife/badge.svg
+[butterknife-source]: https://github.com/JakeWharton/butterknife
+[butterknife-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
-[junit-mavencentral]: https://search.maven.org/artifact/junit/junit
-[junit-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/junit/junit/badge.svg
+[junit-maven]: https://search.maven.org/artifact/junit/junit
+[junit-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/junit/junit/badge.svg
+[junit-source]: https://github.com/junit-team/junit4
+[junit-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
-[mockito-mavencentral]: https://search.maven.org/artifact/org.mockito/mockito-core
-[mockito-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/org.mockito/mockito-core/badge.svg
+[mockito-maven]: https://search.maven.org/artifact/org.mockito/mockito-core
+[mockito-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/org.mockito/mockito-core/badge.svg
+[mockito-source]: https://github.com/mockito/mockito
+[mockito-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
-[powermock-mavencentral]: https://search.maven.org/artifact/org.powermock/powermock-core
-[powermock-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/org.powermock/powermock-core/badge.svg
+[powermock-maven]: https://search.maven.org/artifact/org.powermock/powermock-core
+[powermock-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/org.powermock/powermock-core/badge.svg
+[powermock-source]: https://github.com/powermock/powermock
+[powermock-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
-[espresso-mavengoogle]: https://mvnrepository.com/artifact/androidx.test.espresso/espresso-core
-[espresso-mavenbadge-svg]: https://img.shields.io/badge/maven%20google--brightgreen.svg
+[espresso-maven]: https://mvnrepository.com/artifact/androidx.test.espresso/espresso-core
+[espresso-mavenbadge]: https://img.shields.io/badge/maven%20google--brightgreen.svg
+[espresso-source]: https://android.googlesource.com/platform/frameworks/testing/+/android-support-test/espresso
+[espresso-sourcebadge]: https://img.shields.io/badge/source-google-orange.svg
