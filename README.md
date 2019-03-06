@@ -153,7 +153,7 @@ AppDatabase db = Room.databaseBuilder(getApplicationContext(),
 ```
 
 <a name="dagger"></a>
-# Dagger [![Maven Central][dagger-mavenbadge-svg]][dagger-mavencentral]
+# Dagger [![Maven Central][dagger-mavenbadge-svg]][dagger-mavencentral] [![Source][dagger-source-svg]][dagger-source]
 
 A fast dependency injector for Android and Java. Compile-time evaluation. Uses code generation and is based on annotations.
 
@@ -1272,27 +1272,41 @@ onView(withId(R.id.recycler_view))
 
 
 [room-mavengoogle]: https://mvnrepository.com/artifact/androidx.room/room-runtime
-[room-mavenbadge-svg]: https://img.shields.io/badge/maven%20google--green.svg
+[room-mavenbadge-svg]: https://img.shields.io/badge/maven%20google--brightgreen.svg
+
 [dagger-mavencentral]: https://search.maven.org/artifact/com.google.dagger/dagger
 [dagger-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
+[dagger-source]: https://github.com/google/dagger
+[dagger-source-svg]: https://img.shields.io/badge/source-github-orange.svg
+
 [gson-mavencentral]: https://search.maven.org/artifact/com.google.code.gson/gson
 [gson-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.google.code.gson/gson/badge.svg
+[gson-source]: https://github.com/google/gson
+[gson-source-svg]: https://img.shields.io/badge/source-github-orange.svg
+
 [retrofit-mavencentral]: https://search.maven.org/artifact/com.squareup.retrofit2/retrofit
 [retrofit-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.squareup.retrofit2/retrofit/badge.svg
+
 [glide-mavencentral]: https://search.maven.org/artifact/com.github.bumptech.glide/glide
 [glide-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide/badge.svg
+
 [rxjava-mavencentral]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxjava
 [rxjava-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg
+
 [rxandroid-mavencentral]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxandroid
 [rxandroid-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxandroid/badge.svg
+
 [butterknife-mavencentral]: https://search.maven.org/artifact/com.jakewharton/butterknife
 [butterknife-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton/butterknife/badge.svg
 
 [junit-mavencentral]: https://search.maven.org/artifact/junit/junit
 [junit-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/junit/junit/badge.svg
+
 [mockito-mavencentral]: https://search.maven.org/artifact/org.mockito/mockito-core
 [mockito-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/org.mockito/mockito-core/badge.svg
+
 [powermock-mavencentral]: https://search.maven.org/artifact/org.powermock/powermock-core
 [powermock-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/org.powermock/powermock-core/badge.svg
+
 [espresso-mavengoogle]: https://mvnrepository.com/artifact/androidx.test.espresso/espresso-core
-[espresso-mavenbadge-svg]: https://img.shields.io/badge/maven%20google--green.svg
+[espresso-mavenbadge-svg]: https://img.shields.io/badge/maven%20google--brightgreen.svg
