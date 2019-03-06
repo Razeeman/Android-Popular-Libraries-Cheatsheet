@@ -3,10 +3,11 @@
 ## Contents
 - [Room](#room)
 - [Dagger](#dagger)
+- [GSON](#gson)
 - [Retrofit](#retrofit)
 - [Glide](#glide)
 - [RxJava](#rxjava)
-- [Butter Knife](#batterknife)
+- [Butter Knife](#butterknife)
 - [JUnit](#junit)
 - [Mockito](#mockito)
 - [PowerMock](#powermock)
@@ -420,6 +421,82 @@ appComponent = DaggerAppComponent.builder()
 activityComponent = appComponent.plusActivityComponent(new ActivityModule());
 ```
 
+<a name="gson"></a>
+# GSON [![Maven Central][gson-mavenbadge-svg]][gson-mavencentral]
+
+A Java serialization/deserialization library to convert Java Objects into JSON and back. Can work with arbitrary Java objects including pre-existing objects that you do not have source-code of.
+
+```java
+dependencies {
+	implementation 'com.google.code.gson:gson:2.8.5'
+}
+```
+
+### GSON. Primitives Examples
+
+```java
+// Serialization
+Gson gson = new Gson();
+gson.toJson(1);            // ==> 1
+gson.toJson("abcd");       // ==> "abcd"
+gson.toJson(new Long(10)); // ==> 10
+int[] values = { 1 };
+gson.toJson(values);       // ==> [1]
+
+// Deserialization
+int one = gson.fromJson("1", int.class);
+Integer one = gson.fromJson("1", Integer.class);
+Long one = gson.fromJson("1", Long.class);
+Boolean false = gson.fromJson("false", Boolean.class);
+String str = gson.fromJson("\"abc\"", String.class);
+String[] anotherStr = gson.fromJson("[\"abc\"]", String[].class);
+```
+
+### GSON. Object Examples
+
+```java
+public class UserNested {  
+    String name;
+    String email;
+    boolean isDeveloper;
+    int age;
+	
+    UserAddress userAddress;
+}
+
+public class UserAddress {  
+	String street;
+    String houseNumber;
+    String city;
+    String country;
+}
+
+UserAddress userAddress = new UserAddress("Main Street", "42A", "Magdeburg", "Germany");
+UserNested userObject = new UserNested("Norman", "norman@futurestud.io", 26, true, userAddress);
+
+Gson gson = new Gson();  
+String userWithAddressJson = gson.toJson(userObject);
+UserNested restoredUser = gson.fromJson(userWithAddressJson, UserNested.class);  
+```
+
+Produces:
+
+```java
+{
+    "age": 26,
+    "email": "norman@futurestud.io",
+    "isDeveloper": true,
+    "name": "Norman",
+
+    "userAddress": {
+        "city": "Magdeburg",
+        "country": "Germany",
+        "houseNumber": "42A",
+        "street": "Main Street"
+    }
+}
+```
+
 <a name="retrofit"></a>
 # Retrofit [![Maven Central][retrofit-mavenbadge-svg]][retrofit-mavencentral]
 
@@ -790,8 +867,8 @@ RxJava 2 features several base classes you can discover operators on:
 
 **Runtime**. This is the state when the flows are actively emitting items, errors or completion signals. Practically, this is when the body of the given example above executes.
 
-<a name="batterknife"></a>
-# Batter Knife [![Maven Central][batterknife-mavenbadge-svg]][batterknife-mavencentral]
+<a name="butterknife"></a>
+# Butter Knife [![Maven Central][butterknife-mavenbadge-svg]][butterknife-mavencentral]
 
 Field and method binding for Android views which uses annotation processing to generate boilerplate code. Instead of slow reflection, code is generated to perform the view look-ups. Calling bind delegates to this generated code that you can see and debug.
 
@@ -802,7 +879,7 @@ dependencies {
 }
 ```
 
-### Batter Knife. Usage
+### Butter Knife. Usage
 
 - Eliminate findViewById calls by using **@BindView** on fields.
 - Group multiple views in a list or array. Operate on all of them at once with actions, setters, or properties.
@@ -829,7 +906,7 @@ class ExampleActivity extends Activity {
 }
 ```
 
-### batter Knife. View lists
+### Butter Knife. View lists
 
 You can group multiple views into a List or array.
 
@@ -1174,6 +1251,8 @@ onView(withId(R.id.recycler_view))
 [room-mavenbadge-svg]: https://img.shields.io/badge/maven%20google--green.svg
 [dagger-mavencentral]: https://search.maven.org/artifact/com.google.dagger/dagger
 [dagger-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
+[gson-mavencentral]: https://search.maven.org/artifact/com.google.code.gson/gson
+[gson-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.google.code.gson/gson/badge.svg
 [retrofit-mavencentral]: https://search.maven.org/artifact/com.squareup.retrofit2/retrofit
 [retrofit-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.squareup.retrofit2/retrofit/badge.svg
 [glide-mavencentral]: https://search.maven.org/artifact/com.github.bumptech.glide/glide
@@ -1182,8 +1261,8 @@ onView(withId(R.id.recycler_view))
 [rxjava-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg
 [rxandroid-mavencentral]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxandroid
 [rxandroid-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxandroid/badge.svg
-[batterknife-mavencentral]: https://search.maven.org/artifact/com.jakewharton/butterknife
-[batterknife-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton/butterknife/badge.svg
+[butterknife-mavencentral]: https://search.maven.org/artifact/com.jakewharton/butterknife
+[butterknife-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton/butterknife/badge.svg
 
 [junit-mavencentral]: https://search.maven.org/artifact/junit/junit
 [junit-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/junit/junit/badge.svg
