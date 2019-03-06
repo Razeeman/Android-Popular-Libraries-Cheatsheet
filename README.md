@@ -2,10 +2,11 @@
 
 ## Contents
 - [Room](#room)
-- [Dagger 2](#dagger-2)
+- [Dagger](#dagger)
 - [Retrofit](#retrofit)
 - [Glide](#glide)
 - [RxJava](#rxjava)
+- [Butter Knife](#batterknife)
 - [JUnit](#junit)
 - [Mockito](#mockito)
 - [PowerMock](#powermock)
@@ -149,8 +150,8 @@ AppDatabase db = Room.databaseBuilder(getApplicationContext(),
         .build();
 ```
 
-<a name="dagger-2"></a>
-# Dagger 2 [![Maven Central][dagger-mavenbadge-svg]][dagger-mavencentral]
+<a name="dagger"></a>
+# Dagger [![Maven Central][dagger-mavenbadge-svg]][dagger-mavencentral]
 
 A fast dependency injector for Android and Java. Compile-time evaluation. Uses code generation and is based on annotations.
 
@@ -165,7 +166,7 @@ dependencies {
 
 **Dependency injection** is a technique whereby one object supplies the dependencies of another object. A dependency is an object that can be used. An injection is the passing of a dependency to a dependent object that would use it. The intent is to decouple objects so that no client has to be changed simply because an object it depends on needs to be changed to a different one. This permits following the Open / Closed principle and Inversion of Control principle. The most important advantage is that it increases the possibility of reusing the class and to be able to test them independent of other classes.
 
-### Dagger 2 dependency injection process
+### Dagger dependency injection process
 
 - **Dependency provider**: Classes annotated with **@Module** are responsible for providing objects which can be injected. Such classes define methods annotated with **@Provides**. The returned objects from these methods are available for dependency injection.
 
@@ -252,7 +253,7 @@ class MyPresenter {
 }
 ```
 
-### Dependency injection with dagger 2
+### Dependency injection with dagger
 
 Module provides dependencies.
 
@@ -327,7 +328,7 @@ class MyPresenter {
 }
 ```
 
-### Dagger 2. Scopes
+### Dagger. Scopes
 
 Scope determines the lifetime of a variable. If we do not specify any Scope annotation, the Component will create a new instance every time the dependency is injected, whereas if we do specify a Scope Component can retain the instance for future use.
 
@@ -344,7 +345,7 @@ Dagger provides @Singleton scope annotation. It is just a usual named scope defi
 
 Lifecycle of scoped objects tied to the lifecycle of the Component. Components live as long as you want it to or as long as class that created component wasn't destroyed (like android activity or fragment). If Component built it application its instances of scoped objects will live as long as application or until manually cleared. This is useful for application level dependencies like ApplicationContext. If Component is built in activity, scoped instances will be cleared on destroy of activity.
 
-### Dagger 2. Component dependencies
+### Dagger. Component dependencies
 
 If at least one provide method in a module has a scope annotation the Component should have the same scope annotation. Which means that if you want named scope, you need a separate Component for it. Components can depend on each other.
 
@@ -385,7 +386,7 @@ activityComponent = DaggerActivityComponent.builder()
     .build();
 ```
 
-### Dagger 2. Subcomponents
+### Dagger. Subcomponents
 
 Same goal as component dependencies, different approach.
 
@@ -790,8 +791,84 @@ RxJava 2 features several base classes you can discover operators on:
 
 **Runtime**. This is the state when the flows are actively emitting items, errors or completion signals. Practically, this is when the body of the given example above executes.
 
+<a name="batterknife"></a>
+# Batter Knife [![Maven Central][batterknife-mavenbadge-svg]][batterknife-mavencentral]
+
+Field and method binding for Android views which uses annotation processing to generate boilerplate code. Instead of slow reflection, code is generated to perform the view look-ups. Calling bind delegates to this generated code that you can see and debug.
+
+```java
+dependencies {
+  implementation 'com.jakewharton:butterknife:10.1.0'
+  annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+}
+```
+
+### Batter Knife. Usage
+
+- Eliminate findViewById calls by using **@BindView** on fields.
+- Group multiple views in a list or array. Operate on all of them at once with actions, setters, or properties.
+- Eliminate anonymous inner-classes for listeners by annotating methods with **@OnClick** and others.
+- Eliminate resource lookups by using resource annotations on fields **@BindBool, @BindColor, @BindDimen, @BindDrawable, @BindInt, @BindString**.
+
+```java
+class ExampleActivity extends Activity {
+	@BindView(R.id.user) EditText username;
+	@BindView(R.id.pass) EditText password;
+
+	@BindString(R.string.login_error) String loginErrorMessage;
+
+	@OnClick(R.id.submit) void submit() {
+		// TODO call server...
+	}
+
+	@Override public void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.simple_activity);
+	ButterKnife.bind(this);
+		// TODO Use fields...
+	}
+}
+```
+
+### batter Knife. View lists
+
+You can group multiple views into a List or array.
+
+```java
+@BindViews({ R.id.first_name, R.id.middle_name, R.id.last_name })
+List<EditText> nameViews;
+```
+
+The apply method allows you to act on all the views in a list at once.
+
+```java
+ButterKnife.apply(nameViews, DISABLE);
+ButterKnife.apply(nameViews, ENABLED, false);
+```
+
+Action and Setter interfaces allow specifying simple behavior.
+
+```java
+static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
+	@Override public void apply(View view, int index) {
+		view.setEnabled(false);
+	}
+};
+static final ButterKnife.Setter<View, Boolean> ENABLED = new ButterKnife.Setter<View, Boolean>() {
+	@Override public void set(View view, Boolean value, int index) {
+		view.setEnabled(value);
+	}
+};
+```
+
+An Android Property can also be used with the apply method.
+
+```java
+ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
+```
+
 <a name="junit"></a>
-# JUnit 4 [![Maven Central][junit4-mavenbadge-svg]][junit4-mavencentral]
+# JUnit [![Maven Central][junit-mavenbadge-svg]][junit-mavencentral]
 
 Popular unit testing framework.
 
@@ -1106,9 +1183,11 @@ onView(withId(R.id.recycler_view))
 [rxjava-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg
 [rxandroid-mavencentral]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxandroid
 [rxandroid-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxandroid/badge.svg
+[batterknife-mavencentral]: https://search.maven.org/artifact/com.jakewharton/butterknife
+[batterknife-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton/butterknife/badge.svg
 
-[junit4-mavencentral]: https://search.maven.org/artifact/junit/junit
-[junit4-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/junit/junit/badge.svg
+[junit-mavencentral]: https://search.maven.org/artifact/junit/junit
+[junit-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/junit/junit/badge.svg
 [mockito-mavencentral]: https://search.maven.org/artifact/org.mockito/mockito-core
 [mockito-mavenbadge-svg]: https://maven-badges.herokuapp.com/maven-central/org.mockito/mockito-core/badge.svg
 [powermock-mavencentral]: https://search.maven.org/artifact/org.powermock/powermock-core
