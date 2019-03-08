@@ -331,7 +331,7 @@ class MyPresenter {
 
 ### Dagger. Scopes
 
-Scope determines the lifetime of a variable. If we do not specify any Scope annotation, the Component will create a new instance every time the dependency is injected, whereas if we do specify a Scope Component can retain the instance for future use.
+Scope determines the lifetime of a variable. If we do not specify any Scope annotation, the Component will create a new instance every time the dependency is injected, whereas if we do specify a Scope, Component can retain the instance for future use.
 
 The scope is defined with a given name, where the name could be any name e.g. @Singleton, @ActivityScope, @FragmentScope, @WhateverScope. 
 
@@ -655,7 +655,7 @@ Glide is a fast and efficient image loading library for Android focused on smoot
 
 ```java
 dependencies {
-    compile 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 }
 ```
@@ -729,7 +729,7 @@ Glide.with(fragment)
 
 ### Glide. Generated API
 
-Hand writing custom subclasses of RequestOptions is challenging and produces a less fluent API. Generate API allows access all options in RequestBuilder, RequestOptions and any included integration libraries in a single fluent API. Generated after rebuild.
+Hand writing custom subclasses of RequestOptions is challenging and produces a less fluent API. Generate API allows access all options in RequestBuilder, RequestOptions and any included integration libraries in a single fluent API. The API is generated after rebuild in the same package as the AppGlideModule implementation provided by the application and is named GlideApp by default.
 
 - Integration libraries can extend Glide’s API with custom options.
 - Applications can extend Glide’s API by adding methods that bundle commonly used options.
@@ -840,7 +840,7 @@ Observable.just("A", "B", "C", "D", "E").
     .subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
     .subscribe(
-		s -> Log.d(TAG, s),                               //OnNext
+        s -> Log.d(TAG, s),                               //OnNext
         e -> Log.e(TAG, "onError: " + e.getMessage()),    //OnError
         () -> Log.d(TAG, "All items emitted"),            //OnComplete
         d -> Log.d(TAG, "onSubscribe")                    //onSubscribe
