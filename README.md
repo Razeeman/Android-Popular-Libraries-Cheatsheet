@@ -721,19 +721,19 @@ dependencies {
 
 - Avoids complex and error-prone dependencies and life cycle issues.
 
-- Fast, small, proven in practice.
+- Has advanced features like delivery threads, sticky events, subscriber priorities, event cancellation.
 
-- Has advanced features like delivery threads, subscriber priorities, etc.
+- Fast, small, proven in practice.
 
 ### EventBus. Usage
 
-Define events:
+Define events. Events are POJOs without any specific requirements.
 
 ```java
 public static class MessageEvent { /* Additional fields if needed */ }
 ```
 
-Prepare subscribers. Declare and annotate your subscribing method, optionally specify a thread mode:
+Prepare subscribers. Subscribers implement event handling methods (also called “subscriber methods”) that will be called when an event is posted. Declare and annotate your subscribing method, optionally specify a thread mode.
 
 ```java
 @Subscribe(threadMode = ThreadMode.MAIN)  
@@ -761,6 +761,18 @@ Post events:
 ```java
 EventBus.getDefault().post(new MessageEvent());
 ```
+
+### EventBus. Delivery Threads
+
+- **ThreadMode: POSTING**. Subscribers will be called in the same thread posting the event. Default. Synchronous. Implies the least overhead because it avoids thread switching completely. Recommended for simple fast tasks. Event handlers using this mode should return quickly to avoid blocking the posting thread, which may be the main thread.
+
+- **ThreadMode: MAIN**. Subscribers will be called in Android’s main thread (UI thread). If the posting thread is the main thread, event handler methods will be called directly (synchronously). Event handlers using this mode must return quickly to avoid blocking the main thread.
+
+- **ThreadMode: MAIN_ORDERED**. Subscribers will be called in Android’s main thread. The event is always enqueued for later delivery to subscribers, so the call to post will return immediately. This gives event processing a stricter and more consistent order (thus the name MAIN_ORDERED). For example if you post another event in an event handler with MAIN thread mode, the second event handler will finish before the first one (because it is called synchronously – compare it to a method call). With MAIN_ORDERED, the first event handler will finish, and then the second one will be invoked at a later point in time (as soon as the main thread has capacity). Event handlers using this mode must return quickly to avoid blocking the main thread.
+
+- **ThreadMode: BACKGROUND**. Subscribers will be called in a background thread. If posting thread is not the main thread, event handler methods will be called directly in the posting thread. If the posting thread is the main thread, EventBus uses a single background thread that will deliver all its events sequentially. Event handlers using this mode should try to return quickly to avoid blocking the background thread.
+
+- **ThreadMode: ASYNC**. Event handler methods are called in a separate thread. This is always independent from the posting thread and the main thread. Posting events never wait for event handler methods using this mode. Event handler methods should use this mode if their execution might take some time, e.g. for network access. Avoid triggering a large number of long running asynchronous handler methods at the same time to limit the number of concurrent threads. EventBus uses a thread pool to efficiently reuse threads from completed asynchronous event handler notifications.
 
 <a name="rxjava"></a>
 # RxJava [![Maven][rxjava-mavenbadge]][rxjava-maven] [![Source][rxjava-sourcebadge]][rxjava-source] RxAndroid [![Maven][rxandroid-mavenbadge]][rxandroid-maven] [![Source][rxandroid-sourcebadge]][rxandroid-source]
