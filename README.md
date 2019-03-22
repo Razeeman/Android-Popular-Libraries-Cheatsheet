@@ -7,6 +7,7 @@
 - [Glide](#glide)
 - [RxJava](#rxjava)
 - [Butter Knife](#butterknife)
+- [EventBus](#eventbus)
 #### Network
 - [OkHttp](#okhttp)
 - [Retrofit](#retrofit)
@@ -842,6 +843,66 @@ An Android Property can also be used with the apply method.
 ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
 ```
 
+<a name="eventbus"></a>
+# EventBus [![Maven][eventbus-mavenbadge]][eventbus-maven] [![Source][eventbus-sourcebadge]][eventbus-source]
+
+Event bus for Android and Java that simplifies communication between Activities, Fragments, Threads, Services, etc. Less code, better quality.
+
+```java
+dependencies {
+    implementation 'org.greenrobot:eventbus:3.1.1'
+}
+```
+
+- Simplifies the communication between components.
+
+- Decouples event senders and receivers.
+
+- Performs well with Activities, Fragments, and background threads.
+
+- Avoids complex and error-prone dependencies and life cycle issues.
+
+- Fast, small, proven in practice.
+
+- Has advanced features like delivery threads, subscriber priorities, etc.
+
+### EventBus. Usage
+
+Define events:
+
+```java
+public static class MessageEvent { /* Additional fields if needed */ }
+```
+
+Prepare subscribers. Declare and annotate your subscribing method, optionally specify a thread mode:
+
+```java
+@Subscribe(threadMode = ThreadMode.MAIN)  
+public void onMessageEvent(MessageEvent event) {/* Do something */};
+```
+
+Register and unregister your subscriber. For example on Android, activities and fragments should usually register according to their life cycle:
+
+```java
+@Override
+public void onStart() {
+    super.onStart();
+    EventBus.getDefault().register(this);
+}
+
+@Override
+public void onStop() {
+    super.onStop();
+    EventBus.getDefault().unregister(this);
+}
+```
+
+Post events:
+
+```java
+EventBus.getDefault().post(new MessageEvent());
+```
+
 <a name="okhttp"></a>
 # OkHttp [![Maven][okhttp-mavenbadge]][okhttp-maven] [![Source][okhttp-sourcebadge]][okhttp-source]
 
@@ -1439,6 +1500,11 @@ onView(withId(R.id.recycler_view))
 [butterknife-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton/butterknife/badge.svg
 [butterknife-source]: https://github.com/JakeWharton/butterknife
 [butterknife-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[eventbus-maven]: https://search.maven.org/artifact/org.greenrobot/eventbus
+[eventbus-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/org.greenrobot/eventbus/badge.svg
+[eventbus-source]: https://github.com/greenrobot/EventBus
+[eventbus-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
 [retrofit-maven]: https://search.maven.org/artifact/com.squareup.retrofit2/retrofit
 [retrofit-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.squareup.retrofit2/retrofit/badge.svg
