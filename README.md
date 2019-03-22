@@ -5,9 +5,10 @@
 - [Dagger](#dagger)
 - [GSON](#gson)
 - [Glide](#glide)
-- [RxJava](#rxjava)
 - [Butter Knife](#butterknife)
+#### Async
 - [EventBus](#eventbus)
+- [RxJava](#rxjava)
 #### Network
 - [OkHttp](#okhttp)
 - [Retrofit](#retrofit)
@@ -625,6 +626,142 @@ GlideApp.with(fragment)
 
 Unlike Glide.with() options like centerCrop() and placeholder() are available directly on the builder and don’t need to be passed in as a separate RequestOptions object.
 
+<a name="butterknife"></a>
+# Butter Knife [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source]
+
+Field and method binding for Android views which uses annotation processing to generate boilerplate code. Instead of slow reflection, code is generated to perform the view look-ups. Calling bind delegates to this generated code that you can see and debug.
+
+```java
+dependencies {
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+}
+```
+
+### Butter Knife. Usage
+
+- Eliminate findViewById calls by using **@BindView** on fields.
+- Group multiple views in a list or array. Operate on all of them at once with actions, setters, or properties.
+- Eliminate anonymous inner-classes for listeners by annotating methods with **@OnClick** and others.
+- Eliminate resource lookups by using resource annotations on fields **@BindBool, @BindColor, @BindDimen, @BindDrawable, @BindInt, @BindString**.
+
+```java
+class ExampleActivity extends Activity {
+    @BindView(R.id.user) EditText username;
+    @BindView(R.id.pass) EditText password;
+
+    @BindString(R.string.login_error) String loginErrorMessage;
+
+    @OnClick(R.id.submit) void submit() {
+		// TODO call server...
+    }
+
+    @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.simple_activity);
+    ButterKnife.bind(this);
+        // TODO Use fields...
+    }
+}
+```
+
+### Butter Knife. View lists
+
+You can group multiple views into a List or array.
+
+```java
+@BindViews({ R.id.first_name, R.id.middle_name, R.id.last_name })
+List<EditText> nameViews;
+```
+
+The apply method allows you to act on all the views in a list at once.
+
+```java
+ButterKnife.apply(nameViews, DISABLE);
+ButterKnife.apply(nameViews, ENABLED, false);
+```
+
+Action and Setter interfaces allow specifying simple behavior.
+
+```java
+static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
+    @Override public void apply(View view, int index) {
+        view.setEnabled(false);
+    }
+};
+static final ButterKnife.Setter<View, Boolean> ENABLED = new ButterKnife.Setter<View, Boolean>() {
+    @Override public void set(View view, Boolean value, int index) {
+        view.setEnabled(value);
+    }
+};
+```
+
+An Android Property can also be used with the apply method.
+
+```java
+ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
+```
+
+<a name="eventbus"></a>
+# EventBus [![Maven][eventbus-mavenbadge]][eventbus-maven] [![Source][eventbus-sourcebadge]][eventbus-source]
+
+Event bus for Android and Java that simplifies communication between Activities, Fragments, Threads, Services, etc. Less code, better quality.
+
+```java
+dependencies {
+    implementation 'org.greenrobot:eventbus:3.1.1'
+}
+```
+
+- Simplifies the communication between components.
+
+- Decouples event senders and receivers.
+
+- Performs well with Activities, Fragments, and background threads.
+
+- Avoids complex and error-prone dependencies and life cycle issues.
+
+- Fast, small, proven in practice.
+
+- Has advanced features like delivery threads, subscriber priorities, etc.
+
+### EventBus. Usage
+
+Define events:
+
+```java
+public static class MessageEvent { /* Additional fields if needed */ }
+```
+
+Prepare subscribers. Declare and annotate your subscribing method, optionally specify a thread mode:
+
+```java
+@Subscribe(threadMode = ThreadMode.MAIN)  
+public void onMessageEvent(MessageEvent event) {/* Do something */};
+```
+
+Register and unregister your subscriber. For example on Android, activities and fragments should usually register according to their life cycle:
+
+```java
+@Override
+public void onStart() {
+    super.onStart();
+    EventBus.getDefault().register(this);
+}
+
+@Override
+public void onStop() {
+    super.onStop();
+    EventBus.getDefault().unregister(this);
+}
+```
+
+Post events:
+
+```java
+EventBus.getDefault().post(new MessageEvent());
+```
+
 <a name="rxjava"></a>
 # RxJava [![Maven][rxjava-mavenbadge]][rxjava-maven] [![Source][rxjava-sourcebadge]][rxjava-source] RxAndroid [![Maven][rxandroid-mavenbadge]][rxandroid-maven] [![Source][rxandroid-sourcebadge]][rxandroid-source]
 
@@ -766,142 +903,6 @@ RxJava 2 features several base classes you can discover operators on:
 **Subscription time**. This is a temporary state when subscribe() is called on a flow that establishes the chain of processing steps internally. This is when the subscription side-effects are triggered (see doOnSubscribe). Some sources block or start emitting items right away in this state.
 
 **Runtime**. This is the state when the flows are actively emitting items, errors or completion signals. Practically, this is when the body of the given example above executes.
-
-<a name="butterknife"></a>
-# Butter Knife [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source]
-
-Field and method binding for Android views which uses annotation processing to generate boilerplate code. Instead of slow reflection, code is generated to perform the view look-ups. Calling bind delegates to this generated code that you can see and debug.
-
-```java
-dependencies {
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
-}
-```
-
-### Butter Knife. Usage
-
-- Eliminate findViewById calls by using **@BindView** on fields.
-- Group multiple views in a list or array. Operate on all of them at once with actions, setters, or properties.
-- Eliminate anonymous inner-classes for listeners by annotating methods with **@OnClick** and others.
-- Eliminate resource lookups by using resource annotations on fields **@BindBool, @BindColor, @BindDimen, @BindDrawable, @BindInt, @BindString**.
-
-```java
-class ExampleActivity extends Activity {
-    @BindView(R.id.user) EditText username;
-    @BindView(R.id.pass) EditText password;
-
-    @BindString(R.string.login_error) String loginErrorMessage;
-
-    @OnClick(R.id.submit) void submit() {
-		// TODO call server...
-    }
-
-    @Override public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.simple_activity);
-    ButterKnife.bind(this);
-        // TODO Use fields...
-    }
-}
-```
-
-### Butter Knife. View lists
-
-You can group multiple views into a List or array.
-
-```java
-@BindViews({ R.id.first_name, R.id.middle_name, R.id.last_name })
-List<EditText> nameViews;
-```
-
-The apply method allows you to act on all the views in a list at once.
-
-```java
-ButterKnife.apply(nameViews, DISABLE);
-ButterKnife.apply(nameViews, ENABLED, false);
-```
-
-Action and Setter interfaces allow specifying simple behavior.
-
-```java
-static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
-    @Override public void apply(View view, int index) {
-        view.setEnabled(false);
-    }
-};
-static final ButterKnife.Setter<View, Boolean> ENABLED = new ButterKnife.Setter<View, Boolean>() {
-    @Override public void set(View view, Boolean value, int index) {
-        view.setEnabled(value);
-    }
-};
-```
-
-An Android Property can also be used with the apply method.
-
-```java
-ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
-```
-
-<a name="eventbus"></a>
-# EventBus [![Maven][eventbus-mavenbadge]][eventbus-maven] [![Source][eventbus-sourcebadge]][eventbus-source]
-
-Event bus for Android and Java that simplifies communication between Activities, Fragments, Threads, Services, etc. Less code, better quality.
-
-```java
-dependencies {
-    implementation 'org.greenrobot:eventbus:3.1.1'
-}
-```
-
-- Simplifies the communication between components.
-
-- Decouples event senders and receivers.
-
-- Performs well with Activities, Fragments, and background threads.
-
-- Avoids complex and error-prone dependencies and life cycle issues.
-
-- Fast, small, proven in practice.
-
-- Has advanced features like delivery threads, subscriber priorities, etc.
-
-### EventBus. Usage
-
-Define events:
-
-```java
-public static class MessageEvent { /* Additional fields if needed */ }
-```
-
-Prepare subscribers. Declare and annotate your subscribing method, optionally specify a thread mode:
-
-```java
-@Subscribe(threadMode = ThreadMode.MAIN)  
-public void onMessageEvent(MessageEvent event) {/* Do something */};
-```
-
-Register and unregister your subscriber. For example on Android, activities and fragments should usually register according to their life cycle:
-
-```java
-@Override
-public void onStart() {
-    super.onStart();
-    EventBus.getDefault().register(this);
-}
-
-@Override
-public void onStop() {
-    super.onStop();
-    EventBus.getDefault().unregister(this);
-}
-```
-
-Post events:
-
-```java
-EventBus.getDefault().post(new MessageEvent());
-```
 
 <a name="okhttp"></a>
 # OkHttp [![Maven][okhttp-mavenbadge]][okhttp-maven] [![Source][okhttp-sourcebadge]][okhttp-source]
