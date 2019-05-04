@@ -571,7 +571,7 @@ ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
 <a name="ormlite"></a>
 # ORMLite [![Maven][ormlite-mavenbadge]][ormlite-maven] [![Source][ormlite-sourcebadge]][ormlite-source]
 
-Object Relational Mapping Lite (ORM Lite) provides some simple, lightweight functionality for persisting Java objects to SQL databases while avoiding the complexity and overhead of more standard ORM packages.
+Object Relational Mapping Lite (ORM Lite) provides some simple, lightweight functionality for persisting Java objects to SQL databases while avoiding the complexity and overhead of more standard ORM packages. Old and proven ORM. Somewhat outdated. Slower than greenDao, about the same as Room.
 
 ```java
 dependencies {
@@ -709,7 +709,7 @@ public class Account {
 <a name="room"></a>
 # Room [![Maven][room-mavenbadge]][room-maven] [![Source][room-sourcebadge]][room-source]
 
-The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access. Provides compile time verification of SQL queries.
+The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access. Provides compile time verification of SQL queries. Can work with LiveData and RxJava.
 
 ```java
 dependencies {   
@@ -760,6 +760,12 @@ public class User {
 public interface UserDao {
     @Query("SELECT * FROM users")
     List<User> getAll();
+    
+    @Query("SELECT * FROM users")
+    LiveData<List<User>> getAll();
+    
+    @Query("SELECT * FROM users")
+    Observable<List<User>> getAll();
 
     @Query("SELECT * FROM users WHERE uid IN (:userIds)")
     List<User> loadAllByIds(int[] userIds);
