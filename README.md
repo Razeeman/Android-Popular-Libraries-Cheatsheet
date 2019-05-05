@@ -7,6 +7,7 @@
 - [Butter Knife](#butterknife)
 #### SQLite
 - [ORMLite](#ormlite)
+- [GreenDAO](#greendao)
 - [Room](#room)
 #### Async
 - [EventBus](#eventbus)
@@ -703,6 +704,158 @@ public class CustomDao<T, ID> extends BaseDaoImpl<T, ID> {
 @DatabaseTable(tableName = "accounts", daoClass = CustomDao.class)
 public class Account {
     ...
+}
+```
+
+<a name="greendao"></a>
+# GreenDAO [![Maven][greendao-mavenbadge]][greendao-maven] [![Source][greendao-sourcebadge]][greendao-source]
+
+GreenDAO is a light & fast ORM solution for Android that maps objects to SQLite databases. Faster than ORMLite and Room.
+
+```java
+buildscript {
+    repositories {
+        mavenCentral() // add repository
+    }
+    dependencies {
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
+    }
+}
+```
+
+```java
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+ 
+dependencies {
+    implementation 'org.greenrobot:greendao:3.2.2' // add library
+}
+```
+
+- **Maximum performance** (probably the fastest ORM for Android, allegedly).
+
+- **Easy to use** powerful APIs covering relations and joins.
+
+- **Minimal memory consumption**.
+
+- **Small library size** (<100KB) to keep build times low and to avoid the 65k method limit.
+
+- **Database encryption**: greenDAO supports SQLCipher to keep user’s data safe.
+
+- **Strong community**: More than 10.000 GitHub stars show there is a strong and active community.
+
+### GreenDAO. Core classes
+
+- **DaoMaster**
+
+  The entry point for using greenDAO. Holds the database object (SQLiteDatabase) and manages DAO classes (not objects) for a specific schema. It has static methods to create the tables or drop them. Its inner classes OpenHelper and DevOpenHelper are SQLiteOpenHelper implementations that create the schema in the SQLite database.
+
+- **DaoSession**
+
+  Manages all available DAO objects for a specific schema, which you can acquire using one of the getter methods. Provides also some generic persistence methods like insert, load, update, refresh and delete for entities. Keeps track of an identity scope.
+
+- **DAOs**
+
+  Persists and queries for entities. For each entity, greenDAO generates a DAO. It has more persistence methods than DaoSession, for example: count, loadAll, and insertInTx.
+
+- **Entities**
+
+  Persistable objects. Usually, entities are objects representing a database row using standard Java properties (like a POJO).
+
+### GreenDAO. Basic usage
+
+```java
+@Entity(nameInDb = "note")
+public class Note {
+
+    @Id(autoincrement = true)
+    private Long id;
+
+    @Property(nameInDb = "text")
+    private String text;
+}
+```
+
+Initialization in App class. DevOpenHelper is for dev only. DevOpenHelper will drop all tables on schema changes (in onUpgrade()). So it is recommended to create and use a subclass of DaoMaster.OpenHelper instead. DAO classes generated after build.
+
+```java
+public class App extends Application {
+    private DaoSession daoSession;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "notes-db");
+        Database db = helper.getWritableDb();
+        // Database db = helper.getEncryptedWritableDb("encryption-key");
+        daoSession = new DaoMaster(db).newSession();
+    }
+    
+    public DaoSession getDaoSession() {
+        return daoSession;
+    }
+}
+```
+
+```java
+Note note = new Note();
+
+DaoSession daoSession = ((App) getApplication()).getDaoSession();
+noteDao = daoSession.getNoteDao();
+
+noteDao.insert(note);
+noteDao.deleteByKey(id);
+note.changeNote();
+noteDao.update(note);
+
+List<Note> notes = noteDao.queryBuilder()
+    .where(Properties.PropertyName.eq("some property value"))
+    .orderAsc(Properties.OtherPropertyName)
+    .list();
+```
+
+### GreenDAO. Typeconverters
+
+Example mapping an enum to an Integer.
+
+```java
+@Entity
+public class User {
+    @Id
+    private Long id;
+
+    @Convert(converter = RoleConverter.class, columnType = Integer.class)
+    private Role role;
+
+    public enum Role {
+        DEFAULT(0), AUTHOR(1), ADMIN(2);
+        
+        final int id;
+        
+        Role(int id) {
+            this.id = id;
+        }
+    }
+
+    public static class RoleConverter implements PropertyConverter<Role, Integer> {
+        @Override
+        public Role convertToEntityProperty(Integer databaseValue) {
+            if (databaseValue == null) {
+                return null;
+            }
+            for (Role role : Role.values()) {
+                if (role.id == databaseValue) {
+                    return role;
+                }
+            }
+            return Role.DEFAULT;
+        }
+
+        @Override
+        public Integer convertToDatabaseValue(Role entityProperty) {
+            return entityProperty == null ? null : entityProperty.id;
+        }
+    }
 }
 ```
 
@@ -1658,15 +1811,20 @@ onView(withId(R.id.recycler_view))
 [butterknife-source]: https://github.com/JakeWharton/butterknife
 [butterknife-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
-[room-maven]: https://mvnrepository.com/artifact/androidx.room/room-runtime
-[room-mavenbadge]: https://img.shields.io/badge/maven%20google--brightgreen.svg
-[room-source]: https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/room/
-[room-sourcebadge]: https://img.shields.io/badge/source-google-orange.svg
-
 [ormlite-maven]: https://search.maven.org/artifact/com.j256.ormlite/ormlite-android
 [ormlite-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.j256.ormlite/ormlite-android/badge.svg
 [ormlite-source]: https://github.com/j256/ormlite-android
 [ormlite-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[greendao-maven]: https://search.maven.org/artifact/org.greenrobot/greendao
+[greendao-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/org.greenrobot/greendao/badge.svg
+[greendao-source]: https://github.com/greenrobot/greenDAO
+[greendao-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[room-maven]: https://mvnrepository.com/artifact/androidx.room/room-runtime
+[room-mavenbadge]: https://img.shields.io/badge/maven%20google--brightgreen.svg
+[room-source]: https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/room/
+[room-sourcebadge]: https://img.shields.io/badge/source-google-orange.svg
 
 [eventbus-maven]: https://search.maven.org/artifact/org.greenrobot/eventbus
 [eventbus-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/org.greenrobot/eventbus/badge.svg
