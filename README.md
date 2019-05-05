@@ -814,7 +814,7 @@ List<Note> notes = noteDao.queryBuilder()
     .list();
 ```
 
-### GreenDAO. Typeconverters
+### GreenDAO. TypeConverters
 
 Example mapping an enum to an Integer.
 
