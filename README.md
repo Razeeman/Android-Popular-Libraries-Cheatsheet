@@ -1362,6 +1362,9 @@ dependencies {
     // Or any other available converter.
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    
+    // To use with RxJava.
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 }
 ```
 
@@ -1413,6 +1416,7 @@ public static final String BASE_URL = "http://api.myservice.com/";
 Retrofit retrofit = new Retrofit.Builder()
     .baseUrl(BASE_URL)
     .addConverterFactory(GsonConverterFactory.create())
+    .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // For RxJava support.
     .build();
 ```
 
