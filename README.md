@@ -30,8 +30,19 @@ A fast dependency injector for Android and Java. Compile-time evaluation. Uses c
 
 ```java
 dependencies {
-    implementation 'com.google.dagger:dagger:2.21'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.21'
+    implementation 'com.google.dagger:dagger:2.22.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.22.1'
+}
+```
+
+For kotlin.
+
+```kotlin
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    implementation 'com.google.dagger:dagger:2.22.1'
+    kapt "com.google.dagger:dagger-compiler:2.22.1"
 }
 ```
 
@@ -215,7 +226,7 @@ public @interface ScopeName {
 
 Dagger provides @Singleton scope annotation. It is just a usual named scope defined the same way but with a name Singleton. @Singleton annotation doesn't provide singleton functionality by itself. It's developer's responsibility to make sure that the Component with @Singleton annotation created only once. Otherwise every Component will have it's own version of @Singleton object.
 
-Lifecycle of scoped objects tied to the lifecycle of the Component. Components live as long as you want it to or as long as class that created component wasn't destroyed (like android activity or fragment). If Component built it application its instances of scoped objects will live as long as application or until manually cleared. This is useful for application level dependencies like ApplicationContext. If Component is built in activity, scoped instances will be cleared on destroy of activity.
+Lifecycle of scoped objects tied to the lifecycle of the Component. Components live as long as you want it to or as long as class that created component wasn't destroyed (like android activity or fragment). If Component built in application its instances of scoped objects will live as long as application or until manually cleared. This is useful for application level dependencies like ApplicationContext. If Component is built in activity, scoped instances will be cleared on destroy of activity.
 
 ### Dagger. Component dependencies
 
