@@ -1128,7 +1128,7 @@ Everything can be modeled as streams. A stream emits item(s) over time, and each
 
 - **Schedulers**: Schedulers decides the thread on which Observable should emit the data and on which Observer should receives the data i.e background thread, main thread etc.
 
-### RxJava. Base usage
+### RxJava. Basic usage
 
 ```java
 Flowable.just("Hello world")
@@ -1227,6 +1227,22 @@ RxJava 2 features several base classes you can discover operators on:
 **Subscription time**. This is a temporary state when subscribe() is called on a flow that establishes the chain of processing steps internally. This is when the subscription side-effects are triggered (see doOnSubscribe). Some sources block or start emitting items right away in this state.
 
 **Runtime**. This is the state when the flows are actively emitting items, errors or completion signals. Practically, this is when the body of the given example above executes.
+
+### RxJava. Schedulers types
+
+- **Schedulers.immediate()**: Creates and returns a Scheduler that executes work immediately on the current thread.
+
+- **Schedulers.trampoline()**: Creates and returns a Scheduler that queues work on the current thread to be executed after the current work completes.
+
+- **Schedulers.newThread()**: Creates and returns a Scheduler that creates a new Thread for each unit of work.
+
+- **Schedulers.computation()**: Creates and returns a Scheduler intended for computational work. This can be used for event-loops, processing callbacks and other computational work. Do not perform IO-bound work on this scheduler. Use Schedulers.io() instead.
+
+- **Schedulers.io()**: Creates and returns a Scheduler intended for IO-bound work. The implementation is backed by an Executor thread-pool that will grow as needed. This can be used for asynchronously performing blocking IO. Do not perform computational work on this scheduler. Use Schedulers.computation() instead.
+
+- **Schedulers.test()**: Creates and returns a TestScheduler, which is useful for debugging. It allows you to test schedules of events by manually advancing the clock at whatever pace you choose.
+
+- **AndroidSchedulers.mainThread()**: This Scheduler is provided by rxAndroid library. This is used to bring back the execution to the main thread so that UI modification can be made. This is usually used in observeOn method.
 
 <a name="okhttp"></a>
 # OkHttp [![Maven][okhttp-mavenbadge]][okhttp-maven] [![Source][okhttp-sourcebadge]][okhttp-source]
