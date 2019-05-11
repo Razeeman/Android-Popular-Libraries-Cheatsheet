@@ -629,7 +629,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
-            TableUtils.createTable(connectionSource, User.class);
+            TableUtils.createTable(connectionSource, Account.class);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -639,7 +639,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, 
                 int oldVersion, int newVersion) {
         try {
-            TableUtils.dropTable(connectionSource, User.class, true);
+            TableUtils.dropTable(connectionSource, Account.class, true);
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -735,7 +735,7 @@ buildscript {
 ```
 
 ```java
-apply plugin: 'org.greenrobot.greendao' // apply plugin
+apply plugin: 'org.greenrobot.greendao' // apply plugin (before kotlin plugin for kotlin projects)
  
 dependencies {
     implementation 'org.greenrobot:greendao:3.2.2' // add library
@@ -770,7 +770,7 @@ dependencies {
 
 - **Entities**
 
-  Persistable objects. Usually, entities are objects representing a database row using standard Java properties (like a POJO).
+  Persistable objects. Usually, entities are objects representing a database row using standard Java properties (like a POJO). For kotlin projects entities should be written in Java.
 
 ### GreenDAO. Basic usage
 
@@ -1226,7 +1226,7 @@ RxJava 2 features several base classes you can discover operators on:
 
 **Subscription time**. This is a temporary state when subscribe() is called on a flow that establishes the chain of processing steps internally. This is when the subscription side-effects are triggered (see doOnSubscribe). Some sources block or start emitting items right away in this state.
 
-**Runtime**. This is the state when the flows are actively emitting items, errors or completion signals. Practically, this is when the body of the given example above executes.
+**Runtime**. This is the state when the flows are actively emitting items, errors or completion signals. Practically, this is when the body of the code executes.
 
 ### RxJava. Schedulers types
 
@@ -1455,6 +1455,9 @@ The endpoints are defined inside of an interface using special retrofit annotati
 public interface ApiServiceInterface  {
     @GET("users/{username}")
     Call<User> getUser(@Path("username") String username);
+    
+    @GET("users/{username}")
+    Observable<User> getUser(@Path("username") String username); // RxJava Observable
 
     @GET("group/{id}/users")
     Call<List<User>> groupList(@Path("id") int groupId, @Query("sort") String sort);
@@ -1480,7 +1483,7 @@ enqueue() asynchronously sends the request on the background thread and notifies
 User user = new User(123, "John Doe");
 ApiServiceInterface apiService = retrofit.create(ApiServiceInterface.class);
 
-Call<User> call = apiService.createuser(user);
+Call<User> call = apiService.createUser(user);
 call.enqueue(new Callback<User>() {
     @Override
     public void onResponse(Call<User> call, Response<User> response) {
