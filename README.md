@@ -1206,16 +1206,6 @@ d
 e
 ```
 
-### RxJava. Base observable classes
-
-RxJava 2 features several base classes you can discover operators on:
-
-- **io.reactivex.Flowable**: 0..N flows, supporting Reactive-Streams and backpressure, which controls how fast a source emits items.
-- **io.reactivex.Observable**: 0..N flows, no backpressure.
-- **io.reactivex.Single**: a flow of exactly 1 item or an error, the reactive version of a method call.
-- **io.reactivex.Completable**: a flow without items but only a completion or error signal, the reactive version of a Runnable.
-- **io.reactivex.Maybe**: a flow with no items, exactly one item or an error.
-
 ### RxJava. Terminology
 
 **Upstream, downstream**. The dataflows in RxJava consist of a source, zero or more intermediate steps followed by a data consumer or combinator step (where the step is responsible to consume the dataflow by some means). For intermediate operator, looking to the left towards the source, is called the **upstream**. Looking to the right towards the subscriber/consumer, is called the **downstream**.
@@ -1227,6 +1217,34 @@ RxJava 2 features several base classes you can discover operators on:
 **Subscription time**. This is a temporary state when subscribe() is called on a flow that establishes the chain of processing steps internally. This is when the subscription side-effects are triggered (see doOnSubscribe). Some sources block or start emitting items right away in this state.
 
 **Runtime**. This is the state when the flows are actively emitting items, errors or completion signals. Practically, this is when the body of the code executes.
+
+### RxJava. Base observable classes
+
+RxJava 2 features several base classes you can discover operators on:
+
+- **Flowable**: 0..N flows, supporting Reactive-Streams and backpressure, which controls how fast a source emits items.
+
+- **Observable**: 0..N flows, no backpressure.
+
+- **Single**: a flow of exactly 1 item or an error, the reactive version of a method call.
+
+- **Completable**: a flow without items but only a completion or error signal, the reactive version of a Runnable.
+
+- **Maybe**: a flow with no items, exactly one item or an error.
+
+### RxJava. Operators
+
+- **subscribeOn(Scheduler)**: By default, an Observable emits its data on the thread where the subscription was declared, i.e. where you called the .subscribe method. In Android, this is generally the main UI thread. You can use the subscribeOn() operator to define a different Scheduler where the Observable should execute and emit its data. The subscribeOn() operator will have the same effect no matter where you place it in the observable chain. You can't use multiple subscribeOn() operators in the same chain. The chain will only use the subscribeOn() that’s the closest to the source observable.
+
+- **observeOn(Scheduler)**: You can use this operator to redirect your Observable’s emissions to a different Scheduler, effectively changing the thread where the Observable’s notifications are sent, and by extension the thread where its data is consumed. Unlike subscribeOn(), where you place observeOn() in your chain does matter, as this operator only changes the thread that’s used by the observables that appear downstream.
+
+- **flatMap()**: Transform the items emitted by an Observable into Observables, then flatten the emissions from those into a single Observable.
+
+- **zip()**: Combine the emissions of multiple Observables together via a specified function and emit single items for each combination based on the results of this function.
+
+- **filter()**: Emit only those items from an Observable that pass a predicate test.
+
+And many more: http://reactivex.io/documentation/operators.html
 
 ### RxJava. Schedulers types
 
