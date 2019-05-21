@@ -8,6 +8,7 @@
 #### SQLite
 - [ORMLite](#ormlite)
 - [GreenDAO](#greendao)
+- [Realm](#realm)
 - [Room](#room)
 #### Async
 - [EventBus](#eventbus)
@@ -868,6 +869,96 @@ public class User {
         }
     }
 }
+```
+
+<a name="realm"></a>
+# Realm [![Maven][realm-mavenbadge]][realm-maven] [![Source][realm-sourcebadge]][realm-source]
+
+Realm is a mobile database, a replacement for SQLite & ORMs.
+
+```java
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.realm:realm-gradle-plugin:5.11.0"
+    }
+}
+```
+
+```java
+apply plugin: 'realm-android'
+```
+
+- **Mobile-first**: Realm is the first database built from the ground up to run directly inside phones, tablets, and wearables.
+
+- **Simple**: Data is directly exposed as objects and queryable by code, removing the need for ORM's riddled with performance & maintenance issues. Plus, we've worked hard to keep our API down to very few classes: most of our users pick it up intuitively, getting simple apps up & running in minutes.
+
+- **Modern**: Realm supports easy thread-safety, relationships & encryption.
+
+- **Fast**: Realm is faster than even raw SQLite on common operations while maintaining an extremely rich feature set.
+
+### Realm. Model class
+
+RealmObjects are live, auto-updating views into the underlying data; you never have to refresh objects. Changes to objects are instantly reflected in query results.
+
+```java
+public class Dog extends RealmObject {
+    private String name;
+    private int age;
+
+    // ... Generated getters and setters ...
+}
+
+public class Person extends RealmObject {
+    @PrimaryKey
+    private long id;
+    @Index
+    private String name;
+    private RealmList<Dog> dogs; // Declare one-to-many relationships
+    
+    @Ignore
+    private int sessionId;
+
+    // ... Generated getters and setters ...
+}
+```
+
+### Realm. Basic usage
+
+Realm only manages the returned object, not the object originally created. To make changes to the object in the database, make changes to the returned copy, not the original.
+
+```java
+// Initialize Realm (just once per application). Probaby in application subclass.
+Realm.init(context);
+
+// Get a Realm instance for this thread.
+Realm realm = Realm.getDefaultInstance();
+
+// No changes in the database yet. Object is unmanaged.
+Dog dog = new Dog();
+dog.setName("Rex");
+
+// All writes are wrapped in a transaction to facilitate safe multi threading.
+realm.beginTransaction();
+
+final Dog managedDog = realm.copyToRealm(dog);    // Persist unmanaged objects.
+Person person = realm.createObject(Person.class); // Create managed objects directly.
+person.setName("name");                   // Database will be changed, because managed object changed.
+person.getDogs().add(managedDog);
+
+realm.commitTransaction();
+
+RealmResults<User> result = realm
+    .where(User.class)
+    .greaterThan("age", 10)
+    .beginGroup()
+        .equalTo("name", "Peter")
+        .or()
+        .contains("name", "Jo")
+    .endGroup()
+    .findAll();
 ```
 
 <a name="room"></a>
@@ -1829,7 +1920,15 @@ onView(withId(R.id.recycler_view))
     .perform(RecyclerViewActions.scrollTo(hasDescendant(withText(R.string.some_text))));
 ```
 
+# Sources
 
+### Realm
+
+https://github.com/realm/realm-java
+<br>
+https://realm.io/docs/java/latest/
+<br>
+https://realm.io/blog/realm-for-android/
 
 
 
@@ -1872,6 +1971,11 @@ onView(withId(R.id.recycler_view))
 [greendao-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/org.greenrobot/greendao/badge.svg
 [greendao-source]: https://github.com/greenrobot/greenDAO
 [greendao-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[realm-maven]: https://bintray.com/realm/maven/realm-gradle-plugin/_latestVersion
+[realm-mavenbadge]: https://api.bintray.com/packages/realm/maven/realm-gradle-plugin/images/download.svg
+[realm-source]: https://github.com/realm/realm-java
+[realm-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
 [room-maven]: https://mvnrepository.com/artifact/androidx.room/room-runtime
 [room-mavenbadge]: https://img.shields.io/badge/maven%20google--brightgreen.svg
