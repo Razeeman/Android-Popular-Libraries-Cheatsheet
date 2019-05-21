@@ -21,6 +21,7 @@
 - [Mockito](#mockito)
 - [PowerMock](#powermock)
 - [Espresso](#espresso)
+#### [Sources](#sources)
 
 
 
@@ -592,6 +593,14 @@ dependencies {
 }
 ```
 
+### ORMLite. Comparison
+
+Realm = ObjectBox < SQLite < GreenDAO < Room < **ORMLite**.
+
+Very questionable, depends on complexity of queries, read/write preferences etc.
+
+Realm - fast very read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
+
 ### ORMLite. Usage
 
 If you have worked with SQLite on Android you have worked with the SQLiteOpenHelper class. When working with ORMLite you need to extend the OrmLiteSqliteOpenHelper instead, but they are similar in the way that they have an onCreate, an onUpgrade ect. And you do the same kind of operations in them but with the help of ORMLite.
@@ -755,6 +764,14 @@ dependencies {
 
 - **Strong community**: More than 10.000 GitHub stars show there is a strong and active community.
 
+### GreenDAO. Comparison
+
+Realm = ObjectBox < SQLite < **GreenDAO** < Room < ORMLite.
+
+Very questionable, depends on complexity of queries, read/write preferences etc.
+
+Realm - fast very read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
+
 ### GreenDAO. Core classes
 
 - **DaoMaster**
@@ -898,6 +915,14 @@ apply plugin: 'realm-android'
 - **Modern**: Realm supports easy thread-safety, relationships & encryption.
 
 - **Fast**: Realm is faster than even raw SQLite on common operations while maintaining an extremely rich feature set.
+
+### Realm. Comparison
+
+**Realm** = ObjectBox < SQLite < GreenDAO < Room < ORMLite.
+
+Very questionable, depends on complexity of queries, read/write preferences etc.
+
+Realm - fast very read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
 
 ### Realm. Model class
 
@@ -1110,6 +1135,14 @@ There are 3 major components in Room:
 - **DAO**: Contains the methods used for accessing the database.
 
   Allow abstraction of the the database communication. Easier to mock in tests (compared to running direct sql queries). Automatically does the conversion from Cursor to application classes. All queries in Dao are verified while compile. Can be either an interface or an abstract class.
+  
+### Room. Comparison
+
+Realm = ObjectBox < SQLite < GreenDAO < **Room** < ORMLite.
+
+Very questionable, depends on complexity of queries, read/write preferences etc.
+
+Realm - fast very read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
   
 ### Room. Entity
 
@@ -2042,6 +2075,7 @@ onView(withId(R.id.recycler_view))
     .perform(RecyclerViewActions.scrollTo(hasDescendant(withText(R.string.some_text))));
 ```
 
+<a name="sources"></a>
 # Sources
 
 ### Realm
@@ -2051,6 +2085,14 @@ https://github.com/realm/realm-java
 https://realm.io/docs/java/latest/
 <br>
 https://realm.io/blog/realm-for-android/
+
+### DBMS comparisons
+
+https://github.com/Rexee/AndroidDatabaseLibraryComparison
+<br>
+https://github.com/AlexeyZatsepin/Android-ORM-benchmark
+<br>
+https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recent)
 
 
 
