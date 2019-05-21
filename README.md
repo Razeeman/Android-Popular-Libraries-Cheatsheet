@@ -947,6 +947,7 @@ final Dog managedDog = realm.copyToRealm(dog);    // Persist unmanaged objects.
 Person person = realm.createObject(Person.class); // Create managed objects directly.
 person.setName("name");                           // Database will be changed, because managed object changed.
 person.getDogs().add(managedDog);
+managedDog.deleteFromRealm();
 
 realm.commitTransaction();
 
@@ -1028,6 +1029,59 @@ RealmResults<User> result1 = query.findAll();
 - **limit** method limits query results.
 
 - **distinct** method limits results to only unique values.
+
+### Realm. Listeners
+
+UI or other looper threads can get notified of changes in a Realm by adding a listener, which is executed whenever the Realm is changed.
+
+- Realm notifications.
+
+```java
+realm = Realm.getDefaultInstance();
+realmListener = new RealmChangeListener<Realm>() {
+    @Override
+    public void onChange(Realm realm) {
+        // ... do something with the updates (UI, etc.) ...
+    }
+};
+realm.addChangeListener(realmListener);
+```
+
+- Collection notifications.
+
+```java
+persons.addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<Person>>() {
+    @Override
+    public void onChange(RealmResults<Person> results, OrderedCollectionChangeSet changeSet) {
+        // ... do something with the updates (UI, etc.) ...
+    }
+});
+```
+
+- Object notifications.
+
+```java
+persons.addChangeListener(new RealmObjectChangeListener<Person>() {
+    @Override
+    public void onChange(Person person, ObjectChangeSet changeSet) {
+        // ... do something with the updates (UI, etc.) ...
+    }
+};
+```
+
+### Realm. Kotlin
+
+- The realm-android plugin has to be applied after kotlin-android and kotlin-kapt.
+
+- Model classes should be open.
+
+- A limitation of the Kotlin annotation processor indicates that adding the annotation @RealmClass is required in some cases.
+
+- Storing enums in Realm Model classes in Kotlin should be done using a specific pattern.
+
+- In Kotlin Long::class.java actually returns a Class reference to long not Long. The same is true for other primitive types like Integer, Float, Double and Boolean. Choosing the correct class has implications during a migration.
+
+- If Kotlin is used in a project, Realm automatically detects this and adds a number of extension methods that makes working with Kotlin easier.
 
 <a name="room"></a>
 # Room [![Maven][room-mavenbadge]][room-maven] [![Source][room-sourcebadge]][room-source]
