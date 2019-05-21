@@ -9,7 +9,7 @@
 - **SQLite**
   - [ORMLite](#ormlite)
   - [GreenDAO](#greendao)
-  - [Realm](#realm)
+  - [Realm](#realm-tag)
   - [Room](#room)
 - **Async**
   - [EventBus](#eventbus)
@@ -910,7 +910,7 @@ tasks.whenTaskAdded { task ->
 
 - GreenDAO entities should be written in java.
 
-<a name="realm"></a>
+<a name="realm-tag"></a>
 # Realm [![Maven][realm-mavenbadge]][realm-maven] [![Source][realm-sourcebadge]][realm-source]
 
 Realm is a mobile database, a replacement for SQLite & ORMs.
