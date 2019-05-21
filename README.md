@@ -1,29 +1,30 @@
 # Android Essential Libraries Cheatsheet
 
 ## Contents
-- [Dagger](#dagger)
-- [GSON](#gson)
-- [Glide](#glide)
-- [Butter Knife](#butterknife)
-#### SQLite
-- [ORMLite](#ormlite)
-- [GreenDAO](#greendao)
-- [Realm](#realm)
-- [Room](#room)
-#### Async
-- [EventBus](#eventbus)
-- [RxJava](#rxjava)
-#### Network
-- [OkHttp](#okhttp)
-- [Retrofit](#retrofit)
-#### Testing
-- [JUnit](#junit)
-- [Mockito](#mockito)
-- [PowerMock](#powermock)
-- [Espresso](#espresso)
-#### [Sources](#sources)
+- **Misc**
+  - [Dagger](#dagger)
+  - [GSON](#gson)
+  - [Glide](#glide)
+  - [Butter Knife](#butterknife)
+- **SQLite**
+  - [ORMLite](#ormlite)
+  - [GreenDAO](#greendao)
+  - [Realm](#realm)
+  - [Room](#room)
+- **Async**
+  - [EventBus](#eventbus)
+  - [RxJava](#rxjava)
+- **Network**
+  - [OkHttp](#okhttp)
+  - [Retrofit](#retrofit)
+- **Testing**
+  - [JUnit](#junit)
+  - [Mockito](#mockito)
+  - [PowerMock](#powermock)
+  - [Espresso](#espresso)
+- [Sources](#sources)
 
-
+<br><br>
 
 <a name="dagger"></a>
 # Dagger [![Maven][dagger-mavenbadge]][dagger-maven] [![Source][dagger-sourcebadge]][dagger-source]
@@ -2074,6 +2075,8 @@ onView(withId(R.id.some_view)).perform(scrollTo()).check(matches(isDisplayed()))
 onView(withId(R.id.recycler_view))
     .perform(RecyclerViewActions.scrollTo(hasDescendant(withText(R.string.some_text))));
 ```
+
+<br><br>
 
 <a name="sources"></a>
 # Sources
