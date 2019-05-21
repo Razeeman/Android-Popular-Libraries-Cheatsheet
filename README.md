@@ -2,31 +2,31 @@
 
 ## Contents
 - **Misc**
-  - [Dagger](#dagger)
-  - [GSON](#gson)
-  - [Glide](#glide)
-  - [Butter Knife](#butterknife)
+  - [Dagger](#dagger-tag)
+  - [GSON](#gson-tag)
+  - [Glide](#glide-tag)
+  - [Butter Knife](#butterknife-tag)
 - **SQLite**
-  - [ORMLite](#ormlite)
-  - [GreenDAO](#greendao)
+  - [ORMLite](#ormlite-tag)
+  - [GreenDAO](#greendao-tag)
   - [Realm](#realm-tag)
-  - [Room](#room)
+  - [Room](#room-tag)
 - **Async**
-  - [EventBus](#eventbus)
-  - [RxJava](#rxjava)
+  - [EventBus](#eventbus-tag)
+  - [RxJava](#rxjava-tag)
 - **Network**
-  - [OkHttp](#okhttp)
-  - [Retrofit](#retrofit)
+  - [OkHttp](#okhttp-tag)
+  - [Retrofit](#retrofit-tag)
 - **Testing**
-  - [JUnit](#junit)
-  - [Mockito](#mockito)
-  - [PowerMock](#powermock)
-  - [Espresso](#espresso)
-- [Sources](#sources)
+  - [JUnit](#junit-tag)
+  - [Mockito](#mockito-tag)
+  - [PowerMock](#powermock-tag)
+  - [Espresso](#espresso-tag)
+- [Sources](#sources-tag)
 
 <br><br>
 
-<a name="dagger"></a>
+<a name="dagger-tag"></a>
 # Dagger [![Maven][dagger-mavenbadge]][dagger-maven] [![Source][dagger-sourcebadge]][dagger-source]
 
 A fast dependency injector for Android and Java. Compile-time evaluation. Uses code generation and is based on annotations.
@@ -307,7 +307,7 @@ appComponent = DaggerAppComponent.builder()
 activityComponent = appComponent.plusActivityComponent(new ActivityModule());
 ```
 
-<a name="gson"></a>
+<a name="gson-tag"></a>
 # GSON [![Maven][gson-mavenbadge]][gson-maven] [![Source][gson-sourcebadge]][gson-source]
 
 A Java serialization/deserialization library to convert Java Objects into JSON and back. Can work with arbitrary Java objects including pre-existing objects that you do not have source-code of. Internally, utilizes a JsonReader class.
@@ -406,7 +406,7 @@ Gson gson = gsonBuilder.create();
 
 - **@Since(version_num) and @Until(version_num)** with **builder.setVersion(version_num)** to control exposure with versioning.
 
-<a name="glide"></a>
+<a name="glide-tag"></a>
 # Glide [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source]
 
 Glide is a fast and efficient image loading library for Android focused on smooth scrolling. Glide offers an easy to use API, a performant and extensible resource decoding pipeline and automatic resource pooling. Glide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Uses HttpUrlConnection.
@@ -507,7 +507,7 @@ GlideApp.with(fragment)
 
 Unlike Glide.with() options like centerCrop() and placeholder() are available directly on the builder and don’t need to be passed in as a separate RequestOptions object.
 
-<a name="butterknife"></a>
+<a name="butterknife-tag"></a>
 # Butter Knife [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source]
 
 Field and method binding for Android views which uses annotation processing to generate boilerplate code. Instead of slow reflection, code is generated to perform the view look-ups. Calling bind delegates to this generated code that you can see and debug.
@@ -583,7 +583,7 @@ An Android Property can also be used with the apply method.
 ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
 ```
 
-<a name="ormlite"></a>
+<a name="ormlite-tag"></a>
 # ORMLite [![Maven][ormlite-mavenbadge]][ormlite-maven] [![Source][ormlite-sourcebadge]][ormlite-source]
 
 Object Relational Mapping Lite (ORM Lite) provides some simple, lightweight functionality for persisting Java objects to SQL databases while avoiding the complexity and overhead of more standard ORM packages. Old and proven ORM. Somewhat outdated. Slower than greenDao, about the same as Room.
@@ -729,7 +729,7 @@ public class Account {
 }
 ```
 
-<a name="greendao"></a>
+<a name="greendao-tag"></a>
 # GreenDAO [![Maven][greendao-mavenbadge]][greendao-maven] [![Source][greendao-sourcebadge]][greendao-source]
 
 GreenDAO is a light & fast ORM solution for Android that maps objects to SQLite databases. Faster than ORMLite and Room.
@@ -1130,7 +1130,7 @@ persons.addChangeListener(new RealmObjectChangeListener<Person>() {
 
 - If Kotlin is used in a project, Realm automatically detects this and adds a number of extension methods that makes working with Kotlin easier.
 
-<a name="room"></a>
+<a name="room-tag"></a>
 # Room [![Maven][room-mavenbadge]][room-maven] [![Source][room-sourcebadge]][room-source]
 
 The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access. Provides compile time verification of SQL queries. Can work with LiveData and RxJava.
@@ -1282,7 +1282,7 @@ AppDatabase db = Room.databaseBuilder(getApplicationContext(),
             .build();
 ```
 
-<a name="eventbus"></a>
+<a name="eventbus-tag"></a>
 # EventBus [![Maven][eventbus-mavenbadge]][eventbus-maven] [![Source][eventbus-sourcebadge]][eventbus-source]
 
 Event bus for Android and Java that simplifies communication between Activities, Fragments, Threads, Services, etc. Less code, better quality.
@@ -1354,7 +1354,7 @@ EventBus.getDefault().post(new MessageEvent());
 
 - **ThreadMode: ASYNC**. Event handler methods are called in a separate thread. This is always independent from the posting thread and the main thread. Posting events never wait for event handler methods using this mode. Event handler methods should use this mode if their execution might take some time, e.g. for network access. Avoid triggering a large number of long running asynchronous handler methods at the same time to limit the number of concurrent threads. EventBus uses a thread pool to efficiently reuse threads from completed asynchronous event handler notifications.
 
-<a name="rxjava"></a>
+<a name="rxjava-tag"></a>
 # RxJava [![Maven][rxjava-mavenbadge]][rxjava-maven] [![Source][rxjava-sourcebadge]][rxjava-source] RxAndroid [![Maven][rxandroid-mavenbadge]][rxandroid-maven] [![Source][rxandroid-sourcebadge]][rxandroid-source]
 
 RxJava is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences. It extends the observer pattern to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety and concurrent data structures.
@@ -1530,7 +1530,7 @@ And many more: http://reactivex.io/documentation/operators.html
 
 - **AndroidSchedulers.mainThread()**: This Scheduler is provided by rxAndroid library. This is used to bring back the execution to the main thread so that UI modification can be made. This is usually used in observeOn method.
 
-<a name="okhttp"></a>
+<a name="okhttp-tag"></a>
 # OkHttp [![Maven][okhttp-mavenbadge]][okhttp-maven] [![Source][okhttp-sourcebadge]][okhttp-source]
 
 An HTTP+HTTP/2 client for Android and Java applications.
@@ -1663,7 +1663,7 @@ OkHttpClient client = new OkHttpClient.Builder()
     .build();
 ```
 
-<a name="retrofit"></a>
+<a name="retrofit-tag"></a>
 # Retrofit [![Maven][retrofit-mavenbadge]][retrofit-maven] [![Source][retrofit-sourcebadge]][retrofit-source]
 
 Type-safe HTTP client. Provides a powerful framework for authenticating and interacting with APIs and sending network requests with OkHttp. Automatically serialises the JSON response using a POJO. For conversion uses GSON or several other converters.
@@ -1797,7 +1797,7 @@ call.enqueue(new Callback<User>() {
 });
 ```
 
-<a name="junit"></a>
+<a name="junit-tag"></a>
 # JUnit [![Maven][junit-mavenbadge]][junit-maven] [![Source][junit-sourcebadge]][junit-source]
 
 Popular unit testing framework.
@@ -1862,7 +1862,7 @@ public class CalculatorTest {
 - assertSame([message,] expected, actual)
 - assertNotSame([message,] expected, actual)
 
-<a name="mockito"></a>
+<a name="mockito-tag"></a>
 # Mockito [![Maven][mockito-mavenbadge]][mockito-maven] [![Source][mockito-sourcebadge]][mockito-source]
 
 Most popular Mocking framework for unit tests written in Java. Cannot mock static methods and private methods.
@@ -1943,7 +1943,7 @@ public void testVerify()  {
 }
 ```
 
-<a name="powermock"></a>
+<a name="powermock-tag"></a>
 # PowerMock [![Maven][powermock-mavenbadge]][powermock-maven] [![Source][powermock-sourcebadge]][powermock-source]
 
 PowerMock is a framework that extends other mock libraries such as Mockito and EasyMock, but adds more capacity. PowerMock uses custom classloader and bytecode manipulation to allow mocking of static methods, builders, final classes, private methods and more. So we can test our code without modifying it, thanks to the fact that the mock objects are hooked to the code to be tested in execution time. By using reflection this framework allows you to modify even private attributes of the class.
@@ -2010,7 +2010,7 @@ public void testAddService() throws Exception {
 - **suppress(field(ClassWithEvilField.class, "fieldName"))** to suppress the field in the class.
 - **@SuppressStaticInitializationFor("org.mycompany.SomeClass")** annotation to remove the static initializer for the class.
 
-<a name="espresso"></a>
+<a name="espresso-tag"></a>
 # Espresso [![Maven][espresso-mavenbadge]][espresso-maven] [![Source][espresso-sourcebadge]][espresso-source]
 
 UI testing framework. Provides APIs for writing UI tests to simulate user interactions within an app. Provides automatic synchronization of test actions with the UI of the app you are testing. Espresso detects when the main thread is idle, so it is able to run test commands at the appropriate time, improving the reliability of tests. Uses a separate apk to run tests.
@@ -2099,7 +2099,7 @@ onView(withId(R.id.recycler_view))
 
 <br><br>
 
-<a name="sources"></a>
+<a name="sources-tag"></a>
 # Sources
 
 ### Realm
