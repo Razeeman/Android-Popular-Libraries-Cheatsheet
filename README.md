@@ -945,7 +945,7 @@ realm.beginTransaction();
 
 final Dog managedDog = realm.copyToRealm(dog);    // Persist unmanaged objects.
 Person person = realm.createObject(Person.class); // Create managed objects directly.
-person.setName("name");                   // Database will be changed, because managed object changed.
+person.setName("name");                           // Database will be changed, because managed object changed.
 person.getDogs().add(managedDog);
 
 realm.commitTransaction();
@@ -960,6 +960,74 @@ RealmResults<User> result = realm
     .endGroup()
     .findAll();
 ```
+
+### Realm. Alternative execution
+
+```java
+// Automatically handles begin/commit, and cancel if an error happens.
+realm.executeTransaction(new Realm.Transaction() {
+    @Override
+    public void execute(Realm realm) {
+        Person person = realm.createObject(Person.class);
+        person.setName("name");
+    }
+});
+```
+
+```java
+//Asynchronous transaction to avoid blocking UI.
+realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm bgRealm) {
+                User user = bgRealm.createObject(User.class);
+                user.setName("John");
+                user.setEmail("john@corporation.com");
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                // Transaction was a success.
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                // Transaction failed and was automatically canceled.
+            }
+        });
+```
+
+### Realm. Queries
+
+All fetches (including queries) are lazy in Realm, and the data is never copied.
+
+```java
+// Build the query looking at all users.
+RealmQuery<User> query = realm.where(User.class);
+
+// Add query conditions.
+query.equalTo("name", "John");
+query.or().equalTo("name", "Peter");
+
+// Execute the query. Method findAll executes the query.
+RealmResults<User> result1 = query.findAll();
+```
+
+- **where** method starts a RealmQuery by specifying a model.
+
+- **findAll, findAllAsync, findFirst** methods executes the query.
+
+- filter criteria is specified with predicate methods, most of which have self-explanatory names:
+  **equalTo, notEqualTo, in, between, greaterThan, lessThan, greaterThanOrEqualTo, lessThanOrEqualTo, contains, beginsWith, endsWith, like, isEmpty, isNotEmpty, isNull, isNotNull**.
+  
+- **beginGroup** and **endGroup** methods group conditions to specify order of evaluation.
+
+- **not** method negates conditions.
+
+- **sort** method specifies how the results should be sorted.
+
+- **limit** method limits query results.
+
+- **distinct** method limits results to only unique values.
 
 <a name="room"></a>
 # Room [![Maven][room-mavenbadge]][room-maven] [![Source][room-sourcebadge]][room-source]
