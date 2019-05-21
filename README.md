@@ -746,7 +746,7 @@ buildscript {
 ```
 
 ```java
-apply plugin: 'org.greenrobot.greendao' // apply plugin (before kotlin plugin for kotlin projects)
+apply plugin: 'org.greenrobot.greendao' // apply plugin
  
 dependencies {
     implementation 'org.greenrobot:greendao:3.2.2' // add library
@@ -789,7 +789,7 @@ Realm - fast very read, ObjectBox - very fast write. Comparable to clean SQLite 
 
 - **Entities**
 
-  Persistable objects. Usually, entities are objects representing a database row using standard Java properties (like a POJO). For kotlin projects entities should be written in Java.
+  Persistable objects. Usually, entities are objects representing a database row using standard Java properties (like a POJO).
 
 ### GreenDAO. Basic usage
 
@@ -888,6 +888,27 @@ public class User {
     }
 }
 ```
+
+### GreenDAO. Kotlin
+
+- Put greendao gradle plugin before kotlin plugin when applying plugins in app gradle file.
+
+```
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'kotlin-android'
+```
+
+- Put this sript into app gradle file, which allows greendao gradle task to run before kotlin debug and generate necessary classes.
+
+```
+tasks.whenTaskAdded { task ->
+    if (task.name == 'kaptDebugKotlin') {
+        task.dependsOn tasks.getByName('greendao')
+    }
+}
+```
+
+- GreenDAO entities should be written in java.
 
 <a name="realm"></a>
 # Realm [![Maven][realm-mavenbadge]][realm-maven] [![Source][realm-sourcebadge]][realm-source]
