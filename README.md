@@ -1136,11 +1136,21 @@ persons.addChangeListener(new RealmObjectChangeListener<Person>() {
 The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access. Provides compile time verification of SQL queries. Can work with LiveData and RxJava.
 
 ```java
-dependencies {   
-    implementation "androidx.room:room-runtime:2.1.0-alpha04"
-    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha04"
+dependencies {
+    implementation "androidx.room:room-runtime:2.1.0-beta01"
+    annotationProcessor "androidx.room:room-compiler:2.1.0-beta01"
     
-    // old namespace android.arch.persistence.room:runtime:1.1.1
+    // Old namespace.
+    // implementation "android.arch.persistence.room:runtime:1.1.1"
+}
+```
+
+```java
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    implementation "androidx.room:room-runtime:2.1.0-beta01"
+    kapt "androidx.room:room-compiler:2.1.0-beta01"
 }
 ```
 
