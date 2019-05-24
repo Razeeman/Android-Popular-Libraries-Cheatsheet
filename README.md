@@ -6,7 +6,7 @@
   - [GSON](#gson-tag)
   - [Glide](#glide-tag)
   - [Butter Knife](#butterknife-tag)
-- **SQLite**
+- **Database**
   - [ORMLite](#ormlite-tag)
   - [GreenDAO](#greendao-tag)
   - [Realm](#realm-tag)
@@ -600,7 +600,7 @@ Realm = ObjectBox < SQLite < GreenDAO < Room < **ORMLite**.
 
 Very questionable, depends on complexity of queries, read/write preferences etc.
 
-Realm - fast very read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
+Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
 
 ### ORMLite. Usage
 
@@ -771,7 +771,7 @@ Realm = ObjectBox < SQLite < **GreenDAO** < Room < ORMLite.
 
 Very questionable, depends on complexity of queries, read/write preferences etc.
 
-Realm - fast very read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
+Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
 
 ### GreenDAO. Core classes
 
@@ -898,7 +898,7 @@ apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'kotlin-android'
 ```
 
-- Put this sript into app gradle file, which allows greendao gradle task to run before kotlin debug and generate necessary classes.
+- If you configure greenDao in gradle (e.g. set schema or generate location), then also put this sript into app gradle file, which allows greendao gradle task to run before kotlin debug and generate necessary classes.
 
 ```
 tasks.whenTaskAdded { task ->
@@ -913,7 +913,7 @@ tasks.whenTaskAdded { task ->
 <a name="realm-tag"></a>
 # Realm [![Maven][realm-mavenbadge]][realm-maven] [![Source][realm-sourcebadge]][realm-source]
 
-Realm is a mobile database, a replacement for SQLite & ORMs.
+Realm is a mobile NoSQL database, a replacement for SQLite & ORMs.
 
 ```java
 buildscript {
@@ -944,7 +944,7 @@ apply plugin: 'realm-android'
 
 Very questionable, depends on complexity of queries, read/write preferences etc.
 
-Realm - fast very read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
+Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
 
 ### Realm. Model class
 
@@ -1133,7 +1133,7 @@ persons.addChangeListener(new RealmObjectChangeListener<Person>() {
 <a name="room-tag"></a>
 # Room [![Maven][room-mavenbadge]][room-maven] [![Source][room-sourcebadge]][room-source]
 
-The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access. Provides compile time verification of SQL queries. Can work with LiveData and RxJava.
+The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access. Provides compile time verification of SQL queries. Can work with LiveData and RxJava. Part of the AAC - android architecture components.
 
 ```java
 dependencies {
@@ -1174,7 +1174,7 @@ Realm = ObjectBox < SQLite < GreenDAO < **Room** < ORMLite.
 
 Very questionable, depends on complexity of queries, read/write preferences etc.
 
-Realm - fast very read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
+Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
   
 ### Room. Entity
 
