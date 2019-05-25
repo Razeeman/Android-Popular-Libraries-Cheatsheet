@@ -9,6 +9,7 @@
 - **Database**
   - [ORMLite](#ormlite-tag)
   - [GreenDAO](#greendao-tag)
+  - [ObjectBox](#objectbox-tag)
   - [Realm](#realm-tag)
   - [Room](#room-tag)
 - **Async**
@@ -909,6 +910,128 @@ tasks.whenTaskAdded { task ->
 ```
 
 - GreenDAO entities should be written in java.
+
+<a name="objectbox-tag"></a>
+# ObjectBox [![Maven][objectbox-mavenbadge]][objectbox-maven] [![Source][objectbox-sourcebadge]][objectbox-source]
+
+ObjectBox is a super fast object-oriented NoSQL database, built uniquely for IoT and Mobile devices. From developers of GreenDAO.
+
+```java
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.objectbox:objectbox-gradle-plugin:2.3.4"
+    }
+}
+```
+
+```java
+apply plugin: 'io.objectbox' // apply last
+```
+
+### ObjectBox. Comparison
+
+Realm = **ObjectBox** < SQLite < GreenDAO < Room < ORMLite.
+
+Very questionable, depends on complexity of queries, read/write preferences etc.
+
+Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
+
+### ObjectBox. Entity Classes
+
+Entities must have one @Id property of type long. By default IDs for new objects are assigned by ObjectBox.
+
+```java
+@Entity
+public class User {
+    @Id public long id;
+    
+    @Index
+    @NameInDb("username")
+    public String name;
+    
+    @Transient
+    private int tempUsageCount; // not persisted
+    
+    // getters and setters ...
+}
+```
+
+### ObjectBox. Core Classes
+
+- **MyObjectBox**: Generated based on your entity classes, MyObjectBox supplies a builder to set up a BoxStore for your app.
+
+- **BoxStore**: The entry point for using ObjectBox. BoxStore is your direct interface to the database and manages Boxes.
+
+- **Box**: A box persists and queries for entities. For each entity, there is a Box (supplied by BoxStore).
+
+### ObjectBox. Initialization
+
+Probaby in application subclass.
+
+```java
+BoxStore boxStore = MyObjectBox.builder()
+    .androidContext(context.getApplicationContext())
+    .build();
+```
+
+### ObjectBox. Basic Box operations
+
+The Box class is likely the class you interact with most. You get Box instances via **BoxStore.boxFor()**. A Box instance gives you access to objects of a particular type.
+
+```java
+Box<User> userBox = boxStore.boxFor(User.class);
+
+User user = new User();
+userBox.put(user);
+
+user.setName("some name");
+userBox.put(user);
+
+List<User> users = userBox.query().equal(User_.name, "some name").build().find();
+
+// Explicit transaction.
+boxStore.runInTx(() -> {
+   for(User user: allUsers) {
+     modify(user);
+     box.put(user);
+   }
+});
+
+userBox.remove(user);
+```
+
+- **put**: Inserts a new or updates an existing object with the same ID. When inserting and put returns, an ID will be assigned to the just inserted object. put also supports putting multiple objects, which is more efficient. Runs an implicit transaction.
+
+- **get** and **getAll**: Given an object’s ID reads it back from its box.
+
+- **remove** and **removeAll**: Remove a previously put object from its box (deletes it). remove also supports removing multiple objects, which is more efficient.
+
+- **count**: Returns the number of objects stored in this box.
+
+- **query**: Starts building a query to return objects from the box that match certain conditions.
+
+### ObjectBox. Queries
+
+The **QueryBuilder** class lets you build custom queries for your entities. Create an instance via **Box.query()**. QueryBuilder offers several methods to define query conditions for properties of an entity. To specify a property ObjectBox does not use Strings but meta information "underscore" classes (like User_) that are generated during build time. The meta information classes have a static field for each property (like User_.name). This allows to reference properties safely with compile time checks to prevent runtime errors, for example because of typos.
+
+- **equal()**, **notEqual()**, **greater()** and **less()**.
+
+- **isNull()** and **notNull()**.
+
+- **between()** to filter for values that are between the given two.
+
+- **in()** and **notIn()** to filter for values that match any in the given array.
+
+- **startsWith()**, **endsWith()** and **contains()** for extended String filtering.
+
+- **and()** and **or()** to build more complex combinations of conditions.
+
+- **order()** to order the returned results.
+
+- **find()**, **findFirst()**, **findUnique()** to retrieve objects matching the query.
 
 <a name="realm-tag"></a>
 # Realm [![Maven][realm-mavenbadge]][realm-maven] [![Source][realm-sourcebadge]][realm-source]
@@ -2112,6 +2235,12 @@ onView(withId(R.id.recycler_view))
 <a name="sources-tag"></a>
 # Sources
 
+### ObjectBox
+
+https://docs.objectbox.io/
+<br>
+https://github.com/objectbox/objectbox-java
+
 ### Realm
 
 https://github.com/realm/realm-java
@@ -2169,6 +2298,11 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [greendao-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/org.greenrobot/greendao/badge.svg
 [greendao-source]: https://github.com/greenrobot/greenDAO
 [greendao-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[objectbox-maven]: https://search.maven.org/artifact/io.objectbox/objectbox-gradle-plugin
+[objectbox-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/io.objectbox/objectbox-gradle-plugin/badge.svg
+[objectbox-source]: https://github.com/objectbox/objectbox-java
+[objectbox-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
 [realm-maven]: https://bintray.com/realm/maven/realm-gradle-plugin/_latestVersion
 [realm-mavenbadge]: https://api.bintray.com/packages/realm/maven/realm-gradle-plugin/images/download.svg
