@@ -595,11 +595,11 @@ dependencies {
 }
 ```
 
-### ORMLite. Comparison
+### ORMLite. Performance Comparison
 
 Realm = ObjectBox < SQLite < GreenDAO < Room < **ORMLite**.
 
-Very questionable, depends on complexity of queries, read/write preferences etc.
+Very questionable, depends on complexity of queries, read/write preferences, app architecture etc.
 
 Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
 
@@ -766,11 +766,11 @@ dependencies {
 
 - **Strong community**: More than 10.000 GitHub stars show there is a strong and active community.
 
-### GreenDAO. Comparison
+### GreenDAO. Performance Comparison
 
 Realm = ObjectBox < SQLite < **GreenDAO** < Room < ORMLite.
 
-Very questionable, depends on complexity of queries, read/write preferences etc.
+Very questionable, depends on complexity of queries, read/write preferences, app architecture etc.
 
 Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
 
@@ -931,11 +931,11 @@ buildscript {
 apply plugin: 'io.objectbox' // apply last
 ```
 
-### ObjectBox. Comparison
+### ObjectBox. Performance Comparison
 
 Realm = **ObjectBox** < SQLite < GreenDAO < Room < ORMLite.
 
-Very questionable, depends on complexity of queries, read/write preferences etc.
+Very questionable, depends on complexity of queries, read/write preferences, app architecture etc.
 
 Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
 
@@ -1061,11 +1061,11 @@ apply plugin: 'realm-android'
 
 - **Fast**: Realm is faster than even raw SQLite on common operations while maintaining an extremely rich feature set.
 
-### Realm. Comparison
+### Realm. Performance Comparison
 
 **Realm** = ObjectBox < SQLite < GreenDAO < Room < ORMLite.
 
-Very questionable, depends on complexity of queries, read/write preferences etc.
+Very questionable, depends on complexity of queries, read/write preferences, app architecture etc.
 
 Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
 
@@ -1291,11 +1291,11 @@ There are 3 major components in Room:
 
   Allow abstraction of the the database communication. Easier to mock in tests (compared to running direct sql queries). Automatically does the conversion from Cursor to application classes. All queries in Dao are verified while compile. Can be either an interface or an abstract class.
   
-### Room. Comparison
+### Room. Performance Comparison
 
 Realm = ObjectBox < SQLite < GreenDAO < **Room** < ORMLite.
 
-Very questionable, depends on complexity of queries, read/write preferences etc.
+Very questionable, depends on complexity of queries, read/write preferences, app architecture etc.
 
 Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
   
@@ -2299,8 +2299,8 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [greendao-source]: https://github.com/greenrobot/greenDAO
 [greendao-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
-[objectbox-maven]: https://search.maven.org/artifact/io.objectbox/objectbox-gradle-plugin
-[objectbox-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/io.objectbox/objectbox-gradle-plugin/badge.svg
+[objectbox-maven]: https://bintray.com/objectbox/objectbox/io.objectbox:objectbox-gradle-plugin/_latestVersion
+[objectbox-mavenbadge]: https://api.bintray.com/packages/objectbox/objectbox/io.objectbox:objectbox-gradle-plugin/images/download.svg
 [objectbox-source]: https://github.com/objectbox/objectbox-java
 [objectbox-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
