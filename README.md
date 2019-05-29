@@ -587,7 +587,7 @@ ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
 <a name="ormlite-tag"></a>
 # ORMLite [![Maven][ormlite-mavenbadge]][ormlite-maven] [![Source][ormlite-sourcebadge]][ormlite-source]
 
-Object Relational Mapping Lite (ORM Lite) provides some simple, lightweight functionality for persisting Java objects to SQL databases while avoiding the complexity and overhead of more standard ORM packages. Old and proven ORM. Somewhat outdated. Slower than greenDao, about the same as Room.
+Object Relational Mapping Lite (ORM Lite) provides some simple, lightweight functionality for persisting Java objects to SQL databases while avoiding the complexity and overhead of more standard ORM packages. Old and proven ORM. Somewhat outdated.
 
 ```java
 dependencies {
@@ -733,7 +733,7 @@ public class Account {
 <a name="greendao-tag"></a>
 # GreenDAO [![Maven][greendao-mavenbadge]][greendao-maven] [![Source][greendao-sourcebadge]][greendao-source]
 
-GreenDAO is a light & fast ORM solution for Android that maps objects to SQLite databases. Faster than ORMLite and Room.
+GreenDAO is a light & fast ORM solution for Android that maps objects to SQLite databases.
 
 ```java
 buildscript {
@@ -754,7 +754,7 @@ dependencies {
 }
 ```
 
-- **Maximum performance** (probably the fastest ORM for Android, allegedly).
+- **Maximum performance** (probably the fastest ORM for Android, was the fastest).
 
 - **Easy to use** powerful APIs covering relations and joins.
 
