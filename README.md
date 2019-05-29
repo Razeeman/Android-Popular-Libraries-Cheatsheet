@@ -597,11 +597,11 @@ dependencies {
 
 ### ORMLite. Performance Comparison
 
-Realm = ObjectBox < SQLite < GreenDAO < Room < **ORMLite**.
+ObjectBox < Realm < GreenDAO < Room < SQLite < **ORMLite**.
 
 Very questionable, depends on complexity of queries, read/write preferences, app architecture etc.
 
-Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
+Realm and ObjectBox are very fast, comparable to clean SQLite or even faster, but have some downsides.
 
 ### ORMLite. Usage
 
@@ -768,11 +768,11 @@ dependencies {
 
 ### GreenDAO. Performance Comparison
 
-Realm = ObjectBox < SQLite < **GreenDAO** < Room < ORMLite.
+ObjectBox < Realm < **GreenDAO** < Room < SQLite < ORMLite.
 
 Very questionable, depends on complexity of queries, read/write preferences, app architecture etc.
 
-Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
+Realm and ObjectBox are very fast, comparable to clean SQLite or even faster, but have some downsides.
 
 ### GreenDAO. Core classes
 
@@ -933,11 +933,11 @@ apply plugin: 'io.objectbox' // apply last
 
 ### ObjectBox. Performance Comparison
 
-Realm = **ObjectBox** < SQLite < GreenDAO < Room < ORMLite.
+**ObjectBox** < Realm < GreenDAO < Room < SQLite < ORMLite.
 
 Very questionable, depends on complexity of queries, read/write preferences, app architecture etc.
 
-Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
+Realm and ObjectBox are very fast, comparable to clean SQLite or even faster, but have some downsides.
 
 ### ObjectBox. Entity Classes
 
@@ -1063,11 +1063,11 @@ apply plugin: 'realm-android'
 
 ### Realm. Performance Comparison
 
-**Realm** = ObjectBox < SQLite < GreenDAO < Room < ORMLite.
+ObjectBox < **Realm** < GreenDAO < Room < SQLite < ORMLite.
 
 Very questionable, depends on complexity of queries, read/write preferences, app architecture etc.
 
-Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
+Realm and ObjectBox are very fast, comparable to clean SQLite or even faster, but have some downsides.
 
 ### Realm. Model class
 
@@ -1293,11 +1293,11 @@ There are 3 major components in Room:
   
 ### Room. Performance Comparison
 
-Realm = ObjectBox < SQLite < GreenDAO < **Room** < ORMLite.
+ObjectBox < Realm < GreenDAO < **Room** < SQLite < ORMLite.
 
 Very questionable, depends on complexity of queries, read/write preferences, app architecture etc.
 
-Realm - very fast read, ObjectBox - very fast write. Comparable to clean SQLite or even faster.
+Realm and ObjectBox are very fast, comparable to clean SQLite or even faster, but have some downsides.
   
 ### Room. Entity
 
