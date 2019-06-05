@@ -2,10 +2,12 @@
 
 ## Contents
 - **Misc**
-  - [Dagger](#dagger-tag)
   - [GSON](#gson-tag)
   - [Glide](#glide-tag)
   - [Butter Knife](#butterknife-tag)
+- **DI**
+  - [Dagger](#dagger-tag)
+  - [Koin](#koin-tag)
 - **Database**
   - [ORMLite](#ormlite-tag)
   - [GreenDAO](#greendao-tag)
@@ -26,6 +28,282 @@
 - [Sources](#sources-tag)
 
 <br><br>
+
+<a name="gson-tag"></a>
+# GSON [![Maven][gson-mavenbadge]][gson-maven] [![Source][gson-sourcebadge]][gson-source]
+
+A Java serialization/deserialization library to convert Java Objects into JSON and back. Can work with arbitrary Java objects including pre-existing objects that you do not have source-code of. Internally, utilizes a JsonReader class.
+
+```java
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.5'
+}
+```
+
+### GSON. Primitives Examples
+
+```java
+Gson gson = new Gson();
+
+gson.toJson(1);              // ==> 1
+gson.toJson(new Integer(1)); // ==> 1
+int one = gson.fromJson("1", int.class);
+Integer one = gson.fromJson("1", Integer.class);
+Long one = gson.fromJson("1", Long.class);
+
+gson.toJson("abcd");         // ==> "abcd"
+String str = gson.fromJson("\"abcd\"", String.class);
+
+int[] values = { 1 };
+gson.toJson(values);         // ==> [1]
+Integer[] newValues = gson.fromJson("[1]", Integer[].class);
+
+Boolean false = gson.fromJson("false", Boolean.class);
+```
+
+### GSON. Object Examples
+
+```java
+public class UserNested {  
+    String name;
+    String email;
+    boolean isDeveloper;
+    int age;
+	
+    UserAddress userAddress;
+}
+
+public class UserAddress {  
+    String street;
+    String houseNumber;
+    String city;
+    String country;
+}
+
+UserAddress userAddress = new UserAddress("Main Street", "42A", "Magdeburg", "Germany");
+UserNested userObject = new UserNested("Norman", "norman@futurestud.io", 26, true, userAddress);
+
+Gson gson = new Gson();  
+String userWithAddressJson = gson.toJson(userObject);
+UserNested restoredUser = gson.fromJson(userWithAddressJson, UserNested.class);  
+```
+
+Produces:
+
+```java
+{
+    "age": 26,
+    "email": "norman@futurestud.io",
+    "isDeveloper": true,
+    "name": "Norman",
+
+    "userAddress": {
+        "city": "Magdeburg",
+        "country": "Germany",
+        "houseNumber": "42A",
+        "street": "Main Street"
+    }
+}
+```
+
+### GSON. Builder
+
+Use GsonBuilder in order to change certain settings and customized configuration.
+
+```java
+GsonBuilder gsonBuilder = new GsonBuilder();
+gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+gsonBuilder.serializeNulls();
+gsonBuilder.setExclusionStrategies(new ExclusionStrategy() { ... });
+gsonBuilder.excludeFieldsWithModifiers(Modifier.STATIC, Modifier.FINAL);
+gsonBuilder.setLenient();
+Gson gson = gsonBuilder.create();
+```
+
+### GSON. Annotations
+
+- **@Expose(serialize = false, deserialize = false)** to control exposure.
+
+- **@SerializedName(value = "fullName", alternate = "username")** to change the automated matching to and from the JSON.
+
+- **@Since(version_num) and @Until(version_num)** with **builder.setVersion(version_num)** to control exposure with versioning.
+
+<a name="glide-tag"></a>
+# Glide [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source]
+
+Glide is a fast and efficient image loading library for Android focused on smooth scrolling. Glide offers an easy to use API, a performant and extensible resource decoding pipeline and automatic resource pooling. Glide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Uses HttpUrlConnection.
+
+```java
+dependencies {
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+}
+```
+
+- Smart and automatic **downsampling** and **caching** minimize storage overhead and decode times.
+- Aggressive **re-use of resources** like byte arrays and Bitmaps minimizes expensive garbage collections and heap fragmentation.
+- Deep **lifecycle integration** ensures that only requests for active Fragments and Activities are prioritized and that Applications release resources when neccessary to avoid being killed when backgrounded.
+
+By default, Glide checks multiple layers of caches before starting a new request for an image:
+
+- Active resources - Is this image displayed in another View right now?
+- Memory cache - Was this image recently loaded and still in memory?
+- Resource - Has this image been decoded, transformed, and written to the disk cache before?
+- Data - Was the data this image was obtained from written to the disk cache before?
+
+### Glide. Usage
+
+```java
+Glide.with(fragment)
+    .load(myUrl)
+    .into(imageView);
+```
+
+```java
+GlideApp.with(context)
+    .load(myUrl)
+    .override(300, 200)
+    .placeholder(R.drawable.placeholder)
+    .error(R.drawable.imagenotfound)
+    .thumbnail(Glide.with(this)
+        .load(fastLoadUrl)
+        .apply(requestOption))
+    .transition(DrawableTransitionOptions.withCrossFade())
+    .centerCrop()
+    .listener(MyImageRequestListener(this))
+    .into(imageView);
+```
+
+### Glide. Background Threads
+
+```java
+FutureTarget<Bitmap> futureTarget =
+    Glide.with(context)
+        .asBitmap()
+        .load(url)
+        .submit(width, height);
+
+Bitmap bitmap = futureTarget.get();
+
+// Do something with the Bitmap and then when you're done with it:
+Glide.with(context).clear(futureTarget);
+```
+
+### Glide. RequestOptions
+
+Most options in Glide can be applied using the RequestOptions class and the apply() method. Options among others:
+
+- Placeholders
+- Transformations
+- Caching Strategies
+- Component specific options, like encode quality, or decode Bitmap configurations.
+
+```java
+RequestOptions cropOptions = new RequestOptions().centerCrop(context);
+...
+Glide.with(fragment)
+    .load(url)
+    .apply(cropOptions)
+    .into(imageView);
+```
+
+### Glide. Generated API
+
+Hand writing custom subclasses of RequestOptions is challenging and produces a less fluent API. Generate API allows access all options in RequestBuilder, RequestOptions and any included integration libraries in a single fluent API. The API is generated after rebuild in the same package as the AppGlideModule implementation provided by the application and is named GlideApp by default.
+
+- Integration libraries can extend Glide’s API with custom options.
+- Applications can extend Glide’s API by adding methods that bundle commonly used options.
+
+```java
+@GlideModule
+public final class MyAppGlideModule extends AppGlideModule {}
+```
+
+```java
+GlideApp.with(fragment)
+    .load(myUrl)
+    .placeholder(R.drawable.placeholder)
+    .centerCrop()
+    .into(imageView);
+```
+
+Unlike Glide.with() options like centerCrop() and placeholder() are available directly on the builder and don’t need to be passed in as a separate RequestOptions object.
+
+<a name="butterknife-tag"></a>
+# Butter Knife [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source]
+
+Field and method binding for Android views which uses annotation processing to generate boilerplate code. Instead of slow reflection, code is generated to perform the view look-ups. Calling bind delegates to this generated code that you can see and debug.
+
+```java
+dependencies {
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+}
+```
+
+### Butter Knife. Usage
+
+- Eliminate findViewById calls by using **@BindView** on fields.
+- Group multiple views in a list or array. Operate on all of them at once with actions, setters, or properties.
+- Eliminate anonymous inner-classes for listeners by annotating methods with **@OnClick** and others.
+- Eliminate resource lookups by using resource annotations on fields **@BindBool, @BindColor, @BindDimen, @BindDrawable, @BindInt, @BindString**.
+
+```java
+class ExampleActivity extends Activity {
+    @BindView(R.id.user) EditText username;
+    @BindView(R.id.pass) EditText password;
+
+    @BindString(R.string.login_error) String loginErrorMessage;
+
+    @OnClick(R.id.submit) void submit() {
+		// TODO call server...
+    }
+
+    @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.simple_activity);
+    ButterKnife.bind(this);
+        // TODO Use fields...
+    }
+}
+```
+
+### Butter Knife. View lists
+
+You can group multiple views into a List or array.
+
+```java
+@BindViews({ R.id.first_name, R.id.middle_name, R.id.last_name })
+List<EditText> nameViews;
+```
+
+The apply method allows you to act on all the views in a list at once.
+
+```java
+ButterKnife.apply(nameViews, DISABLE);
+ButterKnife.apply(nameViews, ENABLED, false);
+```
+
+Action and Setter interfaces allow specifying simple behavior.
+
+```java
+static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
+    @Override public void apply(View view, int index) {
+        view.setEnabled(false);
+    }
+};
+static final ButterKnife.Setter<View, Boolean> ENABLED = new ButterKnife.Setter<View, Boolean>() {
+    @Override public void set(View view, Boolean value, int index) {
+        view.setEnabled(value);
+    }
+};
+```
+
+An Android Property can also be used with the apply method.
+
+```java
+ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
+```
 
 <a name="dagger-tag"></a>
 # Dagger [![Maven][dagger-mavenbadge]][dagger-maven] [![Source][dagger-sourcebadge]][dagger-source]
@@ -308,280 +586,110 @@ appComponent = DaggerAppComponent.builder()
 activityComponent = appComponent.plusActivityComponent(new ActivityModule());
 ```
 
-<a name="gson-tag"></a>
-# GSON [![Maven][gson-mavenbadge]][gson-maven] [![Source][gson-sourcebadge]][gson-source]
+<a name="koin-tag"></a>
+# Koin [![Maven][koin-mavenbadge]][koin-maven] [![Source][koin-sourcebadge]][koin-source]
 
-A Java serialization/deserialization library to convert Java Objects into JSON and back. Can work with arbitrary Java objects including pre-existing objects that you do not have source-code of. Internally, utilizes a JsonReader class.
-
-```java
-dependencies {
-    implementation 'com.google.code.gson:gson:2.8.5'
-}
-```
-
-### GSON. Primitives Examples
-
-```java
-Gson gson = new Gson();
-
-gson.toJson(1);              // ==> 1
-gson.toJson(new Integer(1)); // ==> 1
-int one = gson.fromJson("1", int.class);
-Integer one = gson.fromJson("1", Integer.class);
-Long one = gson.fromJson("1", Long.class);
-
-gson.toJson("abcd");         // ==> "abcd"
-String str = gson.fromJson("\"abcd\"", String.class);
-
-int[] values = { 1 };
-gson.toJson(values);         // ==> [1]
-Integer[] newValues = gson.fromJson("[1]", Integer[].class);
-
-Boolean false = gson.fromJson("false", Boolean.class);
-```
-
-### GSON. Object Examples
-
-```java
-public class UserNested {  
-    String name;
-    String email;
-    boolean isDeveloper;
-    int age;
-	
-    UserAddress userAddress;
-}
-
-public class UserAddress {  
-    String street;
-    String houseNumber;
-    String city;
-    String country;
-}
-
-UserAddress userAddress = new UserAddress("Main Street", "42A", "Magdeburg", "Germany");
-UserNested userObject = new UserNested("Norman", "norman@futurestud.io", 26, true, userAddress);
-
-Gson gson = new Gson();  
-String userWithAddressJson = gson.toJson(userObject);
-UserNested restoredUser = gson.fromJson(userWithAddressJson, UserNested.class);  
-```
-
-Produces:
-
-```java
-{
-    "age": 26,
-    "email": "norman@futurestud.io",
-    "isDeveloper": true,
-    "name": "Norman",
-
-    "userAddress": {
-        "city": "Magdeburg",
-        "country": "Germany",
-        "houseNumber": "42A",
-        "street": "Main Street"
-    }
-}
-```
-
-### GSON. Builder
-
-Use GsonBuilder in order to change certain settings and customized configuration.
-
-```java
-GsonBuilder gsonBuilder = new GsonBuilder();
-gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
-gsonBuilder.serializeNulls();
-gsonBuilder.setExclusionStrategies(new ExclusionStrategy() { ... });
-gsonBuilder.excludeFieldsWithModifiers(Modifier.STATIC, Modifier.FINAL);
-gsonBuilder.setLenient();
-Gson gson = gsonBuilder.create();
-```
-
-### GSON. Annotations
-
-- **@Expose(serialize = false, deserialize = false)** to control exposure.
-
-- **@SerializedName(value = "fullName", alternate = "username")** to change the automated matching to and from the JSON.
-
-- **@Since(version_num) and @Until(version_num)** with **builder.setVersion(version_num)** to control exposure with versioning.
-
-<a name="glide-tag"></a>
-# Glide [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source]
-
-Glide is a fast and efficient image loading library for Android focused on smooth scrolling. Glide offers an easy to use API, a performant and extensible resource decoding pipeline and automatic resource pooling. Glide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Uses HttpUrlConnection.
+A pragmatic lightweight dependency injection framework for Kotlin developers. Written in pure Kotlin, using functional resolution only: no proxy, no code generation, no reflection.
 
 ```java
 dependencies {
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation "org.koin:koin-android:2.0.1"
+    
+    // Koin Android Scope features
+    implementation "org.koin:koin-android-scope:2.0.1"
+    // Koin Android ViewModel features
+    implementation "org.koin:koin-android-viewmodel:2.0.1"
+    // Koin Android Experimental features
+    implementation "org.koin:koin-android-ext:2.0.1"
 }
 ```
 
-- Smart and automatic **downsampling** and **caching** minimize storage overhead and decode times.
-- Aggressive **re-use of resources** like byte arrays and Bitmaps minimizes expensive garbage collections and heap fragmentation.
-- Deep **lifecycle integration** ensures that only requests for active Fragments and Activities are prioritized and that Applications release resources when neccessary to avoid being killed when backgrounded.
+### Koin. Basic Usage
 
-By default, Glide checks multiple layers of caches before starting a new request for an image:
+Declare modules.
 
-- Active resources - Is this image displayed in another View right now?
-- Memory cache - Was this image recently loaded and still in memory?
-- Resource - Has this image been decoded, transformed, and written to the disk cache before?
-- Data - Was the data this image was obtained from written to the disk cache before?
+```kotlin
+// Given some classes
+class Controller(val service : BusinessService)
+class BusinessService()
 
-### Glide. Usage
-
-```java
-Glide.with(fragment)
-    .load(myUrl)
-    .into(imageView);
-```
-
-```java
-GlideApp.with(context)
-    .load(myUrl)
-    .override(300, 200)
-    .placeholder(R.drawable.placeholder)
-    .error(R.drawable.imagenotfound)
-    .thumbnail(Glide.with(this)
-        .load(fastLoadUrl)
-        .apply(requestOption))
-    .transition(DrawableTransitionOptions.withCrossFade())
-    .centerCrop()
-    .listener(MyImageRequestListener(this))
-    .into(imageView);
-```
-
-### Glide. Background Threads
-
-```java
-FutureTarget<Bitmap> futureTarget =
-    Glide.with(context)
-        .asBitmap()
-        .load(url)
-        .submit(width, height);
-
-Bitmap bitmap = futureTarget.get();
-
-// Do something with the Bitmap and then when you're done with it:
-Glide.with(context).clear(futureTarget);
-```
-
-### Glide. RequestOptions
-
-Most options in Glide can be applied using the RequestOptions class and the apply() method. Options among others:
-
-- Placeholders
-- Transformations
-- Caching Strategies
-- Component specific options, like encode quality, or decode Bitmap configurations.
-
-```java
-RequestOptions cropOptions = new RequestOptions().centerCrop(context);
-...
-Glide.with(fragment)
-    .load(url)
-    .apply(cropOptions)
-    .into(imageView);
-```
-
-### Glide. Generated API
-
-Hand writing custom subclasses of RequestOptions is challenging and produces a less fluent API. Generate API allows access all options in RequestBuilder, RequestOptions and any included integration libraries in a single fluent API. The API is generated after rebuild in the same package as the AppGlideModule implementation provided by the application and is named GlideApp by default.
-
-- Integration libraries can extend Glide’s API with custom options.
-- Applications can extend Glide’s API by adding methods that bundle commonly used options.
-
-```java
-@GlideModule
-public final class MyAppGlideModule extends AppGlideModule {}
-```
-
-```java
-GlideApp.with(fragment)
-    .load(myUrl)
-    .placeholder(R.drawable.placeholder)
-    .centerCrop()
-    .into(imageView);
-```
-
-Unlike Glide.with() options like centerCrop() and placeholder() are available directly on the builder and don’t need to be passed in as a separate RequestOptions object.
-
-<a name="butterknife-tag"></a>
-# Butter Knife [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source]
-
-Field and method binding for Android views which uses annotation processing to generate boilerplate code. Instead of slow reflection, code is generated to perform the view look-ups. Calling bind delegates to this generated code that you can see and debug.
-
-```java
-dependencies {
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+// Just declare it
+val myModule = module {
+    single { BusinessService() }
+    factory { Controller(get()) }
+    viewModel { MyViewModel(get()) }
 }
 ```
 
-### Butter Knife. Usage
+Start Koin.
 
-- Eliminate findViewById calls by using **@BindView** on fields.
-- Group multiple views in a list or array. Operate on all of them at once with actions, setters, or properties.
-- Eliminate anonymous inner-classes for listeners by annotating methods with **@OnClick** and others.
-- Eliminate resource lookups by using resource annotations on fields **@BindBool, @BindColor, @BindDimen, @BindDrawable, @BindInt, @BindString**.
-
-```java
-class ExampleActivity extends Activity {
-    @BindView(R.id.user) EditText username;
-    @BindView(R.id.pass) EditText password;
-
-    @BindString(R.string.login_error) String loginErrorMessage;
-
-    @OnClick(R.id.submit) void submit() {
-		// TODO call server...
-    }
-
-    @Override public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.simple_activity);
-    ButterKnife.bind(this);
-        // TODO Use fields...
+```kotlin
+class MyApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidLogger()                    // Optional, for logging.
+            androidContext(this@MyApplication)
+            androidFileProperties()            // Optional to load properties from assets.
+            modules(myModule)
+        }
     }
 }
 ```
 
-### Butter Knife. View lists
+Inject.
 
-You can group multiple views into a List or array.
+```kotlin
+class MyActivity() : AppCompatActivity() {
 
-```java
-@BindViews({ R.id.first_name, R.id.middle_name, R.id.last_name })
-List<EditText> nameViews;
-```
+    val controller : Controller by inject() // lazy
+    val myViewModel: MyViewModel by viewModel()
 
-The apply method allows you to act on all the views in a list at once.
-
-```java
-ButterKnife.apply(nameViews, DISABLE);
-ButterKnife.apply(nameViews, ENABLED, false);
-```
-
-Action and Setter interfaces allow specifying simple behavior.
-
-```java
-static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
-    @Override public void apply(View view, int index) {
-        view.setEnabled(false);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val service : BusinessService = get() // directly
     }
-};
-static final ButterKnife.Setter<View, Boolean> ENABLED = new ButterKnife.Setter<View, Boolean>() {
-    @Override public void set(View view, Boolean value, int index) {
-        view.setEnabled(value);
-    }
-};
+}
 ```
 
-An Android Property can also be used with the apply method.
+### Koin. Scopes
+
+MyScopePresenter class declared as a scoped definition for MyScopeActivity. This will allows to bind a MyScopePresenter with a scope, and drop this instance with the scope closing.
+
+```kotlin
+val appModule = module {
+
+    // single instance of HelloRepository
+    single<HelloRepository> { HelloRepositoryImpl() }
+
+    // Scoped MyScopePresenter instance
+    scope(named<MyScopeActivity>()) {
+        scoped { MyScopePresenter(get()) }
+    }
+}
+```
+
+The currentScope allows to retrieve/create a Koin scope for given activity.
+
+```kotlin
+class MyScopeActivity : AppCompatActivity() {
+
+    // inject MyScopePresenter from current scope 
+    val scopePresenter: MyScopePresenter by currentScope.inject()
+
+    ...
+}
+```
+
+### Koin. Injecting into Java
 
 ```java
-ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
+public class JavaActivity extends AppCompatActivity {
+
+    private Lazy<MyJavaPresenter> javaPresenter = inject(MyJavaPresenter.class);
+
+    ...
+}
 ```
 
 <a name="ormlite-tag"></a>
@@ -2259,11 +2367,6 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 
 
 
-[dagger-maven]: https://search.maven.org/artifact/com.google.dagger/dagger
-[dagger-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
-[dagger-source]: https://github.com/google/dagger
-[dagger-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
-
 [gson-maven]: https://search.maven.org/artifact/com.google.code.gson/gson
 [gson-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.code.gson/gson/badge.svg
 [gson-source]: https://github.com/google/gson
@@ -2273,6 +2376,16 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [glide-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide/badge.svg
 [glide-source]: https://github.com/bumptech/glide
 [glide-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[dagger-maven]: https://search.maven.org/artifact/com.google.dagger/dagger
+[dagger-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
+[dagger-source]: https://github.com/google/dagger
+[dagger-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[koin-maven]: https://bintray.com/ekito/koin/koin-core/_latestVersion
+[koin-mavenbadge]: https://api.bintray.com/packages/ekito/koin/koin-core/images/download.svg
+[koin-source]: https://github.com/InsertKoinIO/koin
+[koin-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
 [rxjava-maven]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxjava
 [rxjava-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg
