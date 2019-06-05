@@ -613,11 +613,17 @@ Declare modules.
 class Controller(val service : BusinessService)
 class BusinessService()
 
-// Just declare it
 val myModule = module {
-    single { BusinessService() }
-    factory { Controller(get()) }
-    viewModel { MyViewModel(get()) }
+    single { BusinessService() }                     // Create singleton.
+    
+    single(named("mock")) { MockBusinessService() }  // Named.
+    
+    single { HttpClient(getProperty("server_url")) } // getProperty() resolves from Koin properties.
+    
+    factory { Controller(get()) }                    // Create a new instance each time. get() resolves dependencies.
+    
+    viewModel { MyViewModel(get()) }                 // Create ViewModel.
+
 }
 ```
 
@@ -631,7 +637,7 @@ class MyApplication : Application() {
             androidLogger()                    // Optional, for logging.
             androidContext(this@MyApplication)
             androidFileProperties()            // Optional to load properties from assets.
-            modules(myModule)
+            modules(myModule, myOtherModule)
         }
     }
 }
@@ -659,10 +665,10 @@ MyScopePresenter class declared as a scoped definition for MyScopeActivity. This
 ```kotlin
 val appModule = module {
 
-    // single instance of HelloRepository
+    // Single instance of HelloRepository.
     single<HelloRepository> { HelloRepositoryImpl() }
 
-    // Scoped MyScopePresenter instance
+    // Scoped MyScopePresenter instance.
     scope(named<MyScopeActivity>()) {
         scoped { MyScopePresenter(get()) }
     }
@@ -2342,6 +2348,14 @@ onView(withId(R.id.recycler_view))
 
 <a name="sources-tag"></a>
 # Sources
+
+### Koin
+
+https://github.com/InsertKoinIO/koin
+<br>
+https://insert-koin.io/
+<br>
+https://insert-koin.io/docs/2.0/getting-started/introduction/
 
 ### ObjectBox
 
