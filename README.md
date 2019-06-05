@@ -34,7 +34,7 @@
 
 A Java serialization/deserialization library to convert Java Objects into JSON and back. Can work with arbitrary Java objects including pre-existing objects that you do not have source-code of. Internally, utilizes a JsonReader class.
 
-```java
+```gradle
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 }
@@ -133,7 +133,7 @@ Gson gson = gsonBuilder.create();
 
 Glide is a fast and efficient image loading library for Android focused on smooth scrolling. Glide offers an easy to use API, a performant and extensible resource decoding pipeline and automatic resource pooling. Glide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Uses HttpUrlConnection.
 
-```java
+```gradle
 dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
@@ -234,7 +234,7 @@ Unlike Glide.with() options like centerCrop() and placeholder() are available di
 
 Field and method binding for Android views which uses annotation processing to generate boilerplate code. Instead of slow reflection, code is generated to perform the view look-ups. Calling bind delegates to this generated code that you can see and debug.
 
-```java
+```gradle
 dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
@@ -310,7 +310,7 @@ ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
 
 A fast dependency injector for Android and Java. Compile-time evaluation. Uses code generation and is based on annotations.
 
-```java
+```gradle
 dependencies {
     implementation 'com.google.dagger:dagger:2.22.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.22.1'
@@ -319,7 +319,7 @@ dependencies {
 
 For kotlin.
 
-```kotlin
+```gradle
 apply plugin: 'kotlin-kapt'
 
 dependencies {
@@ -591,7 +591,7 @@ activityComponent = appComponent.plusActivityComponent(new ActivityModule());
 
 A pragmatic lightweight dependency injection framework for Kotlin developers. Written in pure Kotlin, using functional resolution only: no proxy, no code generation, no reflection.
 
-```java
+```gradle
 dependencies {
     implementation "org.koin:koin-android:2.0.1"
     
@@ -703,7 +703,7 @@ public class JavaActivity extends AppCompatActivity {
 
 Object Relational Mapping Lite (ORM Lite) provides some simple, lightweight functionality for persisting Java objects to SQL databases while avoiding the complexity and overhead of more standard ORM packages. Old and proven ORM. Somewhat outdated.
 
-```java
+```gradle
 dependencies {
     implementation 'com.j256.ormlite:ormlite-android:5.1'
 }
@@ -849,7 +849,7 @@ public class Account {
 
 GreenDAO is a light & fast ORM solution for Android that maps objects to SQLite databases.
 
-```java
+```gradle
 buildscript {
     repositories {
         mavenCentral() // add repository
@@ -860,7 +860,7 @@ buildscript {
 }
 ```
 
-```java
+```gradle
 apply plugin: 'org.greenrobot.greendao' // apply plugin
  
 dependencies {
@@ -1030,7 +1030,7 @@ tasks.whenTaskAdded { task ->
 
 ObjectBox is a super fast object-oriented NoSQL database, built uniquely for IoT and Mobile devices. From developers of GreenDAO.
 
-```java
+```gradle
 buildscript {
     repositories {
         jcenter()
@@ -1152,7 +1152,7 @@ The **QueryBuilder** class lets you build custom queries for your entities. Crea
 
 Realm is a mobile NoSQL database, a replacement for SQLite & ORMs.
 
-```java
+```gradle
 buildscript {
     repositories {
         jcenter()
@@ -1163,7 +1163,7 @@ buildscript {
 }
 ```
 
-```java
+```gradle
 apply plugin: 'realm-android'
 ```
 
@@ -1372,7 +1372,7 @@ persons.addChangeListener(new RealmObjectChangeListener<Person>() {
 
 The Room persistence library provides an abstraction layer over SQLite to allow for more robust database access. Provides compile time verification of SQL queries. Can work with LiveData and RxJava. Part of the AAC - android architecture components.
 
-```java
+```gradle
 dependencies {
     implementation "androidx.room:room-runtime:2.1.0-beta01"
     annotationProcessor "androidx.room:room-compiler:2.1.0-beta01"
@@ -1382,7 +1382,7 @@ dependencies {
 }
 ```
 
-```java
+```gradle
 apply plugin: 'kotlin-kapt'
 
 dependencies {
@@ -1534,7 +1534,7 @@ AppDatabase db = Room.databaseBuilder(getApplicationContext(),
 
 Event bus for Android and Java that simplifies communication between Activities, Fragments, Threads, Services, etc. Less code, better quality.
 
-```java
+```gradle
 dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
 }
@@ -1606,7 +1606,7 @@ EventBus.getDefault().post(new MessageEvent());
 
 RxJava is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences. It extends the observer pattern to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety and concurrent data structures.
 
-```java
+```gradle
 dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
@@ -1782,7 +1782,7 @@ And many more: http://reactivex.io/documentation/operators.html
 
 An HTTP+HTTP/2 client for Android and Java applications.
 
-```java
+```gradle
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.13.1'
 }
@@ -1915,7 +1915,7 @@ OkHttpClient client = new OkHttpClient.Builder()
 
 Type-safe HTTP client. Provides a powerful framework for authenticating and interacting with APIs and sending network requests with OkHttp. Automatically serialises the JSON response using a POJO. For conversion uses GSON or several other converters.
 
-```java
+```gradle
 dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     
@@ -2049,7 +2049,7 @@ call.enqueue(new Callback<User>() {
 
 Popular unit testing framework.
 
-```java
+```gradle
 dependencies {
     testImplementation 'junit:junit:4.12'
 }
@@ -2114,7 +2114,7 @@ public class CalculatorTest {
 
 Most popular Mocking framework for unit tests written in Java. Cannot mock static methods and private methods.
 
-```java
+```gradle
 dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.24.5'
@@ -2195,7 +2195,7 @@ public void testVerify()  {
 
 PowerMock is a framework that extends other mock libraries such as Mockito and EasyMock, but adds more capacity. PowerMock uses custom classloader and bytecode manipulation to allow mocking of static methods, builders, final classes, private methods and more. So we can test our code without modifying it, thanks to the fact that the mock objects are hooked to the code to be tested in execution time. By using reflection this framework allows you to modify even private attributes of the class.
 
-```java
+```gradle
 dependencies {
     testImplementation 'org.powermock:powermock-core:2.0.0' 
 }
@@ -2262,7 +2262,7 @@ public void testAddService() throws Exception {
 
 UI testing framework. Provides APIs for writing UI tests to simulate user interactions within an app. Provides automatic synchronization of test actions with the UI of the app you are testing. Espresso detects when the main thread is idle, so it is able to run test commands at the appropriate time, improving the reliability of tests. Uses a separate apk to run tests.
 
-```java
+```gradle
 dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'
     
