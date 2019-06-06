@@ -3,6 +3,7 @@
 ## Contents
 - **Misc**
   - [GSON](#gson-tag)
+  - [Moshi](#moshi-tag)
   - [Glide](#glide-tag)
   - [Butter Knife](#butterknife-tag)
 - **DI**
@@ -127,6 +128,136 @@ Gson gson = gsonBuilder.create();
 - **@SerializedName(value = "fullName", alternate = "username")** to change the automated matching to and from the JSON.
 
 - **@Since(version_num) and @Until(version_num)** with **builder.setVersion(version_num)** to control exposure with versioning.
+
+<a name="moshi-tag"></a>
+# Moshi [![Maven][moshi-mavenbadge]][moshi-maven] [![Source][moshi-sourcebadge]][moshi-source]
+
+Moshi is a modern JSON library for Android and Java. It makes it easy to parse JSON into Java objects. Uses Okio for I/O. Works with Kotlin. Supposed to be GSON3.0.
+
+```gradle
+dependencies {
+    implementation 'com.squareup.moshi:moshi:1.8.0'
+}
+```
+
+### Moshi. Basic usage
+
+Parse JSON into Java objects:
+
+```java
+class User {
+    String username;
+    @Json(name = "pwd") String password;
+    private transient int total;
+
+    ...
+}
+```
+
+```java
+Moshi moshi = new Moshi.Builder().build();
+
+String json = ...;
+JsonAdapter<User> jsonAdapter = moshi.adapter(User.class);
+User user = jsonAdapter.fromJson(json);
+
+String json = ...;
+Type type = Types.newParameterizedType(List.class, User.class);
+JsonAdapter<List<User>> adapter = moshi.adapter(type);
+List<User> users = adapter.fromJson(json);
+```
+
+Serialize Java objects as JSON:
+
+```java
+Moshi moshi = new Moshi.Builder().build();
+
+User user = new User(...);
+JsonAdapter<User> jsonAdapter = moshi.adapter(User.class);
+String json = jsonAdapter.toJson(user);
+```
+
+### Moshi. Adapters
+
+Moshi has built-in support for reading and writing Java’s core data types:
+
+- Primitives (int, float, char...) and their boxed counterparts (Integer, Float, Character...).
+
+- Arrays, Collections, Lists, Sets, and Maps
+
+- Strings
+
+- Enums
+
+### Moshi. Custom adapter
+
+A type adapter is any class that has methods annotated **@ToJson** and **@FromJson**.
+
+```java
+class CardAdapter {
+    @ToJson String toJson(Card card) {
+        return card.rank + card.suit.name().substring(0, 1);
+    }
+
+    @FromJson Card fromJson(String card) {
+        if (card.length() != 2) throw new JsonDataException("Unknown card: " + card);
+
+        char rank = card.charAt(0);
+        switch (card.charAt(1)) {
+            case 'C': return new Card(rank, Suit.CLUBS);
+            case 'D': return new Card(rank, Suit.DIAMONDS);
+            case 'H': return new Card(rank, Suit.HEARTS);
+            case 'S': return new Card(rank, Suit.SPADES);
+            default: throw new JsonDataException("unknown suit: " + card);
+        }
+    }
+}
+```
+
+```java
+Moshi moshi = new Moshi.Builder()
+    .add(new CardAdapter())
+    .build();
+```
+
+### Moshi. Kotlin
+
+May use reflection, codegen, or both.
+
+**Reflection**
+
+The reflection adapter uses Kotlin’s reflection library to convert Kotlin classes to and from JSON.
+
+```gradle
+dependencies {
+    implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
+}
+```
+
+```kotlin
+val moshi = Moshi.Builder()
+    // Added after custom factories and adapters.
+    .add(KotlinJsonAdapterFactory())
+    .build()
+```
+
+**Codegen**
+
+Moshi’s Kotlin codegen support is an annotation processor. It generates a small and fast adapter for each of Kotlin classes at compile time.
+
+```gradle
+dependencies {
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'
+}
+```
+
+```kotlin
+@JsonClass(generateAdapter = true)
+data class User(
+        val username: String,
+        ...
+)
+```
 
 <a name="glide-tag"></a>
 # Glide [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source]
@@ -1917,14 +2048,14 @@ Type-safe HTTP client. Provides a powerful framework for authenticating and inte
 
 ```gradle
 dependencies {
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     
     // Or any other available converter.
-    implementation 'com.google.code.gson:gson:2.8.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'    
+    implementation 'com.squareup.retrofit2:converter-moshi:2.6.0'
     
     // To use with RxJava.
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
 }
 ```
 
@@ -1976,6 +2107,7 @@ public static final String BASE_URL = "http://api.myservice.com/";
 Retrofit retrofit = new Retrofit.Builder()
     .baseUrl(BASE_URL)
     .addConverterFactory(GsonConverterFactory.create())
+    .addConverterFactory(MoshiConverterFactory.create())       // Alternative.
     .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // For RxJava support.
     .build();
 ```
@@ -2349,6 +2481,10 @@ onView(withId(R.id.recycler_view))
 <a name="sources-tag"></a>
 # Sources
 
+### Moshi
+
+https://github.com/square/moshi
+
 ### Koin
 
 https://github.com/InsertKoinIO/koin
@@ -2385,6 +2521,11 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [gson-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.code.gson/gson/badge.svg
 [gson-source]: https://github.com/google/gson
 [gson-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[moshi-maven]: https://search.maven.org/artifact/com.squareup.moshi/moshi
+[moshi-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.squareup.moshi/moshi/badge.svg
+[moshi-source]: https://github.com/square/moshi
+[moshi-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
 [glide-maven]: https://search.maven.org/artifact/com.github.bumptech.glide/glide
 [glide-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide/badge.svg
