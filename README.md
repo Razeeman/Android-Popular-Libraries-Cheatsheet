@@ -419,7 +419,7 @@ class MyPresenter {
 }
 ```
 
-### Dependency injection with dagger
+### Dagger. Dependency injection
 
 Module provides dependencies.
 
@@ -665,12 +665,12 @@ MyScopePresenter class declared as a scoped definition for MyScopeActivity. This
 ```kotlin
 val appModule = module {
 
-    // Single instance of HelloRepository.
-    single<HelloRepository> { HelloRepositoryImpl() }
-
-    // Scoped MyScopePresenter instance.
     scope(named<MyScopeActivity>()) {
-        scoped { MyScopePresenter(get()) }
+        scoped { MyScopedPresenter(get()) }
+    }
+    
+    scope(named("MY_CUSTOM_SCOPE)) {
+        scoped { SomeScopedService(get()) }
     }
 }
 ```
