@@ -9,6 +9,7 @@
 - **DI**
   - [DI Concept](#di-concept-tag)
   - [Dagger](#dagger-tag)
+  - [Toothpick](#toothpick-tag)
   - [Koin](#koin-tag)
 - **Database**
   - [ORMLite](#ormlite-tag)
@@ -717,6 +718,82 @@ appComponent = DaggerAppComponent.builder()
     .otherModule(new OtherModule())
     .build();
 activityComponent = appComponent.plusActivityComponent(new ActivityModule());
+```
+
+<a name="toothpick-tag"></a>
+# Toothpick [![Maven][toothpick-mavenbadge]][toothpick-maven] [![Source][toothpick-sourcebadge]][toothpick-source]
+
+A scope tree based Dependency Injection library for Java. It is a full-featured, runtime based, but reflection free, implementation of JSR 330. Android helper is called Smoothie.
+
+```gradle
+dependencies {
+    implementation 'com.github.stephanenicolas.toothpick:toothpick-runtime:2.1.0'
+    implementation 'com.github.stephanenicolas.toothpick:smoothie-androidx:2.1.0'
+    annotationProcessor 'com.github.stephanenicolas.toothpick:toothpick-compiler:2.1.0'
+}
+```
+
+### Toothpick. Basic Usage
+
+Repository provides itself as a singleton dependency.
+
+```
+@Singleton
+public class Repository {
+
+    private String data = "data";
+
+    @Inject
+    public Repository() {}
+
+    public String getData() {
+        return data;
+    }
+}
+```
+
+Presenter provides itself as a dependency. Its own constructor dependencies will be resolved at instantiation.
+
+```java
+public class Presenter {
+
+    private Repository repository;
+
+    @Inject
+    public Presenter(Repository repository) {
+        this.repository = repository;
+    }
+
+    public String getText() {
+        return repository.getData();
+    }
+}
+```
+
+Activity requieres presenter. It is injected with Toothpick.inject() withing created scope. Scope is closed after activity is destroyed.
+
+```java
+public class MainActivity extends AppCompatActivity {
+
+    @Inject public Presenter presenter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Scope scope = Toothpick.openScope(this);
+        Toothpick.inject(this, scope);
+
+        String text = presenter.getText();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Toothpick.closeScope(this);
+        super.onDestroy();
+    }
+}
 ```
 
 <a name="koin-tag"></a>
@@ -2538,6 +2615,11 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [dagger-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
 [dagger-source]: https://github.com/google/dagger
 [dagger-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[toothpick-maven]: https://search.maven.org/artifact/com.github.stephanenicolas.toothpick/toothpick-runtime
+[toothpick-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.github.stephanenicolas.toothpick/toothpick-runtime/badge.svg
+[toothpick-source]: https://github.com/stephanenicolas/toothpick
+[toothpick-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
 [koin-maven]: https://bintray.com/ekito/koin/koin-core/_latestVersion
 [koin-mavenbadge]: https://api.bintray.com/packages/ekito/koin/koin-core/images/download.svg
