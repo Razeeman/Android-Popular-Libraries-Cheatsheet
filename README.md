@@ -796,6 +796,37 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
+### Toothpick. Modules and Bindings
+
+Setting up the bindings in a scope is performed via installation of modules in a scope. A module defines a set of bindings.
+
+```java
+public class ActivityModule extends Module {
+    public ActivityModule() {
+        bind(BaseRepository.class).to(Repository.class);
+        bind(BasePresenter.class).to(Presenter.class);
+    }
+}
+```
+
+```java
+Scope scope = Toothpick.openScope(this);
+scope.installModules(new ActivityModule());
+Toothpick.inject(this, scope);
+```
+
+**Binding modes:**
+
+- **bind(IFoo.class).to(Foo.class)** Every ```@Inject IFoo``` will be assigned a new instance of ```Foo```.
+
+- **bind(IFoo.class).toInstance(new Foo())** Every ```@Inject IFoo``` will be assigned the same instance of ```Foo```. The instance defined in the module.
+
+- **bind(IFoo.class).toProvider(FooProvider.class)** Every ```@Inject IFoo``` will be assigned a new instance of ```Foo``` produced by a new instance of ```FooProvider```.
+
+- **bind(IFoo.class).toProviderInstance(new FooProvider())** Every ```@Inject IFoo``` will be assigned a new instance of ```Foo``` produced by the same instance of ```FooProvider```. The instance defined in the module.
+
+- **bind(Foo.class)** Every ```@Inject Foo``` will be assigned a new instance of ```Foo```.
+
 <a name="koin-tag"></a>
 # Koin [![Maven][koin-mavenbadge]][koin-maven] [![Source][koin-sourcebadge]][koin-source]
 
@@ -2560,11 +2591,17 @@ onView(withId(R.id.recycler_view))
 <a name="sources-tag"></a>
 # Sources
 
-### Moshi
+**Moshi**
 
 https://github.com/square/moshi
 
-### Koin
+**Toothpick**
+
+https://github.com/stephanenicolas/toothpick
+<br>
+https://github.com/stephanenicolas/toothpick/wiki
+
+**Koin**
 
 https://github.com/InsertKoinIO/koin
 <br>
@@ -2572,13 +2609,13 @@ https://insert-koin.io/
 <br>
 https://insert-koin.io/docs/2.0/getting-started/introduction/
 
-### ObjectBox
+**ObjectBox**
 
 https://docs.objectbox.io/
 <br>
 https://github.com/objectbox/objectbox-java
 
-### Realm
+**Realm**
 
 https://github.com/realm/realm-java
 <br>
@@ -2586,7 +2623,7 @@ https://realm.io/docs/java/latest/
 <br>
 https://realm.io/blog/realm-for-android/
 
-### DBMS comparisons
+**DBMS comparisons**
 
 https://github.com/Rexee/AndroidDatabaseLibraryComparison
 <br>
