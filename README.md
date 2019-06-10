@@ -800,9 +800,9 @@ public class MainActivity extends AppCompatActivity {
 
 A scope contains bindings & scoped instances:
 
-  - **binding**: is way to express that a class (or interface) ```IFoo``` is associated to an implementation ```Foo```, which we denote ```IFoo --> Foo```. It means that writing ```@Inject IFoo a```; will return a ```Foo```. Bindings are valid for the scope where there are defined, and are inherited by children scopes. Children scopes can also override any binding inherited from of a parent.
+- **binding**: is way to express that a class (or interface) ```IFoo``` is associated to an implementation ```Foo```, which we denote ```IFoo --> Foo```. It means that writing ```@Inject IFoo a```; will return a ```Foo```. Bindings are valid for the scope where there are defined, and are inherited by children scopes. Children scopes can also override any binding inherited from of a parent.
   
-  - **scoped instances**: a scoped instance is an instance that is reused for all injections of a given class. Scoped instances are "singletons" in their scope, and are visible to children scopes.
+- **scoped instances**: a scoped instance is an instance that is reused for all injections of a given class. Scoped instances are "singletons" in their scope, and are visible to children scopes.
   
 Not all bindings create scoped instances. Scopes create a tree. Each scope can have children scopes. Scopes have a name, which can be any object. Opening multiple scopes is possible, the opened scopes will then be the children from each other, in left-to-right order. This method will return the last open scope.
 
@@ -861,11 +861,11 @@ In toothpick there are 2 kinds of bindings: unscoped bindings, scoped bindings. 
 
 A binding is scoped when we call one of its method xxxInScope():
 
-  -**instancesInScope()**: there is an association ```IFoo --> Foo```, in the same way as an unscoped binding does AND the instance of ```Foo``` will be created inside the scope that defines this binding. All the dependencies of ```Foo``` will have to be found at runtime in the scope where the binding is scoped or in its parent scopes.
+- **instancesInScope()**: there is an association ```IFoo --> Foo```, in the same way as an unscoped binding does AND the instance of ```Foo``` will be created inside the scope that defines this binding. All the dependencies of ```Foo``` will have to be found at runtime in the scope where the binding is scoped or in its parent scopes.
   
-  -**singletonInScope()**: same as ```instancesInScope()``` AND the same instance of ```Foo``` is recycled/reused for each injection of ```IFoo```.
+- **singletonInScope()**: same as ```instancesInScope()``` AND the same instance of ```Foo``` is recycled/reused for each injection of ```IFoo```.
   
-  -**providesSingletonInScope()**: same as ```singletonInScope()```, but applied to the object provided by the providers. The provider will provide only one instance of ```IFoo```, and it will be created inside the scope where the binding is defined.
+- **providesSingletonInScope()**: same as ```singletonInScope()```, but applied to the object provided by the providers. The provider will provide only one instance of ```IFoo```, and it will be created inside the scope where the binding is defined.
 
 <a name="koin-tag"></a>
 # Koin [![Maven][koin-mavenbadge]][koin-maven] [![Source][koin-sourcebadge]][koin-source]
