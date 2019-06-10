@@ -6,6 +6,7 @@
   - [Moshi](#moshi-tag)
   - [Glide](#glide-tag)
   - [Butter Knife](#butterknife-tag)
+  - [Exoplayer](#exoplayer-tag)
 - **DI**
   - [DI Concept](#di-concept-tag)
   - [Dagger](#dagger-tag)
@@ -436,6 +437,91 @@ An Android Property can also be used with the apply method.
 
 ```java
 ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
+```
+
+<a name="exoplayer-tag"></a>
+# Exoplayer [![Maven][exoplayer-mavenbadge]][exoplayer-maven] [![Source][exoplayer-sourcebadge]][exoplayer-source]
+
+ExoPlayer is an application level media player for Android. It provides an alternative to Android’s MediaPlayer API for playing audio and video both locally and over the Internet. ExoPlayer supports features not currently supported by Android’s MediaPlayer API, including DASH and SmoothStreaming adaptive playbacks. Unlike the MediaPlayer API, ExoPlayer is easy to customize and extend, and can be updated through Play Store application updates.
+
+```gradle
+dependencies {
+    implementation 'com.google.android.exoplayer:exoplayer:2.10.1'
+    
+    // Modularized alternative.
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.10.1'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.10.1'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.10.1'
+    implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.10.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.10.1'
+}
+
+compileOptions {
+    targetCompatibility JavaVersion.VERSION_1_8
+}
+```
+
+### Exoplayer. Basic usage
+
+```java
+SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(context);
+
+// Bind the player to the view.
+playerView.setPlayer(player);
+
+// Produces DataSource instances through which media data is loaded.
+DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context,
+    Util.getUserAgent(context, "yourApplicationName"));
+
+// This is the MediaSource representing the media to be played.
+MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
+    .createMediaSource(mp4VideoUri);
+    
+// Prepare the player with the source.
+player.prepare(videoSource);
+
+// Add a listener to receive events from the player.
+player.addListener(eventListener);
+
+// Control the player.
+player.setPlayWhenReady(true);
+
+ExoPlayer.release;
+```
+
+### Exoplayer. Media sources
+
+In ExoPlayer every piece of media is represented by MediaSource. The ExoPlayer library provides MediaSource implementations for several stream types:
+
+- **DashMediaSource** for DASH.
+
+- **SsMediaSource** for SmoothStreaming.
+
+- **HlsMediaSource** for HLS.
+
+- **ProgressiveMediaSource** for regular media files.
+
+### Exoplayer. UI components
+
+An app playing media requires user interface components for displaying media and controlling playback. The ExoPlayer library includes a UI module that contains a number of UI components.
+
+```gradle
+implementation 'com.google.android.exoplayer:exoplayer-ui:2.10.1'
+```
+
+The most important components are PlayerControlView and PlayerView.
+
+- **PlayerControlView** is a view for controlling playbacks. It displays standard playback controls including a play/pause button, fast-forward and rewind buttons, and a seek bar.
+
+- **PlayerView** is a high level view for playbacks. It displays video, subtitles and album art during playback, as well as playback controls using a PlayerControlView.
+
+```xml
+<com.google.android.exoplayer2.ui.PlayerView
+    android:id="@+id/player_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:show_buffering="when_playing"
+    app:show_shuffle_button="true"/>
 ```
 
 <a name="di-concept-tag"></a>
@@ -2635,6 +2721,12 @@ onView(withId(R.id.recycler_view))
 
 https://github.com/square/moshi
 
+**Exoplayer**
+
+https://github.com/google/ExoPlayer
+<br>
+https://exoplayer.dev/
+
 **Toothpick**
 
 https://github.com/stephanenicolas/toothpick
@@ -2688,6 +2780,16 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [glide-source]: https://github.com/bumptech/glide
 [glide-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
+[butterknife-maven]: https://search.maven.org/artifact/com.jakewharton/butterknife
+[butterknife-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton/butterknife/badge.svg
+[butterknife-source]: https://github.com/JakeWharton/butterknife
+[butterknife-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[exoplayer-maven]: https://bintray.com/google/exoplayer/exoplayer/_latestVersion
+[exoplayer-mavenbadge]: https://api.bintray.com/packages/google/exoplayer/exoplayer/images/download.svg
+[exoplayer-source]: https://github.com/google/ExoPlayer
+[exoplayer-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
 [dagger-maven]: https://search.maven.org/artifact/com.google.dagger/dagger
 [dagger-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
 [dagger-source]: https://github.com/google/dagger
@@ -2712,11 +2814,6 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [rxandroid-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxandroid/badge.svg
 [rxandroid-source]: https://github.com/ReactiveX/RxAndroid
 [rxandroid-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
-
-[butterknife-maven]: https://search.maven.org/artifact/com.jakewharton/butterknife
-[butterknife-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton/butterknife/badge.svg
-[butterknife-source]: https://github.com/JakeWharton/butterknife
-[butterknife-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
 [ormlite-maven]: https://search.maven.org/artifact/com.j256.ormlite/ormlite-android
 [ormlite-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.j256.ormlite/ormlite-android/badge.svg
