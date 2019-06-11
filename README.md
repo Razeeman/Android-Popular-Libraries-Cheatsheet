@@ -8,6 +8,7 @@
   - [Butter Knife](#butterknife-tag)
   - [Exoplayer](#exoplayer-tag)
   - [Timber](#timber-tag)
+  - [Icepick](#icepick-tag)
 - **DI**
   - [DI Concept](#di-concept-tag)
   - [Dagger](#dagger-tag)
@@ -564,6 +565,63 @@ Timber.tag("LifeCycles");
 Timber.i("A button with ID %s was clicked to say '%s'.", button.getId(), button.getText());
 
 Timber.tag("Some Different tag").e("Another error message");
+```
+
+<a name="icepick-tag"></a>
+# Icepick [![Maven][icepick-mavenbadge]][icepick-maven] [![Source][icepick-sourcebadge]][icepick-source]
+
+Icepick is an Android library that eliminates the boilerplate of saving and restoring instance state. It uses annotation processing to generate code that does bundle manipulation and key generation, so that you don't have to write it yourself.
+
+```gradle
+repositories {
+    maven {url "https://clojars.org/repo/"}
+}
+
+dependencies {
+    implementation 'frankiesardo:icepick:3.2.0'
+    annotationProcessor 'frankiesardo:icepick-processor:3.2.0'
+}
+```
+
+### Icepick. Basic usage
+
+
+It works for Activities, Fragments or any object that needs to serialize its state on a Bundle. Can also generate the instance state code for custom Views. You can put the calls to Icepick into a BaseActivity. All Activities extending BaseActivity automatically have state saved/restored.
+
+```java
+class ExampleActivity extends Activity {
+    // This will be automatically saved and restored.
+    @State String username;
+
+    @Override public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
+    }
+
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
+    }
+}
+```
+
+### Icepick. Kotlin
+
+```kotlin
+class ExampleActivity : Activity() {
+    @State @JvmField
+    var username: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Icepick.restoreInstanceState(this, savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        Icepick.saveInstanceState(this, outState)
+    }
+}
 ```
 
 <a name="di-concept-tag"></a>
@@ -2775,6 +2833,12 @@ https://github.com/JakeWharton/timber
 <br>
 https://medium.com/mindorks/better-logging-in-android-using-timber-72e40cc2293d
 
+**Icepick**
+
+https://github.com/frankiesardo/icepick
+<br>
+https://github.com/frankiesardo/icepick/issues/47
+
 **Toothpick**
 
 https://github.com/stephanenicolas/toothpick
@@ -2842,6 +2906,11 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [timber-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton.timber/timber/badge.svg
 [timber-source]: https://github.com/JakeWharton/timber
 [timber-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[icepick-maven]: https://clojars.org/frankiesardo/icepick
+[icepick-mavenbadge]: https://img.shields.io/clojars/v/frankiesardo/icepick.svg
+[icepick-source]: https://github.com/frankiesardo/icepick
+[icepick-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
 [dagger-maven]: https://search.maven.org/artifact/com.google.dagger/dagger
 [dagger-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
