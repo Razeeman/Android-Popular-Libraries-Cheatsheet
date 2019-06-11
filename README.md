@@ -1,4 +1,4 @@
-# Android Essential Libraries Cheatsheet
+# Android Popular Libraries Cheatsheet
 
 ## Contents
 - **Misc**
