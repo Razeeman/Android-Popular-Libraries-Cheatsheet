@@ -7,6 +7,7 @@
   - [Glide](#glide-tag)
   - [Butter Knife](#butterknife-tag)
   - [Exoplayer](#exoplayer-tag)
+  - [Timber](#timber-tag)
 - **DI**
   - [DI Concept](#di-concept-tag)
   - [Dagger](#dagger-tag)
@@ -522,6 +523,47 @@ The most important components are PlayerControlView and PlayerView.
     android:layout_height="match_parent"
     app:show_buffering="when_playing"
     app:show_shuffle_button="true"/>
+```
+
+<a name="timber-tag"></a>
+# Timber [![Maven][timber-mavenbadge]][timber-maven] [![Source][timber-sourcebadge]][timber-source]
+
+A logger with a small, extensible API which provides utility on top of Android's normal Log class.
+
+```gradle
+dependencies {
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+}
+```
+
+### Timber. Basic usage
+
+Behavior is added through Tree instances. You can install an instance by calling ```Timber.plant```. Installation of Trees should be done as early as possible. The onCreate of your application is the most logical choice. The DebugTree implementation will automatically figure out from which class it's being called and use that class name as its tag.
+
+- Install any Tree instances you want in the onCreate of your application class.
+
+- Call Timber's static methods everywhere throughout your app.
+
+```java
+public class ExampleApp extends Application {
+    @Override public void onCreate() {
+        super.onCreate();
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
+    }
+}
+```
+
+```java
+Timber.e("Error Message");
+Timber.d("Debug Message");
+
+Timber.tag("LifeCycles");
+Timber.i("A button with ID %s was clicked to say '%s'.", button.getId(), button.getText());
+
+Timber.tag("Some Different tag").e("Another error message");
 ```
 
 <a name="di-concept-tag"></a>
@@ -2727,6 +2769,12 @@ https://github.com/google/ExoPlayer
 <br>
 https://exoplayer.dev/
 
+**Timber**
+
+https://github.com/JakeWharton/timber
+<br>
+https://medium.com/mindorks/better-logging-in-android-using-timber-72e40cc2293d
+
 **Toothpick**
 
 https://github.com/stephanenicolas/toothpick
@@ -2789,6 +2837,11 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [exoplayer-mavenbadge]: https://api.bintray.com/packages/google/exoplayer/exoplayer/images/download.svg
 [exoplayer-source]: https://github.com/google/ExoPlayer
 [exoplayer-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[timber-maven]: https://search.maven.org/artifact/com.jakewharton.timber/timber
+[timber-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton.timber/timber/badge.svg
+[timber-source]: https://github.com/JakeWharton/timber
+[timber-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
 [dagger-maven]: https://search.maven.org/artifact/com.google.dagger/dagger
 [dagger-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
