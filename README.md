@@ -9,6 +9,7 @@
   - [Exoplayer](#exoplayer-tag)
   - [Timber](#timber-tag)
   - [Icepick](#icepick-tag)
+  - [LeakCanary](#leakcanary-tag)
 - **DI**
   - [DI Concept](#di-concept-tag)
   - [Dagger](#dagger-tag)
@@ -622,6 +623,66 @@ class ExampleActivity : Activity() {
         Icepick.saveInstanceState(this, outState)
     }
 }
+```
+
+<a name="leakcanary-tag"></a>
+# LeakCanary [![Maven][leakcanary-mavenbadge]][leakcanary-maven] [![Source][leakcanary-sourcebadge]][leakcanary-source]
+
+A memory leak detection library for Android.
+
+```gradle
+dependencies {
+    // debugImplementation because LeakCanary should only run in debug builds.
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
+}
+```
+
+### LeakCanary. Basic usage
+
+No code change needed. LeakCanary will autoinstall iteself as a separate app and automatically show a notification when a memory leak is detected in debug builds.
+
+- The library automatically watches destroyed activities and destroyed fragments using weak references. You can also watch any instance that is no longer needed, e.g. a detached view.
+
+- If the weak references aren't cleared, after waiting 5 seconds and running the GC, the watched instances are considered retained, and potentially leaking.
+
+- When the number of retained instances reaches a threshold, LeakCanary dumps the Java heap into a .hprof file stored on the file system. The default threshold is 5 retained instances when the app is visible, 1 otherwise.
+
+- LeakCanary parses the .hprof file and finds the chain of references that prevents retained instances from being garbage collected (leak trace). A leak trace is technically the shortest strong reference path from GC Roots to retained instances, but that's a mouthful.
+
+- Once the leak trace is determined, LeakCanary uses its built in knowledge of the Android framework to deduct which instances in the leak trace are leaking. You can help LeakCanary by providing Reachability inspectors tailored to your own app.
+
+- Using the reachability information, LeakCanary narrows down the reference chain to a sub chain of possible leak causes, and displays the result. Leaks are grouped by identical sub chain.
+
+### LeakCanary. Memory leak fundamentals
+
+In a Java based runtime, a memory leak is a programming error that causes an application to keep a reference to an object that is no longer needed. As a result, the memory allocated for that object cannot be reclaimed, eventually leading to an OutOfMemoryError crash. For example, an Android activity instance is no longer needed after its onDestroy() method is called, and storing a reference to that activity in a static field would prevent it from being garbage collected.
+
+### LeakCanary. LeakSentry
+
+Can be used to watch instances that should be garbage collected.
+
+```kotlin
+class MyService : Service {
+
+    ...
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LeakSentry.refWatcher.watch(this)
+    }
+}
+```
+
+Suitable for release builds to track and count retained instances.
+
+```gradle
+dependencies {
+    implementation 'com.squareup.leakcanary:leaksentry:2.0-alpha-2'
+}
+```
+
+```kotlin
+val retainedInstanceCount = LeakSentry.refWatcher.retainedKeys.size
 ```
 
 <a name="di-concept-tag"></a>
@@ -2839,6 +2900,10 @@ https://github.com/frankiesardo/icepick
 <br>
 https://github.com/frankiesardo/icepick/issues/47
 
+**LeakCanary**
+
+https://github.com/square/leakcanary
+
 **Toothpick**
 
 https://github.com/stephanenicolas/toothpick
@@ -2911,6 +2976,11 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [icepick-mavenbadge]: https://img.shields.io/clojars/v/frankiesardo/icepick.svg
 [icepick-source]: https://github.com/frankiesardo/icepick
 [icepick-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[leakcanary-maven]: https://search.maven.org/artifact/com.squareup.leakcanary/leakcanary-android
+[leakcanary-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.squareup.leakcanary/leakcanary-android/badge.svg
+[leakcanary-source]: https://github.com/square/leakcanary
+[leakcanary-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
 [dagger-maven]: https://search.maven.org/artifact/com.google.dagger/dagger
 [dagger-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
