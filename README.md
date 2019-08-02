@@ -10,6 +10,7 @@
   - [Timber](#timber-tag)
   - [Icepick](#icepick-tag)
   - [LeakCanary](#leakcanary-tag)
+  - [Cicerone](#cicerone-tag)
 - **DI**
   - [DI Concept](#di-concept-tag)
   - [Dagger](#dagger-tag)
@@ -684,6 +685,134 @@ dependencies {
 ```kotlin
 val retainedInstanceCount = LeakSentry.refWatcher.retainedKeys.size
 ```
+
+<a name="cicerone-tag"></a>
+# Cicerone [![Maven][cicerone-mavenbadge]][cicerone-maven] [![Source][cicerone-sourcebadge]][cicerone-source]
+
+Lightweight library that makes the navigation in an Android app easy. Designed to be used with the MVP, but will work great with any architecture.
+
+```gradle
+dependencies {
+    implementation 'ru.terrakok.cicerone:cicerone:5.0.0'
+}
+```
+
+**Main advantages:**
+
+- is not tied to Fragments
+- not a framework
+- short navigation calls (no builders)
+- lifecycle-safe!
+- functionality is simple to extend
+- suitable for Unit Testing
+
+**Additional features:**
+
+- opening several screens inside single call (for example: deeplink)
+- implementation of parallel navigation (Instagram like)
+- predefined navigator ready for Single-Activity apps
+- predefined navigator ready for setup transition animation
+
+### Cicerone. Initialization
+
+```java
+public class SampleApplication extends Application {
+    public static SampleApplication INSTANCE;
+    private Cicerone<Router> cicerone;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        INSTANCE = this;
+
+        initCicerone();
+    }
+
+    private void initCicerone() {
+        cicerone = Cicerone.create();
+    }
+
+    public NavigatorHolder getNavigatorHolder() {
+        return cicerone.getNavigatorHolder();
+    }
+
+    public Router getRouter() {
+        return cicerone.getRouter();
+    }
+}
+```
+
+### Cicerone. Basic usage
+
+**Presenter** calls router.navigateTo(). **Router** converts high-level navigation calls to set of special commands. **CommandBuffer** stores commands if navigator doesn't ready for navigation (life-cycle). **Navigator** starts execution of simple navigation commands grouped into batches.
+
+**Presenter** calls navigation method of **Router**.
+
+```java
+public class SamplePresenter extends Presenter<SampleView> {
+    private Router router;
+
+    public SamplePresenter() {
+        router = SampleApplication.INSTANCE.getRouter();
+    }
+
+    public void onBackCommandClick() {
+        router.exit();
+    }
+
+    public void onForwardCommandClick() {
+        router.navigateTo(new SomeScreen());
+    }
+}
+```
+
+**Router** converts the navigation call to the set of **Commands** and sends them to **CommandBuffer**. **CommandBuffer** checks whether there are "active" **Navigator**:
+
+- If yes, it passes the commands to the Navigator. Navigator will process them to achive the desired transition.
+- If no, then CommandBuffer saves the commands in a queue, and will apply them as soon as new "active" Navigator will appear.
+
+```java
+void executeCommands(Command[] commands) {
+        if (navigator != null) {
+            navigator.applyCommands(commands);
+        } else {
+            pendingCommands.add(commands);
+        }
+    }
+```
+
+**Navigator** processes the navigation commands. Usually it is an anonymous class inside the Activity. Activity provides **Navigator** to the **CommandBuffer** in onResume and removes it in onPause.
+
+```java
+@Override
+protected void onResume() {
+    super.onResume();
+    SampleApplication.INSTANCE.getNavigatorHolder().setNavigator(navigator);
+}
+
+@Override
+protected void onPause() {
+    super.onPause();
+    SampleApplication.INSTANCE.getNavigatorHolder().removeNavigator();
+}
+
+private Navigator navigator = new Navigator() {
+    @Override
+    public void applyCommands(Command[] commands) {
+        //implement commands logic (apply command batch to navigation container)
+    }
+};
+```
+
+### Cicerone. Navigation commands
+
+- **Forward** - Opens new screen.
+
+- **Back** - Rolls back the last transition.
+
+- **BackTo** - Rolls back to the needed screen in the screens chain.
+
+- **Replace** - Replaces the current screen.
 
 <a name="di-concept-tag"></a>
 # DI Concept
@@ -2981,6 +3110,11 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [leakcanary-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.squareup.leakcanary/leakcanary-android/badge.svg
 [leakcanary-source]: https://github.com/square/leakcanary
 [leakcanary-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+
+[cicerone-maven]: https://bintray.com/terrakok/terramaven/cicerone/_latestVersion
+[cicerone-mavenbadge]: https://api.bintray.com/packages/terrakok/terramaven/cicerone/images/download.svg
+[cicerone-source]: https://github.com/terrakok/Cicerone
+[cicerone-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 
 [dagger-maven]: https://search.maven.org/artifact/com.google.dagger/dagger
 [dagger-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
