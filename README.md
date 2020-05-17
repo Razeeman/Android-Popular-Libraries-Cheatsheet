@@ -269,6 +269,7 @@ data class User(
 )
 ```
 
+[Content](#content-tag)
 <a name="glide-tag"></a>
 # Glide [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source]
 
@@ -370,6 +371,7 @@ GlideApp.with(fragment)
 
 Unlike Glide.with() options like centerCrop() and placeholder() are available directly on the builder and don’t need to be passed in as a separate RequestOptions object.
 
+[Content](#content-tag)
 <a name="butterknife-tag"></a>
 # Butter Knife [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source]
 
@@ -446,6 +448,7 @@ An Android Property can also be used with the apply method.
 ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
 ```
 
+[Content](#content-tag)
 <a name="exoplayer-tag"></a>
 # Exoplayer [![Maven][exoplayer-mavenbadge]][exoplayer-maven] [![Source][exoplayer-sourcebadge]][exoplayer-source]
 
@@ -531,6 +534,7 @@ The most important components are PlayerControlView and PlayerView.
     app:show_shuffle_button="true"/>
 ```
 
+[Content](#content-tag)
 <a name="timber-tag"></a>
 # Timber [![Maven][timber-mavenbadge]][timber-maven] [![Source][timber-sourcebadge]][timber-source]
 
@@ -572,6 +576,7 @@ Timber.i("A button with ID %s was clicked to say '%s'.", button.getId(), button.
 Timber.tag("Some Different tag").e("Another error message");
 ```
 
+[Content](#content-tag)
 <a name="icepick-tag"></a>
 # Icepick [![Maven][icepick-mavenbadge]][icepick-maven] [![Source][icepick-sourcebadge]][icepick-source]
 
@@ -629,6 +634,7 @@ class ExampleActivity : Activity() {
 }
 ```
 
+[Content](#content-tag)
 <a name="leakcanary-tag"></a>
 # LeakCanary [![Maven][leakcanary-mavenbadge]][leakcanary-maven] [![Source][leakcanary-sourcebadge]][leakcanary-source]
 
@@ -689,6 +695,7 @@ dependencies {
 val retainedInstanceCount = LeakSentry.refWatcher.retainedKeys.size
 ```
 
+[Content](#content-tag)
 <a name="cicerone-tag"></a>
 # Cicerone [![Maven][cicerone-mavenbadge]][cicerone-maven] [![Source][cicerone-sourcebadge]][cicerone-source]
 
@@ -817,6 +824,7 @@ private Navigator navigator = new Navigator() {
 
 - **Replace** - Replaces the current screen.
 
+[Content](#content-tag)
 <a name="di-concept-tag"></a>
 # DI Concept
 
@@ -901,6 +909,7 @@ class MyPresenter {
 }
 ```
 
+[Content](#content-tag)
 <a name="dagger-tag"></a>
 # Dagger [![Maven][dagger-mavenbadge]][dagger-maven] [![Source][dagger-sourcebadge]][dagger-source]
 
@@ -1099,6 +1108,7 @@ appComponent = DaggerAppComponent.builder()
 activityComponent = appComponent.plusActivityComponent(new ActivityModule());
 ```
 
+[Content](#content-tag)
 <a name="toothpick-tag"></a>
 # Toothpick [![Maven][toothpick-mavenbadge]][toothpick-maven] [![Source][toothpick-sourcebadge]][toothpick-source]
 
@@ -1246,6 +1256,7 @@ A binding is scoped when we call one of its method xxxInScope():
   
 - **providesSingletonInScope()**: same as ```singletonInScope()```, but applied to the object provided by the providers. The provider will provide only one instance of ```IFoo```, and it will be created inside the scope where the binding is defined.
 
+[Content](#content-tag)
 <a name="koin-tag"></a>
 # Koin [![Maven][koin-mavenbadge]][koin-maven] [![Source][koin-sourcebadge]][koin-source]
 
@@ -1358,6 +1369,7 @@ public class JavaActivity extends AppCompatActivity {
 }
 ```
 
+[Content](#content-tag)
 <a name="ormlite-tag"></a>
 # ORMLite [![Maven][ormlite-mavenbadge]][ormlite-maven] [![Source][ormlite-sourcebadge]][ormlite-source]
 
@@ -1504,6 +1516,7 @@ public class Account {
 }
 ```
 
+[Content](#content-tag)
 <a name="greendao-tag"></a>
 # GreenDAO [![Maven][greendao-mavenbadge]][greendao-maven] [![Source][greendao-sourcebadge]][greendao-source]
 
@@ -1685,6 +1698,7 @@ tasks.whenTaskAdded { task ->
 
 - GreenDAO entities should be written in java.
 
+[Content](#content-tag)
 <a name="objectbox-tag"></a>
 # ObjectBox [![Maven][objectbox-mavenbadge]][objectbox-maven] [![Source][objectbox-sourcebadge]][objectbox-source]
 
@@ -1807,6 +1821,7 @@ The **QueryBuilder** class lets you build custom queries for your entities. Crea
 
 - **find()**, **findFirst()**, **findUnique()** to retrieve objects matching the query.
 
+[Content](#content-tag)
 <a name="realm-tag"></a>
 # Realm [![Maven][realm-mavenbadge]][realm-maven] [![Source][realm-sourcebadge]][realm-source]
 
@@ -2027,6 +2042,7 @@ persons.addChangeListener(new RealmObjectChangeListener<Person>() {
 
 - If Kotlin is used in a project, Realm automatically detects this and adds a number of extension methods that makes working with Kotlin easier.
 
+[Content](#content-tag)
 <a name="room-tag"></a>
 # Room [![Maven][room-mavenbadge]][room-maven] [![Source][room-sourcebadge]][room-source]
 
@@ -2189,6 +2205,7 @@ AppDatabase db = Room.databaseBuilder(getApplicationContext(),
             .build();
 ```
 
+[Content](#content-tag)
 <a name="eventbus-tag"></a>
 # EventBus [![Maven][eventbus-mavenbadge]][eventbus-maven] [![Source][eventbus-sourcebadge]][eventbus-source]
 
@@ -2261,6 +2278,7 @@ EventBus.getDefault().post(new MessageEvent());
 
 - **ThreadMode: ASYNC**. Event handler methods are called in a separate thread. This is always independent from the posting thread and the main thread. Posting events never wait for event handler methods using this mode. Event handler methods should use this mode if their execution might take some time, e.g. for network access. Avoid triggering a large number of long running asynchronous handler methods at the same time to limit the number of concurrent threads. EventBus uses a thread pool to efficiently reuse threads from completed asynchronous event handler notifications.
 
+[Content](#content-tag)
 <a name="rxjava-tag"></a>
 # RxJava [![Maven][rxjava-mavenbadge]][rxjava-maven] [![Source][rxjava-sourcebadge]][rxjava-source] RxAndroid [![Maven][rxandroid-mavenbadge]][rxandroid-maven] [![Source][rxandroid-sourcebadge]][rxandroid-source]
 
@@ -2437,6 +2455,7 @@ And many more: http://reactivex.io/documentation/operators.html
 
 - **AndroidSchedulers.mainThread()**: This Scheduler is provided by rxAndroid library. This is used to bring back the execution to the main thread so that UI modification can be made. This is usually used in observeOn method.
 
+[Content](#content-tag)
 <a name="okhttp-tag"></a>
 # OkHttp [![Maven][okhttp-mavenbadge]][okhttp-maven] [![Source][okhttp-sourcebadge]][okhttp-source]
 
@@ -2570,6 +2589,7 @@ OkHttpClient client = new OkHttpClient.Builder()
     .build();
 ```
 
+[Content](#content-tag)
 <a name="retrofit-tag"></a>
 # Retrofit [![Maven][retrofit-mavenbadge]][retrofit-maven] [![Source][retrofit-sourcebadge]][retrofit-source]
 
@@ -2705,6 +2725,7 @@ call.enqueue(new Callback<User>() {
 });
 ```
 
+[Content](#content-tag)
 <a name="junit-tag"></a>
 # JUnit [![Maven][junit-mavenbadge]][junit-maven] [![Source][junit-sourcebadge]][junit-source]
 
@@ -2770,6 +2791,7 @@ public class CalculatorTest {
 - assertSame([message,] expected, actual)
 - assertNotSame([message,] expected, actual)
 
+[Content](#content-tag)
 <a name="mockito-tag"></a>
 # Mockito [![Maven][mockito-mavenbadge]][mockito-maven] [![Source][mockito-sourcebadge]][mockito-source]
 
@@ -2851,6 +2873,7 @@ public void testVerify()  {
 }
 ```
 
+[Content](#content-tag)
 <a name="powermock-tag"></a>
 # PowerMock [![Maven][powermock-mavenbadge]][powermock-maven] [![Source][powermock-sourcebadge]][powermock-source]
 
@@ -2918,6 +2941,7 @@ public void testAddService() throws Exception {
 - **suppress(field(ClassWithEvilField.class, "fieldName"))** to suppress the field in the class.
 - **@SuppressStaticInitializationFor("org.mycompany.SomeClass")** annotation to remove the static initializer for the class.
 
+[Content](#content-tag)
 <a name="espresso-tag"></a>
 # Espresso [![Maven][espresso-mavenbadge]][espresso-maven] [![Source][espresso-sourcebadge]][espresso-source]
 
@@ -3007,6 +3031,7 @@ onView(withId(R.id.recycler_view))
 
 <br><br>
 
+[Content](#content-tag)
 <a name="sources-tag"></a>
 # Sources
 
