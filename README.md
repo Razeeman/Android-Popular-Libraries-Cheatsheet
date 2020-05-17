@@ -1,6 +1,7 @@
 # Android Popular Libraries Cheatsheet
 
-## Contents
+<a name="content-tag"></a>
+## Content
 - **Misc**
   - [GSON](#gson-tag)
   - [Moshi](#moshi-tag)
@@ -37,6 +38,7 @@
 
 <br><br>
 
+[Content](#content-tag)
 <a name="gson-tag"></a>
 # GSON [![Maven][gson-mavenbadge]][gson-maven] [![Source][gson-sourcebadge]][gson-source]
 
@@ -136,6 +138,7 @@ Gson gson = gsonBuilder.create();
 
 - **@Since(version_num) and @Until(version_num)** with **builder.setVersion(version_num)** to control exposure with versioning.
 
+[Content](#content-tag)
 <a name="moshi-tag"></a>
 # Moshi [![Maven][moshi-mavenbadge]][moshi-maven] [![Source][moshi-sourcebadge]][moshi-source]
 
