@@ -3121,7 +3121,7 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [butterknife-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton/butterknife/badge.svg
 [butterknife-source]: https://github.com/JakeWharton/butterknife
 [butterknife-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
-[butterkbife-starsbadge]: https://img.shields.io/github/stars/JakeWharton/butterknife
+[butterknife-starsbadge]: https://img.shields.io/github/stars/JakeWharton/butterknife
 
 [exoplayer-maven]: https://bintray.com/google/exoplayer/exoplayer/_latestVersion
 [exoplayer-mavenbadge]: https://api.bintray.com/packages/google/exoplayer/exoplayer/images/download.svg
@@ -3163,13 +3163,13 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [toothpick-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.github.stephanenicolas.toothpick/toothpick-runtime/badge.svg
 [toothpick-source]: https://github.com/stephanenicolas/toothpick
 [toothpick-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
-[toothpick-starsbadge]: https://img.shields.io/github/stars/stephanenicolas/gson
+[toothpick-starsbadge]: https://img.shields.io/github/stars/stephanenicolas/toothpick
 
 [koin-maven]: https://bintray.com/ekito/koin/koin-core/_latestVersion
 [koin-mavenbadge]: https://api.bintray.com/packages/ekito/koin/koin-core/images/download.svg
 [koin-source]: https://github.com/InsertKoinIO/koin
 [koin-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
-[koin-starsbadge]: https://img.shields.io/github/stars/InsertKoin/koin
+[koin-starsbadge]: https://img.shields.io/github/stars/InsertKoinIO/koin
 
 [rxjava-maven]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxjava
 [rxjava-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg
