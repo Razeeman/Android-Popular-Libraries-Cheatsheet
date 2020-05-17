@@ -40,7 +40,7 @@
 
 [Content](#content-tag)
 <a name="gson-tag"></a>
-# GSON [![Maven][gson-mavenbadge]][gson-maven] [![Source][gson-sourcebadge]][gson-source]
+# GSON [![Maven][gson-mavenbadge]][gson-maven] [![Source][gson-sourcebadge]][gson-source] ![gson-starsbadge]
 
 A Java serialization/deserialization library to convert Java Objects into JSON and back. Can work with arbitrary Java objects including pre-existing objects that you do not have source-code of. Internally, utilizes a JsonReader class.
 
@@ -140,7 +140,7 @@ Gson gson = gsonBuilder.create();
 
 [Content](#content-tag)
 <a name="moshi-tag"></a>
-# Moshi [![Maven][moshi-mavenbadge]][moshi-maven] [![Source][moshi-sourcebadge]][moshi-source]
+# Moshi [![Maven][moshi-mavenbadge]][moshi-maven] [![Source][moshi-sourcebadge]][moshi-source] ![moshi-starsbadge]
 
 Moshi is a modern JSON library for Android and Java. It makes it easy to parse JSON into Java objects. Uses Okio for I/O. Works with Kotlin. Supposed to be GSON3.0.
 
@@ -271,7 +271,7 @@ data class User(
 
 [Content](#content-tag)
 <a name="glide-tag"></a>
-# Glide [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source]
+# Glide [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source] ![glide-starsbadge]
 
 Glide is a fast and efficient image loading library for Android focused on smooth scrolling. Glide offers an easy to use API, a performant and extensible resource decoding pipeline and automatic resource pooling. Glide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Uses HttpUrlConnection.
 
@@ -373,7 +373,7 @@ Unlike Glide.with() options like centerCrop() and placeholder() are available di
 
 [Content](#content-tag)
 <a name="butterknife-tag"></a>
-# Butter Knife [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source]
+# Butter Knife [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source] ![butterknife-starsbadge]
 
 Field and method binding for Android views which uses annotation processing to generate boilerplate code. Instead of slow reflection, code is generated to perform the view look-ups. Calling bind delegates to this generated code that you can see and debug.
 
@@ -450,7 +450,7 @@ ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
 
 [Content](#content-tag)
 <a name="exoplayer-tag"></a>
-# Exoplayer [![Maven][exoplayer-mavenbadge]][exoplayer-maven] [![Source][exoplayer-sourcebadge]][exoplayer-source]
+# Exoplayer [![Maven][exoplayer-mavenbadge]][exoplayer-maven] [![Source][exoplayer-sourcebadge]][exoplayer-source] ![exoplayer-starsbadge]
 
 ExoPlayer is an application level media player for Android. It provides an alternative to Android’s MediaPlayer API for playing audio and video both locally and over the Internet. ExoPlayer supports features not currently supported by Android’s MediaPlayer API, including DASH and SmoothStreaming adaptive playbacks. Unlike the MediaPlayer API, ExoPlayer is easy to customize and extend, and can be updated through Play Store application updates.
 
@@ -536,7 +536,7 @@ The most important components are PlayerControlView and PlayerView.
 
 [Content](#content-tag)
 <a name="timber-tag"></a>
-# Timber [![Maven][timber-mavenbadge]][timber-maven] [![Source][timber-sourcebadge]][timber-source]
+# Timber [![Maven][timber-mavenbadge]][timber-maven] [![Source][timber-sourcebadge]][timber-source] ![timber-starsbadge]
 
 A logger with a small, extensible API which provides utility on top of Android's normal Log class.
 
@@ -578,7 +578,7 @@ Timber.tag("Some Different tag").e("Another error message");
 
 [Content](#content-tag)
 <a name="icepick-tag"></a>
-# Icepick [![Maven][icepick-mavenbadge]][icepick-maven] [![Source][icepick-sourcebadge]][icepick-source]
+# Icepick [![Maven][icepick-mavenbadge]][icepick-maven] [![Source][icepick-sourcebadge]][icepick-source] ![icepick-starsbadge]
 
 Icepick is an Android library that eliminates the boilerplate of saving and restoring instance state. It uses annotation processing to generate code that does bundle manipulation and key generation, so that you don't have to write it yourself.
 
@@ -636,7 +636,7 @@ class ExampleActivity : Activity() {
 
 [Content](#content-tag)
 <a name="leakcanary-tag"></a>
-# LeakCanary [![Maven][leakcanary-mavenbadge]][leakcanary-maven] [![Source][leakcanary-sourcebadge]][leakcanary-source]
+# LeakCanary [![Maven][leakcanary-mavenbadge]][leakcanary-maven] [![Source][leakcanary-sourcebadge]][leakcanary-source] ![leakcanary-starsbadge]
 
 A memory leak detection library for Android.
 
@@ -697,7 +697,7 @@ val retainedInstanceCount = LeakSentry.refWatcher.retainedKeys.size
 
 [Content](#content-tag)
 <a name="cicerone-tag"></a>
-# Cicerone [![Maven][cicerone-mavenbadge]][cicerone-maven] [![Source][cicerone-sourcebadge]][cicerone-source]
+# Cicerone [![Maven][cicerone-mavenbadge]][cicerone-maven] [![Source][cicerone-sourcebadge]][cicerone-source] ![cicerone-starsbadge]
 
 Lightweight library that makes the navigation in an Android app easy. Designed to be used with the MVP, but will work great with any architecture.
 
@@ -911,7 +911,7 @@ class MyPresenter {
 
 [Content](#content-tag)
 <a name="dagger-tag"></a>
-# Dagger [![Maven][dagger-mavenbadge]][dagger-maven] [![Source][dagger-sourcebadge]][dagger-source]
+# Dagger [![Maven][dagger-mavenbadge]][dagger-maven] [![Source][dagger-sourcebadge]][dagger-source] ![dagger-starsbadge]
 
 A fast dependency injector for Android and Java. Compile-time evaluation. Uses code generation and is based on annotations.
 
@@ -1110,7 +1110,7 @@ activityComponent = appComponent.plusActivityComponent(new ActivityModule());
 
 [Content](#content-tag)
 <a name="toothpick-tag"></a>
-# Toothpick [![Maven][toothpick-mavenbadge]][toothpick-maven] [![Source][toothpick-sourcebadge]][toothpick-source]
+# Toothpick [![Maven][toothpick-mavenbadge]][toothpick-maven] [![Source][toothpick-sourcebadge]][toothpick-source] ![toothpick-starsbadge]
 
 A scope tree based Dependency Injection library for Java. It is a full-featured, runtime based, but reflection free, implementation of JSR 330. Android helper is called Smoothie.
 
@@ -1258,7 +1258,7 @@ A binding is scoped when we call one of its method xxxInScope():
 
 [Content](#content-tag)
 <a name="koin-tag"></a>
-# Koin [![Maven][koin-mavenbadge]][koin-maven] [![Source][koin-sourcebadge]][koin-source]
+# Koin [![Maven][koin-mavenbadge]][koin-maven] [![Source][koin-sourcebadge]][koin-source] ![koin-starsbadge]
 
 A pragmatic lightweight dependency injection framework for Kotlin developers. Written in pure Kotlin, using functional resolution only: no proxy, no code generation, no reflection.
 
@@ -1371,7 +1371,7 @@ public class JavaActivity extends AppCompatActivity {
 
 [Content](#content-tag)
 <a name="ormlite-tag"></a>
-# ORMLite [![Maven][ormlite-mavenbadge]][ormlite-maven] [![Source][ormlite-sourcebadge]][ormlite-source]
+# ORMLite [![Maven][ormlite-mavenbadge]][ormlite-maven] [![Source][ormlite-sourcebadge]][ormlite-source] ![ormlite-starsbadge]
 
 Object Relational Mapping Lite (ORM Lite) provides some simple, lightweight functionality for persisting Java objects to SQL databases while avoiding the complexity and overhead of more standard ORM packages. Old and proven ORM. Somewhat outdated.
 
@@ -1518,7 +1518,7 @@ public class Account {
 
 [Content](#content-tag)
 <a name="greendao-tag"></a>
-# GreenDAO [![Maven][greendao-mavenbadge]][greendao-maven] [![Source][greendao-sourcebadge]][greendao-source]
+# GreenDAO [![Maven][greendao-mavenbadge]][greendao-maven] [![Source][greendao-sourcebadge]][greendao-source] ![greendao-starsbadge]
 
 GreenDAO is a light & fast ORM solution for Android that maps objects to SQLite databases.
 
@@ -1700,7 +1700,7 @@ tasks.whenTaskAdded { task ->
 
 [Content](#content-tag)
 <a name="objectbox-tag"></a>
-# ObjectBox [![Maven][objectbox-mavenbadge]][objectbox-maven] [![Source][objectbox-sourcebadge]][objectbox-source]
+# ObjectBox [![Maven][objectbox-mavenbadge]][objectbox-maven] [![Source][objectbox-sourcebadge]][objectbox-source] ![objectbox-starsbadge]
 
 ObjectBox is a super fast object-oriented NoSQL database, built uniquely for IoT and Mobile devices. From developers of GreenDAO.
 
@@ -1823,7 +1823,7 @@ The **QueryBuilder** class lets you build custom queries for your entities. Crea
 
 [Content](#content-tag)
 <a name="realm-tag"></a>
-# Realm [![Maven][realm-mavenbadge]][realm-maven] [![Source][realm-sourcebadge]][realm-source]
+# Realm [![Maven][realm-mavenbadge]][realm-maven] [![Source][realm-sourcebadge]][realm-source] ![realm-starsbadge]
 
 Realm is a mobile NoSQL database, a replacement for SQLite & ORMs.
 
@@ -2207,7 +2207,7 @@ AppDatabase db = Room.databaseBuilder(getApplicationContext(),
 
 [Content](#content-tag)
 <a name="eventbus-tag"></a>
-# EventBus [![Maven][eventbus-mavenbadge]][eventbus-maven] [![Source][eventbus-sourcebadge]][eventbus-source]
+# EventBus [![Maven][eventbus-mavenbadge]][eventbus-maven] [![Source][eventbus-sourcebadge]][eventbus-source] ![eventbus-starsbadge]
 
 Event bus for Android and Java that simplifies communication between Activities, Fragments, Threads, Services, etc. Less code, better quality.
 
@@ -2280,7 +2280,7 @@ EventBus.getDefault().post(new MessageEvent());
 
 [Content](#content-tag)
 <a name="rxjava-tag"></a>
-# RxJava [![Maven][rxjava-mavenbadge]][rxjava-maven] [![Source][rxjava-sourcebadge]][rxjava-source] RxAndroid [![Maven][rxandroid-mavenbadge]][rxandroid-maven] [![Source][rxandroid-sourcebadge]][rxandroid-source]
+# RxJava [![Maven][rxjava-mavenbadge]][rxjava-maven] [![Source][rxjava-sourcebadge]][rxjava-source] ![rxjava-starsbadge] RxAndroid [![Maven][rxandroid-mavenbadge]][rxandroid-maven] [![Source][rxandroid-sourcebadge]][rxandroid-source] ![rxandroid-starsbadge]
 
 RxJava is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences. It extends the observer pattern to support sequences of data/events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety and concurrent data structures.
 
@@ -2457,7 +2457,7 @@ And many more: http://reactivex.io/documentation/operators.html
 
 [Content](#content-tag)
 <a name="okhttp-tag"></a>
-# OkHttp [![Maven][okhttp-mavenbadge]][okhttp-maven] [![Source][okhttp-sourcebadge]][okhttp-source]
+# OkHttp [![Maven][okhttp-mavenbadge]][okhttp-maven] [![Source][okhttp-sourcebadge]][okhttp-source] ![okhttp-starsbadge]
 
 An HTTP+HTTP/2 client for Android and Java applications.
 
@@ -2591,7 +2591,7 @@ OkHttpClient client = new OkHttpClient.Builder()
 
 [Content](#content-tag)
 <a name="retrofit-tag"></a>
-# Retrofit [![Maven][retrofit-mavenbadge]][retrofit-maven] [![Source][retrofit-sourcebadge]][retrofit-source]
+# Retrofit [![Maven][retrofit-mavenbadge]][retrofit-maven] [![Source][retrofit-sourcebadge]][retrofit-source] ![retrofit-starsbadge]
 
 Type-safe HTTP client. Provides a powerful framework for authenticating and interacting with APIs and sending network requests with OkHttp. Automatically serialises the JSON response using a POJO. For conversion uses GSON or several other converters.
 
@@ -2727,7 +2727,7 @@ call.enqueue(new Callback<User>() {
 
 [Content](#content-tag)
 <a name="junit-tag"></a>
-# JUnit [![Maven][junit-mavenbadge]][junit-maven] [![Source][junit-sourcebadge]][junit-source]
+# JUnit [![Maven][junit-mavenbadge]][junit-maven] [![Source][junit-sourcebadge]][junit-source] ![junit-starsbadge]
 
 Popular unit testing framework.
 
@@ -2793,7 +2793,7 @@ public class CalculatorTest {
 
 [Content](#content-tag)
 <a name="mockito-tag"></a>
-# Mockito [![Maven][mockito-mavenbadge]][mockito-maven] [![Source][mockito-sourcebadge]][mockito-source]
+# Mockito [![Maven][mockito-mavenbadge]][mockito-maven] [![Source][mockito-sourcebadge]][mockito-source] ![mockito-starsbadge]
 
 Most popular Mocking framework for unit tests written in Java. Cannot mock static methods and private methods.
 
@@ -2875,7 +2875,7 @@ public void testVerify()  {
 
 [Content](#content-tag)
 <a name="powermock-tag"></a>
-# PowerMock [![Maven][powermock-mavenbadge]][powermock-maven] [![Source][powermock-sourcebadge]][powermock-source]
+# PowerMock [![Maven][powermock-mavenbadge]][powermock-maven] [![Source][powermock-sourcebadge]][powermock-source] ![powermock-starsbadge]
 
 PowerMock is a framework that extends other mock libraries such as Mockito and EasyMock, but adds more capacity. PowerMock uses custom classloader and bytecode manipulation to allow mocking of static methods, builders, final classes, private methods and more. So we can test our code without modifying it, thanks to the fact that the mock objects are hooked to the code to be tested in execution time. By using reflection this framework allows you to modify even private attributes of the class.
 
@@ -3103,91 +3103,109 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [gson-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.code.gson/gson/badge.svg
 [gson-source]: https://github.com/google/gson
 [gson-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[gson-starsbadge]: https://img.shields.io/github/stars/google/gson
 
 [moshi-maven]: https://search.maven.org/artifact/com.squareup.moshi/moshi
 [moshi-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.squareup.moshi/moshi/badge.svg
 [moshi-source]: https://github.com/square/moshi
 [moshi-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[moshi-starsbadge]: https://img.shields.io/github/stars/square/moshi
 
 [glide-maven]: https://search.maven.org/artifact/com.github.bumptech.glide/glide
 [glide-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide/badge.svg
 [glide-source]: https://github.com/bumptech/glide
 [glide-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[glide-starsbadge]: https://img.shields.io/github/stars/bumptech/glide
 
 [butterknife-maven]: https://search.maven.org/artifact/com.jakewharton/butterknife
 [butterknife-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton/butterknife/badge.svg
 [butterknife-source]: https://github.com/JakeWharton/butterknife
 [butterknife-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[butterkbife-starsbadge]: https://img.shields.io/github/stars/JakeWharton/butterknife
 
 [exoplayer-maven]: https://bintray.com/google/exoplayer/exoplayer/_latestVersion
 [exoplayer-mavenbadge]: https://api.bintray.com/packages/google/exoplayer/exoplayer/images/download.svg
 [exoplayer-source]: https://github.com/google/ExoPlayer
 [exoplayer-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[exoplayer-starsbadge]: https://img.shields.io/github/stars/google/ExoPlayer
 
 [timber-maven]: https://search.maven.org/artifact/com.jakewharton.timber/timber
 [timber-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton.timber/timber/badge.svg
 [timber-source]: https://github.com/JakeWharton/timber
 [timber-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[timber-starsbadge]: https://img.shields.io/github/stars/JakeWharton/timber
 
 [icepick-maven]: https://clojars.org/frankiesardo/icepick
 [icepick-mavenbadge]: https://img.shields.io/clojars/v/frankiesardo/icepick.svg
 [icepick-source]: https://github.com/frankiesardo/icepick
 [icepick-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[icepick-starsbadge]: https://img.shields.io/github/stars/frankiesardo/icepick
 
 [leakcanary-maven]: https://search.maven.org/artifact/com.squareup.leakcanary/leakcanary-android
 [leakcanary-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.squareup.leakcanary/leakcanary-android/badge.svg
 [leakcanary-source]: https://github.com/square/leakcanary
 [leakcanary-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[leakcanary-starsbadge]: https://img.shields.io/github/stars/square/leakcanary
 
 [cicerone-maven]: https://bintray.com/terrakok/terramaven/cicerone/_latestVersion
 [cicerone-mavenbadge]: https://api.bintray.com/packages/terrakok/terramaven/cicerone/images/download.svg
 [cicerone-source]: https://github.com/terrakok/Cicerone
 [cicerone-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[cicerone-starsbadge]: https://img.shields.io/github/stars/terrakok/Cicerone
 
 [dagger-maven]: https://search.maven.org/artifact/com.google.dagger/dagger
 [dagger-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
 [dagger-source]: https://github.com/google/dagger
 [dagger-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[dagger-starsbadge]: https://img.shields.io/github/stars/google/dagger
 
 [toothpick-maven]: https://search.maven.org/artifact/com.github.stephanenicolas.toothpick/toothpick-runtime
 [toothpick-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.github.stephanenicolas.toothpick/toothpick-runtime/badge.svg
 [toothpick-source]: https://github.com/stephanenicolas/toothpick
 [toothpick-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[toothpick-starsbadge]: https://img.shields.io/github/stars/stephanenicolas/gson
 
 [koin-maven]: https://bintray.com/ekito/koin/koin-core/_latestVersion
 [koin-mavenbadge]: https://api.bintray.com/packages/ekito/koin/koin-core/images/download.svg
 [koin-source]: https://github.com/InsertKoinIO/koin
 [koin-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[koin-starsbadge]: https://img.shields.io/github/stars/InsertKoin/koin
 
 [rxjava-maven]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxjava
 [rxjava-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxjava/badge.svg
 [rxjava-source]: https://github.com/ReactiveX/RxJava
 [rxjava-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[rxjava-starsbadge]: https://img.shields.io/github/stars/ReactiveX/RxJava
 
 [rxandroid-maven]: https://search.maven.org/artifact/io.reactivex.rxjava2/rxandroid
 [rxandroid-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/io.reactivex.rxjava2/rxandroid/badge.svg
 [rxandroid-source]: https://github.com/ReactiveX/RxAndroid
 [rxandroid-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[rxandroid-starsbadge]: https://img.shields.io/github/stars/ReactiveX/RxAndroid
 
 [ormlite-maven]: https://search.maven.org/artifact/com.j256.ormlite/ormlite-android
 [ormlite-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.j256.ormlite/ormlite-android/badge.svg
 [ormlite-source]: https://github.com/j256/ormlite-android
 [ormlite-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[ormlite-starsbadge]: https://img.shields.io/github/stars/j256/ormlite-android
 
 [greendao-maven]: https://search.maven.org/artifact/org.greenrobot/greendao
 [greendao-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/org.greenrobot/greendao/badge.svg
 [greendao-source]: https://github.com/greenrobot/greenDAO
 [greendao-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[greendao-starsbadge]: https://img.shields.io/github/stars/greenrobot/greenDAO
 
 [objectbox-maven]: https://bintray.com/objectbox/objectbox/io.objectbox:objectbox-gradle-plugin/_latestVersion
 [objectbox-mavenbadge]: https://api.bintray.com/packages/objectbox/objectbox/io.objectbox:objectbox-gradle-plugin/images/download.svg
 [objectbox-source]: https://github.com/objectbox/objectbox-java
 [objectbox-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[objectbox-starsbadge]: https://img.shields.io/github/stars/objectbox/objectbox-java
 
 [realm-maven]: https://bintray.com/realm/maven/realm-gradle-plugin/_latestVersion
 [realm-mavenbadge]: https://api.bintray.com/packages/realm/maven/realm-gradle-plugin/images/download.svg
 [realm-source]: https://github.com/realm/realm-java
 [realm-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[realm-starsbadge]: https://img.shields.io/github/stars/realm/realm-java
 
 [room-maven]: https://mvnrepository.com/artifact/androidx.room/room-runtime
 [room-mavenbadge]: https://img.shields.io/badge/maven%20google--brightgreen.svg
@@ -3198,31 +3216,37 @@ https://proandroiddev.com/android-databases-performance-crud-a963dd7bb0eb (recen
 [eventbus-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/org.greenrobot/eventbus/badge.svg
 [eventbus-source]: https://github.com/greenrobot/EventBus
 [eventbus-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[eventbus-starsbadge]: https://img.shields.io/github/stars/greenrobot/EventBus
 
 [retrofit-maven]: https://search.maven.org/artifact/com.squareup.retrofit2/retrofit
 [retrofit-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.squareup.retrofit2/retrofit/badge.svg
 [retrofit-source]: https://github.com/square/retrofit
 [retrofit-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[retrofit-starsbadge]: https://img.shields.io/github/stars/square/retrofit
 
 [okhttp-maven]: https://search.maven.org/artifact/com.squareup.okhttp3/okhttp
 [okhttp-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.squareup.okhttp3/okhttp/badge.svg
 [okhttp-source]: https://github.com/square/okhttp
 [okhttp-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[okhttp-starsbadge]: https://img.shields.io/github/stars/square/okhttp
 
 [junit-maven]: https://search.maven.org/artifact/junit/junit
 [junit-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/junit/junit/badge.svg
 [junit-source]: https://github.com/junit-team/junit4
 [junit-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[junit-starsbadge]: https://img.shields.io/github/stars/junit-team/junit4
 
 [mockito-maven]: https://search.maven.org/artifact/org.mockito/mockito-core
 [mockito-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/org.mockito/mockito-core/badge.svg
 [mockito-source]: https://github.com/mockito/mockito
 [mockito-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[mockito-starsbadge]: https://img.shields.io/github/stars/mockito/mockito
 
 [powermock-maven]: https://search.maven.org/artifact/org.powermock/powermock-core
 [powermock-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/org.powermock/powermock-core/badge.svg
 [powermock-source]: https://github.com/powermock/powermock
 [powermock-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[powermock-starsbadge]: https://img.shields.io/github/stars/powermock/powermock
 
 [espresso-maven]: https://mvnrepository.com/artifact/androidx.test.espresso/espresso-core
 [espresso-mavenbadge]: https://img.shields.io/badge/maven%20google--brightgreen.svg
