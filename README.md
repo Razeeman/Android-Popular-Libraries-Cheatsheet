@@ -64,7 +64,7 @@
 
 - [PowerMock](testing.md#powermock---) [![Maven][powermock-mavenbadge]][powermock-maven] [![Source][powermock-sourcebadge]][powermock-source] ![powermock-starsbadge]
 
-- [Espresso](testing.md#espresso---) [![Maven][espresso-mavenbadge]][espresso-maven] [![Source][espresso-sourcebadge]][espresso-source]
+- [Espresso](testing.md#espresso--) [![Maven][espresso-mavenbadge]][espresso-maven] [![Source][espresso-sourcebadge]][espresso-source]
 
 
 
