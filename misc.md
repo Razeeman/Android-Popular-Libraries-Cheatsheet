@@ -1,14 +1,15 @@
 # MISC
 
 - [GSON](#gson---)
-- [Moshi](#moshi-tag)
-- [Glide](#glide-tag)
-- [Butter Knife](#butterknife-tag)
-- [Exoplayer](#exoplayer-tag)
-- [Timber](#timber-tag)
-- [Icepick](#icepick-tag)
-- [LeakCanary](#leakcanary-tag)
-- [Cicerone](#cicerone-tag)
+- [Moshi](#moshi---)
+- [Glide](#glide---)
+- [Butter Knife](#butter-knife---)
+- [Exoplayer](#exoplayer---)
+- [Timber](#timber---)
+- [Icepick](#icepick---)
+- [LeakCanary](#leakcanary---)
+- [Cicerone](#cicerone---)
+- [Sources](#sources)
 
 
 
@@ -110,7 +111,7 @@ Gson gson = gsonBuilder.create();
 
 - **@Since(version_num) and @Until(version_num)** with **builder.setVersion(version_num)** to control exposure with versioning.
 
-[Content](#content)
+[Content](#misc)
 # Moshi [![Maven][moshi-mavenbadge]][moshi-maven] [![Source][moshi-sourcebadge]][moshi-source] ![moshi-starsbadge]
 
 Moshi is a modern JSON library for Android and Java. It makes it easy to parse JSON into Java objects. Uses Okio for I/O. Works with Kotlin. Supposed to be GSON3.0.
@@ -240,7 +241,7 @@ data class User(
 )
 ```
 
-[Content](#content)
+[Content](#misc)
 # Glide [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source] ![glide-starsbadge]
 
 Glide is a fast and efficient image loading library for Android focused on smooth scrolling. Glide offers an easy to use API, a performant and extensible resource decoding pipeline and automatic resource pooling. Glide supports fetching, decoding, and displaying video stills, images, and animated GIFs. Uses HttpUrlConnection.
@@ -341,7 +342,7 @@ GlideApp.with(fragment)
 
 Unlike Glide.with() options like centerCrop() and placeholder() are available directly on the builder and don’t need to be passed in as a separate RequestOptions object.
 
-[Content](#content)
+[Content](#misc)
 # Butter Knife [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source] ![butterknife-starsbadge]
 
 Field and method binding for Android views which uses annotation processing to generate boilerplate code. Instead of slow reflection, code is generated to perform the view look-ups. Calling bind delegates to this generated code that you can see and debug.
@@ -417,7 +418,7 @@ An Android Property can also be used with the apply method.
 ButterKnife.apply(nameViews, View.ALPHA, 0.0f);
 ```
 
-[Content](#content)
+[Content](#misc)
 # Exoplayer [![Maven][exoplayer-mavenbadge]][exoplayer-maven] [![Source][exoplayer-sourcebadge]][exoplayer-source] ![exoplayer-starsbadge]
 
 ExoPlayer is an application level media player for Android. It provides an alternative to Android’s MediaPlayer API for playing audio and video both locally and over the Internet. ExoPlayer supports features not currently supported by Android’s MediaPlayer API, including DASH and SmoothStreaming adaptive playbacks. Unlike the MediaPlayer API, ExoPlayer is easy to customize and extend, and can be updated through Play Store application updates.
@@ -502,7 +503,7 @@ The most important components are PlayerControlView and PlayerView.
     app:show_shuffle_button="true"/>
 ```
 
-[Content](#content)
+[Content](#misc)
 # Timber [![Maven][timber-mavenbadge]][timber-maven] [![Source][timber-sourcebadge]][timber-source] ![timber-starsbadge]
 
 A logger with a small, extensible API which provides utility on top of Android's normal Log class.
@@ -543,7 +544,7 @@ Timber.i("A button with ID %s was clicked to say '%s'.", button.getId(), button.
 Timber.tag("Some Different tag").e("Another error message");
 ```
 
-[Content](#content)
+[Content](#misc)
 # Icepick [![Maven][icepick-mavenbadge]][icepick-maven] [![Source][icepick-sourcebadge]][icepick-source] ![icepick-starsbadge]
 
 Icepick is an Android library that eliminates the boilerplate of saving and restoring instance state. It uses annotation processing to generate code that does bundle manipulation and key generation, so that you don't have to write it yourself.
@@ -600,7 +601,7 @@ class ExampleActivity : Activity() {
 }
 ```
 
-[Content](#content)
+[Content](#misc)
 # LeakCanary [![Maven][leakcanary-mavenbadge]][leakcanary-maven] [![Source][leakcanary-sourcebadge]][leakcanary-source] ![leakcanary-starsbadge]
 
 A memory leak detection library for Android.
@@ -660,7 +661,7 @@ dependencies {
 val retainedInstanceCount = LeakSentry.refWatcher.retainedKeys.size
 ```
 
-[Content](#content)
+[Content](#misc)
 # Cicerone [![Maven][cicerone-mavenbadge]][cicerone-maven] [![Source][cicerone-sourcebadge]][cicerone-source] ![cicerone-starsbadge]
 
 Lightweight library that makes the navigation in an Android app easy. Designed to be used with the MVP, but will work great with any architecture.
@@ -790,7 +791,7 @@ private Navigator navigator = new Navigator() {
 
 
 
-[Content](#content)
+[Content](#misc)
 # Sources
 
 **Moshi**
