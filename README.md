@@ -1,94 +1,61 @@
 # Android Popular Libraries Cheatsheet
 
-<a name="content-tag"></a>
-## Content
-- **Misc**
-  - [GSON](#gson-tag)
-  - [Moshi](#moshi-tag)
-  - [Glide](#glide-tag)
-  - [Butter Knife](#butterknife-tag)
-  - [Exoplayer](#exoplayer-tag)
-  - [Timber](#timber-tag)
-  - [Icepick](#icepick-tag)
-  - [LeakCanary](#leakcanary-tag)
-  - [Cicerone](#cicerone-tag)
-- **DI**
-  - [DI Concept](#di-concept-tag)
-  - [Dagger](#dagger-tag)
-  - [Toothpick](#toothpick-tag)
-  - [Koin](#koin-tag)
-- **Database**
+## Misc
+
+- [GSON](misc.md#gson---) [![Maven][gson-mavenbadge]][gson-maven] [![Source][gson-sourcebadge]][gson-source] ![gson-starsbadge]
+
+- [Moshi](misc.md#moshi---) [![Maven][moshi-mavenbadge]][moshi-maven] [![Source][moshi-sourcebadge]][moshi-source] ![moshi-starsbadge]
+
+- [Glide](misc.md#glide---) [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source] ![glide-starsbadge]
+
+- [Butter Knife](misc.md#butter-knife---) [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source] ![butterknife-starsbadge]
+
+- [Exoplayer](misc.md#exoplayer---) [![Maven][exoplayer-mavenbadge]][exoplayer-maven] [![Source][exoplayer-sourcebadge]][exoplayer-source] ![exoplayer-starsbadge]
+
+- [Timber](misc.md#timber---) [![Maven][timber-mavenbadge]][timber-maven] [![Source][timber-sourcebadge]][timber-source] ![timber-starsbadge]
+
+- [Icepick](misc.md#icepick---) [![Maven][icepick-mavenbadge]][icepick-maven] [![Source][icepick-sourcebadge]][icepick-source] ![icepick-starsbadge]
+
+- [LeakCanary](misc.md#leakcanary---) [![Maven][leakcanary-mavenbadge]][leakcanary-maven] [![Source][leakcanary-sourcebadge]][leakcanary-source] ![leakcanary-starsbadge]
+
+- [Cicerone](misc.md#cicerone---) [![Maven][cicerone-mavenbadge]][cicerone-maven] [![Source][cicerone-sourcebadge]][cicerone-source] ![cicerone-starsbadge]
+
+## DI
+
+- [DI Concept](di.md#di-concept)
+
+- [Dagger](di.md#dagger---) [![Maven][dagger-mavenbadge]][dagger-maven] [![Source][dagger-sourcebadge]][dagger-source] ![dagger-starsbadge]
+
+- [Toothpick](di.md#toothpick---) [![Maven][toothpick-mavenbadge]][toothpick-maven] [![Source][toothpick-sourcebadge]][toothpick-source] ![toothpick-starsbadge]
+
+- [Koin](di.md#koin---) [![Maven][koin-mavenbadge]][koin-maven] [![Source][koin-sourcebadge]][koin-source] ![koin-starsbadge]
+
+## Database
   - [ORMLite](#ormlite-tag)
   - [GreenDAO](#greendao-tag)
   - [ObjectBox](#objectbox-tag)
   - [Realm](#realm-tag)
   - [Room](#room-tag)
-- **Async**
+  
+## Async
   - [EventBus](#eventbus-tag)
   - [RxJava](#rxjava-tag)
-- **Network**
+  
+## Network
   - [OkHttp](#okhttp-tag)
   - [Retrofit](#retrofit-tag)
-- **Testing**
+  
+## Testing
   - [JUnit](#junit-tag)
   - [Mockito](#mockito-tag)
   - [PowerMock](#powermock-tag)
   - [Espresso](#espresso-tag)
-- [Sources](#sources-tag)
 
-<br><br>
 
-[Content](#content-tag)
-<a name="gson-tag"></a>
-# [GSON](misc.md#gson---) [![Maven][gson-mavenbadge]][gson-maven] [![Source][gson-sourcebadge]][gson-source] ![gson-starsbadge]
 
-[Content](#content-tag)
-<a name="moshi-tag"></a>
-# [Moshi](misc.md#moshi---) [![Maven][moshi-mavenbadge]][moshi-maven] [![Source][moshi-sourcebadge]][moshi-source] ![moshi-starsbadge]
 
-[Content](#content-tag)
-<a name="glide-tag"></a>
-# [Glide](misc.md#glide---) [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source] ![glide-starsbadge]
 
-[Content](#content-tag)
-<a name="butterknife-tag"></a>
-# [Butter Knife](misc.md#butter-knife---) [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source] ![butterknife-starsbadge]
 
-[Content](#content-tag)
-<a name="exoplayer-tag"></a>
-# [Exoplayer](misc.md#exoplayer---) [![Maven][exoplayer-mavenbadge]][exoplayer-maven] [![Source][exoplayer-sourcebadge]][exoplayer-source] ![exoplayer-starsbadge]
-
-[Content](#content-tag)
-<a name="timber-tag"></a>
-# [Timber](misc.md#timber---) [![Maven][timber-mavenbadge]][timber-maven] [![Source][timber-sourcebadge]][timber-source] ![timber-starsbadge]
-
-[Content](#content-tag)
-<a name="icepick-tag"></a>
-# [Icepick](misc.md#icepick---) [![Maven][icepick-mavenbadge]][icepick-maven] [![Source][icepick-sourcebadge]][icepick-source] ![icepick-starsbadge]
-
-[Content](#content-tag)
-<a name="leakcanary-tag"></a>
-# [LeakCanary](misc.md#leakcanary---) [![Maven][leakcanary-mavenbadge]][leakcanary-maven] [![Source][leakcanary-sourcebadge]][leakcanary-source] ![leakcanary-starsbadge]
-
-[Content](#content-tag)
-<a name="cicerone-tag"></a>
-# [Cicerone](misc.md#cicerone---) [![Maven][cicerone-mavenbadge]][cicerone-maven] [![Source][cicerone-sourcebadge]][cicerone-source] ![cicerone-starsbadge]
-
-[Content](#content-tag)
-<a name="di-concept-tag"></a>
-# [DI Concept](di.md#di-concept)
-
-[Content](#content-tag)
-<a name="dagger-tag"></a>
-# [Dagger](di.md#dagger---) [![Maven][dagger-mavenbadge]][dagger-maven] [![Source][dagger-sourcebadge]][dagger-source] ![dagger-starsbadge]
-
-[Content](#content-tag)
-<a name="toothpick-tag"></a>
-# [Toothpick](di.md#toothpick---) [![Maven][toothpick-mavenbadge]][toothpick-maven] [![Source][toothpick-sourcebadge]][toothpick-source] ![toothpick-starsbadge]
-
-[Content](#content-tag)
-<a name="koin-tag"></a>
-# [Koin](di.md#koin---) [![Maven][koin-mavenbadge]][koin-maven] [![Source][koin-sourcebadge]][koin-source] ![koin-starsbadge]
 
 [Content](#content-tag)
 <a name="ormlite-tag"></a>
