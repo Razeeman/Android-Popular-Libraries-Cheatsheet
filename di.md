@@ -1,9 +1,10 @@
-# Content
-  - [DI Concept](#di-concept)
-  - [Dagger](#dagger---)
-  - [Toothpick](#toothpick---)
-  - [Koin](#koin---)
-  - [Sources](#sources)
+# DI
+
+- [DI Concept](#di-concept)
+- [Dagger](#dagger---)
+- [Toothpick](#toothpick---)
+- [Koin](#koin---)
+- [Sources](#sources)
 
 
 
