@@ -3,7 +3,7 @@
 - [JUnit](#junit---)
 - [Mockito](#mockito---)
 - [PowerMock](#powermock---)
-- [Espresso](#espresso---)
+- [Espresso](#espresso--)
 - [Sources](#sources)
 
 
