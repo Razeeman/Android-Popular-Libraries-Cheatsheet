@@ -46,7 +46,9 @@
 
 - [EventBus](async.md#eventbus---) [![Maven][eventbus-mavenbadge]][eventbus-maven] [![Source][eventbus-sourcebadge]][eventbus-source] ![eventbus-starsbadge]
 
-- [RxJava](async.md#rxjava----rxandroid---) [![Maven][rxjava-mavenbadge]][rxjava-maven] [![Source][rxjava-sourcebadge]][rxjava-source] ![rxjava-starsbadge] RxAndroid [![Maven][rxandroid-mavenbadge]][rxandroid-maven] [![Source][rxandroid-sourcebadge]][rxandroid-source] ![rxandroid-starsbadge]
+- [RxJava](async.md#rxjava----rxandroid---) [![Maven][rxjava-mavenbadge]][rxjava-maven] [![Source][rxjava-sourcebadge]][rxjava-source] ![rxjava-starsbadge]
+
+- [RxAndroid](async.md#rxjava----rxandroid---) [![Maven][rxandroid-mavenbadge]][rxandroid-maven] [![Source][rxandroid-sourcebadge]][rxandroid-source] ![rxandroid-starsbadge]
   
 ## Network
 
