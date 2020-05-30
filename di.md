@@ -1,15 +1,12 @@
-<a name="content-tag"></a>
 # Content
-  - [DI Concept](#di-concept-tag)
-  - [Dagger](#dagger-tag)
-  - [Toothpick](#toothpick-tag)
-  - [Koin](#koin-tag)
-  - [Sources](#sources-tag)
+  - [DI Concept](#di-concept)
+  - [Dagger](#dagger---)
+  - [Toothpick](#toothpick---)
+  - [Koin](#koin---)
+  - [Sources](#sources)
 
 
 
-[Content](#content-tag)
-<a name="di-concept-tag"></a>
 # DI Concept
 
 **Dependency injection** is a technique whereby one object supplies the dependencies of another object. A dependency is an object that can be used. An injection is the passing of a dependency to a dependent object that would use it. The intent is to decouple objects so that no client has to be changed simply because an object it depends on needs to be changed to a different one. This permits following the Open / Closed principle and Inversion of Control principle. The most important advantage is that it increases the possibility of reusing the class and to be able to test them independent of other classes.
@@ -95,8 +92,7 @@ class MyPresenter {
 
 
 
-[Content](#content-tag)
-<a name="dagger-tag"></a>
+[Content](#content)
 # Dagger [![Maven][dagger-mavenbadge]][dagger-maven] [![Source][dagger-sourcebadge]][dagger-source] ![dagger-starsbadge]
 
 A fast dependency injector for Android and Java. Compile-time evaluation. Uses code generation and is based on annotations.
@@ -296,8 +292,7 @@ activityComponent = appComponent.plusActivityComponent(new ActivityModule());
 
 
 
-[Content](#content-tag)
-<a name="toothpick-tag"></a>
+[Content](#content)
 # Toothpick [![Maven][toothpick-mavenbadge]][toothpick-maven] [![Source][toothpick-sourcebadge]][toothpick-source] ![toothpick-starsbadge]
 
 A scope tree based Dependency Injection library for Java. It is a full-featured, runtime based, but reflection free, implementation of JSR 330. Android helper is called Smoothie.
@@ -446,8 +441,7 @@ A binding is scoped when we call one of its method xxxInScope():
 
 
 
-[Content](#content-tag)
-<a name="koin-tag"></a>
+[Content](#content)
 # Koin [![Maven][koin-mavenbadge]][koin-maven] [![Source][koin-sourcebadge]][koin-source] ![koin-starsbadge]
 
 A pragmatic lightweight dependency injection framework for Kotlin developers. Written in pure Kotlin, using functional resolution only: no proxy, no code generation, no reflection.
@@ -561,8 +555,7 @@ public class JavaActivity extends AppCompatActivity {
 
 
 
-[Content](#content-tag)
-<a name="sources-tag"></a>
+[Content](#content)
 # Sources
 
 **Toothpick**
