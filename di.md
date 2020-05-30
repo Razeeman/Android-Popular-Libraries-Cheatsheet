@@ -93,7 +93,7 @@ class MyPresenter {
 
 
 
-[Content](#content)
+[Content](#di)
 # Dagger [![Maven][dagger-mavenbadge]][dagger-maven] [![Source][dagger-sourcebadge]][dagger-source] ![dagger-starsbadge]
 
 A fast dependency injector for Android and Java. Compile-time evaluation. Uses code generation and is based on annotations.
@@ -293,7 +293,7 @@ activityComponent = appComponent.plusActivityComponent(new ActivityModule());
 
 
 
-[Content](#content)
+[Content](#di)
 # Toothpick [![Maven][toothpick-mavenbadge]][toothpick-maven] [![Source][toothpick-sourcebadge]][toothpick-source] ![toothpick-starsbadge]
 
 A scope tree based Dependency Injection library for Java. It is a full-featured, runtime based, but reflection free, implementation of JSR 330. Android helper is called Smoothie.
@@ -442,7 +442,7 @@ A binding is scoped when we call one of its method xxxInScope():
 
 
 
-[Content](#content)
+[Content](#di)
 # Koin [![Maven][koin-mavenbadge]][koin-maven] [![Source][koin-sourcebadge]][koin-source] ![koin-starsbadge]
 
 A pragmatic lightweight dependency injection framework for Kotlin developers. Written in pure Kotlin, using functional resolution only: no proxy, no code generation, no reflection.
@@ -556,7 +556,7 @@ public class JavaActivity extends AppCompatActivity {
 
 
 
-[Content](#content)
+[Content](#di)
 # Sources
 
 **Toothpick**
