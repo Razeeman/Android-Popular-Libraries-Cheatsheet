@@ -142,7 +142,7 @@ imageView.load("https://www.example.com/image.jpg") {
 }
 ```
 
-imageView.load uses the singleton ImageLoader to execute a LoadRequest.
+imageView.load uses the singleton ImageLoader to execute a LoadRequest. Execution suspends the current coroutine, non-blocking and thread safe.
 
 ### Coil. Requests
 
