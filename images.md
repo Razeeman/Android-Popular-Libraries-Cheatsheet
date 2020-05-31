@@ -175,7 +175,7 @@ Suppose you have an image that is 500x500 on disk, but you only need to load it 
 
 This is exactly what Coil does and Coil handles this process automatically for all BitmapDrawables.
 
-[Content](#network)
+[Content](#images)
 # Sources
 
 **Coil**
@@ -189,7 +189,6 @@ https://coil-kt.github.io/coil/
 [glide-source]: https://github.com/bumptech/glide
 [glide-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [glide-starsbadge]: https://img.shields.io/github/stars/bumptech/glide
-
 
 [coil-maven]: https://search.maven.org/artifact/io.coil-kt/coil
 [coil-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/io.coil-kt/coil/badge.svg
