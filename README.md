@@ -1,12 +1,12 @@
 # Android Popular Libraries Cheatsheet
 
+### Information summary for most used Android libraries
+
 ## Misc
 
 - [GSON](misc.md#gson---) [![Maven][gson-mavenbadge]][gson-maven] [![Source][gson-sourcebadge]][gson-source] ![gson-starsbadge]
 
 - [Moshi](misc.md#moshi---) [![Maven][moshi-mavenbadge]][moshi-maven] [![Source][moshi-sourcebadge]][moshi-source] ![moshi-starsbadge]
-
-- [Glide](misc.md#glide---) [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source] ![glide-starsbadge]
 
 - [Butter Knife](misc.md#butter-knife---) [![Maven][butterknife-mavenbadge]][butterknife-maven] [![Source][butterknife-sourcebadge]][butterknife-source] ![butterknife-starsbadge]
 
@@ -19,6 +19,12 @@
 - [LeakCanary](misc.md#leakcanary---) [![Maven][leakcanary-mavenbadge]][leakcanary-maven] [![Source][leakcanary-sourcebadge]][leakcanary-source] ![leakcanary-starsbadge]
 
 - [Cicerone](misc.md#cicerone---) [![Maven][cicerone-mavenbadge]][cicerone-maven] [![Source][cicerone-sourcebadge]][cicerone-source] ![cicerone-starsbadge]
+
+## Images
+
+- [Glide](images.md#glide---) [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source] ![glide-starsbadge]
+
+- [Coil](images.md#coil---) [![Maven][coil-mavenbadge]][coil-maven] [![Source][coil-sourcebadge]][coil-source] ![coil-starsbadge]
 
 ## DI
 
@@ -80,12 +86,6 @@
 [moshi-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [moshi-starsbadge]: https://img.shields.io/github/stars/square/moshi
 
-[glide-maven]: https://search.maven.org/artifact/com.github.bumptech.glide/glide
-[glide-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide/badge.svg
-[glide-source]: https://github.com/bumptech/glide
-[glide-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
-[glide-starsbadge]: https://img.shields.io/github/stars/bumptech/glide
-
 [butterknife-maven]: https://search.maven.org/artifact/com.jakewharton/butterknife
 [butterknife-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.jakewharton/butterknife/badge.svg
 [butterknife-source]: https://github.com/JakeWharton/butterknife
@@ -121,6 +121,18 @@
 [cicerone-source]: https://github.com/terrakok/Cicerone
 [cicerone-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [cicerone-starsbadge]: https://img.shields.io/github/stars/terrakok/Cicerone
+
+[glide-maven]: https://search.maven.org/artifact/com.github.bumptech.glide/glide
+[glide-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide/badge.svg
+[glide-source]: https://github.com/bumptech/glide
+[glide-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[glide-starsbadge]: https://img.shields.io/github/stars/bumptech/glide
+
+[coil-maven]: https://search.maven.org/artifact/io.coil-kt/coil
+[coil-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/io.coil-kt/coil/badge.svg
+[coil-source]: https://github.com/coil-kt/coil
+[coil-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[coil-starsbadge]: https://img.shields.io/github/stars/coil-kt/coil
 
 [dagger-maven]: https://search.maven.org/artifact/com.google.dagger/dagger
 [dagger-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.google.dagger/dagger/badge.svg
