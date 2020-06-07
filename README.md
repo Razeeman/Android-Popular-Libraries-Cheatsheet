@@ -20,6 +20,8 @@
 
 - [Cicerone](misc.md#cicerone---) [![Maven][cicerone-mavenbadge]][cicerone-maven] [![Source][cicerone-sourcebadge]][cicerone-source] ![cicerone-starsbadge]
 
+- [Epoxy](misc.md#epoxy---) [![Maven][epoxy-mavenbadge]][epoxy-maven] [![Source][epoxy-sourcebadge]][epoxy-source] ![epoxy-starsbadge]
+
 ## Images
 
 - [Glide](images.md#glide---) [![Maven][glide-mavenbadge]][glide-maven] [![Source][glide-sourcebadge]][glide-source] ![glide-starsbadge]
@@ -121,6 +123,12 @@
 [cicerone-source]: https://github.com/terrakok/Cicerone
 [cicerone-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [cicerone-starsbadge]: https://img.shields.io/github/stars/terrakok/Cicerone
+
+[epoxy-maven]: https://search.maven.org/artifact/com.airbnb.android/epoxy
+[epoxy-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.airbnb.android/epoxy/badge.svg
+[epoxy-source]: https://github.com/airbnb/epoxy
+[epoxy-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[epoxy-starsbadge]: https://img.shields.io/github/stars/airbnb/epoxy
 
 [glide-maven]: https://search.maven.org/artifact/com.github.bumptech.glide/glide
 [glide-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.github.bumptech.glide/glide/badge.svg
