@@ -8,6 +8,7 @@
 - [Icepick](#icepick---)
 - [LeakCanary](#leakcanary---)
 - [Cicerone](#cicerone---)
+- [Epoxy](#epoxy---)
 - [Sources](#sources)
 
 
@@ -687,6 +688,150 @@ private Navigator navigator = new Navigator() {
 
 - **Replace** - Replaces the current screen.
 
+[Content](#misc)
+# Epoxy [![Maven][epoxy-mavenbadge]][epoxy-maven] [![Source][epoxy-sourcebadge]][epoxy-source] ![epoxy-starsbadge]
+
+Library for building complex screens in a RecyclerView created by Airbnb.
+
+```gradle
+dependencies {
+    implementation 'com.airbnb.android:epoxy:3.11.0'
+}
+```
+
+Models are automatically generated from custom views or databinding layouts via annotation processing. These models are then used in an EpoxyController to declare what items to show in the RecyclerView.
+
+This abstracts the boilerplate of view holders, diffing items and binding payload changes, item types, item ids, span counts, and more, in order to simplify building screens with multiple view types. Additionally, Epoxy adds support for saving view state and automatic diffing of item changes.
+
+### Epoxy. Basic usage
+
+There are two main components of Epoxy:
+
+- The **EpoxyModels** that describe how your views should be displayed in the RecyclerView.
+- The **EpoxyController** where the models are used to describe what items to show and with what data.
+
+Epoxy generates models for you based on your view or layout. Generated model classes are suffixed with an underscore are used directly in your EpoxyController classes.
+
+**From custom views:**
+
+Add the **@ModelView** annotation on a view class. Then, add a "prop" annotation on each setter method to mark it as a property for the model.
+
+```java
+@ModelView(autoLayout = Size.MATCH_WIDTH_WRAP_HEIGHT)
+public class HeaderView extends LinearLayout {
+
+  @TextProp
+  public void setTitle(CharSequence text) {
+    titleView.setText(text);
+  }
+}
+```
+
+A **HeaderViewModel_** is then generated in the same package.
+
+**From databinding:**
+
+Set up your xml layouts like normal:
+
+```xml
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="title" type="String" />
+    </data>
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:text="@{title}" />
+</layout>
+```
+
+Then, create a **package-info.java** file in any package and add an EpoxyDataBindingLayouts annotation to declare your databinding layouts.
+
+```java
+@EpoxyDataBindingLayouts({R.layout.header_view, ... // other layouts })
+package com.airbnb.epoxy.sample;
+
+import com.airbnb.epoxy.EpoxyDataBindingLayouts;
+import com.airbnb.epoxy.R;
+```
+
+From this layout name Epoxy generates a **HeaderViewBindingModel_**.
+
+**From ViewHolders:**
+
+If you use xml layouts without databinding you can create a model class to do the binding.
+
+```java
+@EpoxyModelClass(layout = R.layout.header_view)
+public abstract class HeaderModel extends EpoxyModelWithHolder<Holder> {
+  @EpoxyAttribute String title;
+
+  @Override
+  public void bind(Holder holder) {
+    holder.header.setText(title);
+  }
+
+  static class Holder extends BaseEpoxyHolder {
+    @BindView(R.id.text) TextView header;
+  }
+}
+```
+
+A **HeaderModel_** class is generated that subclasses HeaderModel and implements the model details.
+
+A controller defines what items should be shown in the RecyclerView, by adding the corresponding models in the desired order.
+
+The controller's **buildModels** method declares which items to show. You are responsible for calling requestModelBuild whenever your data changes, which triggers buildModels to run again. Epoxy tracks changes in the models and automatically binds and updates views.
+
+As an example, our PhotoController shows a header, a list of photos, and a loader (if more photos are being loaded). The controller's setData(photos, loadingMore) method is called whenever photos are loaded, which triggers a call to buildModels so models representing the state of the new data can be built.
+
+```java
+public class PhotoController extends Typed2EpoxyController<List<Photo>, Boolean> {
+    @AutoModel HeaderModel_ headerModel;
+    @AutoModel LoaderModel_ loaderModel;
+
+    @Override
+    protected void buildModels(List<Photo> photos, Boolean loadingMore) {
+      headerModel
+          .title("My Photos")
+          .description("My album description!")
+          .addTo(this);
+
+      for (Photo photo : photos) {
+        new PhotoModel()
+           .id(photo.id())
+           .url(photo.url())
+           .addTo(this);
+      }
+
+      loaderModel
+          .addIf(loadingMore, this);
+    }
+  }
+```
+
+Get the backing adapter off the EpoxyController to set up your RecyclerView:
+
+```java
+MyController controller = new MyController();
+recyclerView.setAdapter(controller.getAdapter());
+
+// Request a model build whenever your data changes
+controller.requestModelBuild();
+
+// Or if you are using a TypedEpoxyController
+controller.setData(myData);
+```
+
+If you are using the EpoxyRecyclerView integration is easier.
+
+```java
+epoxyRecyclerView.setControllerAndBuildModels(new MyController());
+
+// Request a model build on the recyclerview when data changes
+epoxyRecyclerView.requestModelBuild();
+```
 
 
 [Content](#misc)
@@ -717,6 +862,11 @@ https://github.com/frankiesardo/icepick/issues/47
 **LeakCanary**
 
 https://github.com/square/leakcanary
+
+**Epoxy**
+
+https://github.com/airbnb/epoxy
+
 
 
 
@@ -767,3 +917,9 @@ https://github.com/square/leakcanary
 [cicerone-source]: https://github.com/terrakok/Cicerone
 [cicerone-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [cicerone-starsbadge]: https://img.shields.io/github/stars/terrakok/Cicerone
+
+[epoxy-maven]: https://search.maven.org/artifact/com.airbnb.android/epoxy
+[epoxy-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.airbnb.android/epoxy/badge.svg
+[epoxy-source]: https://github.com/airbnb/epoxy
+[epoxy-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[epoxy-starsbadge]: https://img.shields.io/github/stars/airbnb/epoxy
