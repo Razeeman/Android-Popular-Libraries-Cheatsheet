@@ -1,9 +1,182 @@
 # RECYCLER
 
+- [AdapterDelegates](#adapterdelegates---)
 - [Epoxy](#epoxy---)
 - [Sources](#sources)
 
 
+
+# AdapterDelegates [![Maven][adapterdelegates-mavenbadge]][adapterdelegates-maven] [![Source][adapterdelegates-sourcebadge]][adapterdelegates-source] ![adapterdelegates-starsbadge]
+
+"Favor composition over inheritance" for RecyclerView Adapters. The idea is that you define an AdapterDelegate for each view type. This delegate is responsible for creating ViewHolder and binding ViewHolder for a certain viewtype. Then you can compose your RecyclerView Adapter by registering the AdapterDelegates that you really need.
+
+```gradle
+dependencies {
+    implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.0'
+    implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl-layoutcontainer:4.3.0' // if you use synthetics
+    implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0' // if you use ViewBinding
+    
+    implementation 'com.hannesdorfmann:adapterdelegates4:4.3.0' // if you don't use kotlin dsl
+    implementation 'com.hannesdorfmann:adapterdelegates4-pagination:4.3.0' // for pagination
+}
+```
+
+### AdapterDelegates. Basic Usage
+
+adapterDelegate - used with findViewById().
+adapterDelegateLayoutContainer - used with kotlin synthetics.
+adapterDelegateViewBinding - used with data binding.
+
+```kotlin
+fun catAdapterDelegate(
+    itemClickedListener : (Cat) -> Unit
+) = adapterDelegateLayoutContainer<Cat, Animal>(R.layout.item_cat) {
+
+    name.setClickListener { itemClickedListener(item) }
+    bind { diffPayloads ->
+        name.text = item.name
+    }
+}
+```
+
+You have to specify if a specific AdapterDelegate is responsible for a specific item. Per default this is done with an instanceof check like Cat instanceof Animal. You can override this if you want to handle it in a custom way by setting the on lambda and return true or false:
+
+```kotlin
+adapterDelegate<Cat, Animal> (
+    layout = R.layout.item_cat,
+    on = { item: Animal, items: List, position: Int ->
+        if (item is Cat && position == 0)
+            true // return true: this adapterDelegate handles it
+        else
+            false // return false
+    }
+){
+    ...
+    bind { ... }
+}
+```
+
+Compose your Adapter
+
+```kotlin
+val adapter = ListDelegationAdapter<List<Animal>>(
+    catAdapterDelegate(...),
+    dogAdapterDelegate(),
+    snakeAdapterDelegate()
+)
+```
+
+### AdapterDelegates. Java Usage
+
+Define an AdapterDelegate for each view type. An AdapterDelegate get added to an AdapterDelegatesManager. This manager is the man in the middle between RecyclerView.Adapter and each AdapterDelegate.
+
+```java
+public class CatAdapterDelegate extends AdapterDelegate<List<Animal>> {
+
+  private LayoutInflater inflater;
+
+  public CatAdapterDelegate(Activity activity) {
+    inflater = activity.getLayoutInflater();
+  }
+
+  @Override public boolean isForViewType(@NonNull List<Animal> items, int position) {
+    return items.get(position) instanceof Cat;
+  }
+
+  @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
+    return new CatViewHolder(inflater.inflate(R.layout.item_cat, parent, false));
+  }
+
+  @Override public void onBindViewHolder(@NonNull List<Animal> items, int position,
+      @NonNull RecyclerView.ViewHolder holder, @Nullable List<Object> payloads) {
+
+    CatViewHolder vh = (CatViewHolder) holder;
+    Cat cat = (Cat) items.get(position);
+
+    vh.name.setText(cat.getName());
+  }
+
+  static class CatViewHolder extends RecyclerView.ViewHolder {
+
+    public TextView name;
+
+    public CatViewHolder(View itemView) {
+      super(itemView);
+      name = (TextView) itemView.findViewById(R.id.name);
+    }
+  }
+}
+```
+
+```java
+public class AnimalAdapter extends RecyclerView.Adapter {
+
+  private AdapterDelegatesManager<List<Animal>> delegatesManager;
+  private List<Animal> items;
+
+  public AnimalAdapter(Activity activity, List<Animal> items) {
+    this.items = items;
+
+    delegatesManager = new AdapterDelegatesManager<>();
+
+    // AdapterDelegatesManager internally assigns view types integers
+    delegatesManager.addDelegate(new CatAdapterDelegate(activity))
+                    .addDelegate(new DogAdapterDelegate(activity))
+                    .addDelegate(new GeckoAdapterDelegate(activity));
+
+    // You can explicitly assign integer view type if you want to
+    delegatesManager.addDelegate(23, new SnakeAdapterDelegate(activity));
+  }
+
+  @Override public int getItemViewType(int position) {
+    return delegatesManager.getItemViewType(items, position);
+  }
+
+  @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    return delegatesManager.onCreateViewHolder(parent, viewType);
+  }
+
+  @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    delegatesManager.onBindViewHolder(items, position, holder);
+  }
+
+  @Override public int getItemCount() {
+    return items.size();
+  }
+}
+```
+
+To reduce boilerplate extend either from **ListDelegationAdapter** if the data source the adapter displays is java.util.List<?> or **AbsDelegationAdapter** which is a more general one (not limited to java.util.List).
+
+```java
+public class AnimalAdapter extends ListDelegationAdapter<List<Animal>> {
+
+  public AnimalAdapter(Activity activity, List<Animal> items) {
+
+    delegatesManager.addDelegate(new CatAdapterDelegate(activity))
+                    .addDelegate(new DogAdapterDelegate(activity))
+                    .addDelegate(new GeckoAdapterDelegate(activity))
+                    .addDelegate(23, new SnakeAdapterDelegate(activity));
+
+    setItems(items);
+  }
+}
+```
+
+### AdapterDelegates. Async Diff
+
+AsyncListDifferDelegationAdapter is the equivalent to ListAdapter that uses AsyncListDiffer internally. It does calculating diff in the background thread by default and does all particular animations.
+
+```java
+public class DiffAdapter extends AsyncListDifferDelegationAdapter<Animal> {
+    public DiffAdapter() {
+        super(DIFF_CALLBACK) // Your diff callback for diff utils
+        delegatesManager
+            .addDelegate(new DogAdapterDelegate());
+            .addDelegate(new CatAdapterDelegate());
+    }
+}
+```
 
 [Content](#recycler)
 # Epoxy [![Maven][epoxy-mavenbadge]][epoxy-maven] [![Source][epoxy-sourcebadge]][epoxy-source] ![epoxy-starsbadge]
@@ -168,6 +341,10 @@ https://github.com/airbnb/epoxy
 <br>
 https://github.com/airbnb/epoxy/wiki/Configuration
 
+**AdapterDelegates**
+
+https://github.com/sockeqwe/AdapterDelegates
+
 
 
 [epoxy-maven]: https://search.maven.org/artifact/com.airbnb.android/epoxy
@@ -175,3 +352,9 @@ https://github.com/airbnb/epoxy/wiki/Configuration
 [epoxy-source]: https://github.com/airbnb/epoxy
 [epoxy-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [epoxy-starsbadge]: https://img.shields.io/github/stars/airbnb/epoxy
+
+[adapterdelegates-maven]: https://search.maven.org/artifact/com.hannesdorfmann/adapterdelegates4
+[adapterdelegates-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.hannesdorfmann/adapterdelegates4/badge.svg
+[adapterdelegates-source]: https://github.com/sockeqwe/AdapterDelegates
+[adapterdelegates-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[adapterdelegates-starsbadge]: https://img.shields.io/github/stars/sockeqwe/AdapterDelegates
