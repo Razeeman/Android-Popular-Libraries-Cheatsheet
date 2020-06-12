@@ -22,6 +22,8 @@
 
 ## Recycler View
 
+- [AdapterDelegates](recycler.md#adapterdelegates---) [![Maven][adapterdelegates-mavenbadge]][adapterdelegates-maven] [![Source][adapterdelegates-sourcebadge]][adapterdelegates-source] ![adapterdelegates-starsbadge]
+
 - [Epoxy](recycler.md#epoxy---) [![Maven][epoxy-mavenbadge]][epoxy-maven] [![Source][epoxy-sourcebadge]][epoxy-source] ![epoxy-starsbadge]
 
 ## Images
@@ -125,6 +127,12 @@
 [cicerone-source]: https://github.com/terrakok/Cicerone
 [cicerone-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [cicerone-starsbadge]: https://img.shields.io/github/stars/terrakok/Cicerone
+
+[adapterdelegates-maven]: https://search.maven.org/artifact/com.hannesdorfmann/adapterdelegates4
+[adapterdelegates-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.hannesdorfmann/adapterdelegates4/badge.svg
+[adapterdelegates-source]: https://github.com/sockeqwe/AdapterDelegates
+[adapterdelegates-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[adapterdelegates-starsbadge]: https://img.shields.io/github/stars/sockeqwe/AdapterDelegates
 
 [epoxy-maven]: https://search.maven.org/artifact/com.airbnb.android/epoxy
 [epoxy-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.airbnb.android/epoxy/badge.svg
