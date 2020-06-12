@@ -20,7 +20,9 @@
 
 - [Cicerone](misc.md#cicerone---) [![Maven][cicerone-mavenbadge]][cicerone-maven] [![Source][cicerone-sourcebadge]][cicerone-source] ![cicerone-starsbadge]
 
-- [Epoxy](misc.md#epoxy---) [![Maven][epoxy-mavenbadge]][epoxy-maven] [![Source][epoxy-sourcebadge]][epoxy-source] ![epoxy-starsbadge]
+## Recycler View
+
+- [Epoxy](recycler.md#epoxy---) [![Maven][epoxy-mavenbadge]][epoxy-maven] [![Source][epoxy-sourcebadge]][epoxy-source] ![epoxy-starsbadge]
 
 ## Images
 
