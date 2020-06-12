@@ -874,6 +874,7 @@ https://github.com/square/leakcanary
 **Epoxy**
 
 https://github.com/airbnb/epoxy
+<br>
 https://github.com/airbnb/epoxy/wiki/Configuration
 
 
