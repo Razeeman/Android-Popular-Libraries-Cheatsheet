@@ -24,6 +24,8 @@
 
 - [AdapterDelegates](recycler.md#adapterdelegates---) [![Maven][adapterdelegates-mavenbadge]][adapterdelegates-maven] [![Source][adapterdelegates-sourcebadge]][adapterdelegates-source] ![adapterdelegates-starsbadge]
 
+- [FastAdapter](recycler.md#fastadapter---) [![Maven][fastadapter-mavenbadge]][fastadapter-maven] [![Source][fastadapter-sourcebadge]][fastadapter-source] ![fastadapter-starsbadge]
+
 - [Epoxy](recycler.md#epoxy---) [![Maven][epoxy-mavenbadge]][epoxy-maven] [![Source][epoxy-sourcebadge]][epoxy-source] ![epoxy-starsbadge]
 
 ## Images
@@ -133,6 +135,12 @@
 [adapterdelegates-source]: https://github.com/sockeqwe/AdapterDelegates
 [adapterdelegates-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [adapterdelegates-starsbadge]: https://img.shields.io/github/stars/sockeqwe/AdapterDelegates
+
+[fastadapter-maven]: https://search.maven.org/artifact/com.mikepenz/fastadapter
+[fastadapter-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.mikepenz/fastadapter/badge.svg
+[fastadapter-source]: https://github.com/mikepenz/FastAdapter
+[fastadapter-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[fastadapter-starsbadge]: https://img.shields.io/github/stars/mikepenz/FastAdapter
 
 [epoxy-maven]: https://search.maven.org/artifact/com.airbnb.android/epoxy
 [epoxy-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.airbnb.android/epoxy/badge.svg
