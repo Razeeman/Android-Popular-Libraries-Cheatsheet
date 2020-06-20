@@ -1,6 +1,6 @@
 # Android Popular Libraries Cheatsheet
 
-### Information summary for most used Android libraries
+### Information summary for popular Android libraries
 
 ## Misc
 
