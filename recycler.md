@@ -1,6 +1,7 @@
 # RECYCLER
 
 - [AdapterDelegates](#adapterdelegates---)
+- [FastAdapter](#fastadapter---)
 - [Epoxy](#epoxy---)
 - [Sources](#sources)
 
@@ -179,6 +180,169 @@ public class DiffAdapter extends AsyncListDifferDelegationAdapter<Animal> {
 ```
 
 [Content](#recycler)
+# FastAdapter [![Maven][fastadapter-mavenbadge]][fastadapter-maven] [![Source][fastadapter-sourcebadge]][fastadapter-source] ![fastadapter-starsbadge]
+
+The bullet proof, fast and easy to use adapter library, which minimizes developing time to a fraction.
+
+```gradle
+dependencies {
+    implementation "com.mikepenz:fastadapter:5.1.0"
+    
+    // Many helper classes available
+    implementation "com.mikepenz:fastadapter-extensions-expandable:5.1.0"
+    implementation "com.mikepenz:fastadapter-extensions-binding:5.1.0"
+    implementation "com.mikepenz:fastadapter-extensions-diff:5.1.0"
+    implementation "com.mikepenz:fastadapter-extensions-drag:5.1.0"
+    implementation "com.mikepenz:fastadapter-extensions-paged:5.1.0"
+    implementation "com.mikepenz:fastadapter-extensions-scroll:5.1.0"
+    implementation "com.mikepenz:fastadapter-extensions-swipe:5.1.0"
+    implementation "com.mikepenz:fastadapter-extensions-ui:5.1.0"
+    implementation "com.mikepenz:fastadapter-extensions-utils:5.1.0"
+}
+```
+
+* Core module 100% in Kotlin
+* Write less code, get better results
+* Highly optimized code
+* Easily extensible
+* Split item view and model
+* Chain other Adapters
+* Click / Long-Click listeners, Selection / Multi-Selection, Expandable items, Simple Drag & Drop, Headers, Footers, Filter, Endless Scroll, "Leave-Behind"-Pattern, ActionModeHelper, UndoHelper, FastScroller, Paging (via Jetpack paging lib)
+
+### FastAdapter. Basic Usage
+
+**Implement your item**
+
+Create a class which extends the AbstractItem.
+
+```kotlin
+open class SimpleItem : AbstractItem<SimpleItem.ViewHolder>() {
+    var name: String? = null
+    var description: String? = null
+
+    /** defines the type defining this item. must be unique. preferably an id */
+    override val type: Int get() = R.id.fastadapter_sample_item_id
+
+    /** defines the layout which will be used for this item in the list */
+    override val layoutRes: Int get() = R.layout.sample_item
+
+    override fun getViewHolder(v: View): ViewHolder = ViewHolder(v)
+
+    class ViewHolder(view: View) : FastAdapter.ViewHolder<SimpleItem>(view) {
+        var name: TextView = view.findViewById(R.id.material_drawer_name)
+        var description: TextView = view.findViewById(R.id.material_drawer_description)
+
+        override fun bindView(item: SimpleItem, payloads: List<Any>) {
+            name.text = item.name
+            description.text = item.name
+        }
+
+        override fun unbindView(item: SimpleItem) {
+            name.text = null
+            description.text = null
+        }
+    }
+}
+```
+
+Or implement item with ViewBinding.
+
+```kotlin
+class BindingIconItem : AbstractBindingItem<IconItemBinding>() {
+    var name: String? = null
+
+    override val type: Int get() = R.id.fastadapter_icon_item_id
+
+    override fun bindView(binding: IconItemBinding, payloads: List<Any>) {
+        binding.name.text = name
+    }
+
+    override fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): IconItemBinding {
+        return IconItemBinding.inflate(inflater, parent, false)
+    }
+}
+```
+
+**Set the Adapter to the RecyclerView**
+
+```kotlin
+//create the ItemAdapter holding your Items
+val itemAdapter = ItemAdapter<SimpleItem>()
+
+//create the managing FastAdapter, by passing in the itemAdapter
+val fastAdapter = FastAdapter.with(itemAdapter)
+
+//set our adapters to the RecyclerView
+recyclerView.setAdapter(fastAdapter)
+
+//set the items to your ItemAdapter
+itemAdapter.add(ITEMS)
+```
+
+### FastAdapter. Helpers
+
+By default the FastAdapter only provides basic functionality, which comes with the abstraction of items as Item and Model. And the general functionality of adding/removing/modifying elements. To enable selections, or expandables the provided extensions need to be activated.
+
+**SelectExtension**
+
+```kotlin
+// Gets (or creates and attaches if not yet existing) the extension from the given `FastAdapter`
+val selectExtension = fastAdapter.getSelectExtension()
+
+// configure as needed
+selectExtension.isSelectable = true
+selectExtension.multiSelect = true
+selectExtension.selectOnLongClick = false
+```
+
+**ExpandableExtension**
+
+```kotlin
+// Gets (or creates and attaches if not yet existing) the extension.
+val expandableExtension = fastAdapter.getExpandableExtension()
+
+// configure as needed
+expandableExtension.isOnlyOneExpandedItem = true
+```
+
+**Filter**
+
+```kotlin
+// Call this in onQueryTextSubmit() & onQueryTextChange() when using SearchView
+itemAdapter.filter("yourSearchTerm")
+
+itemAdapter.itemFilter.filterPredicate = { item: SimpleItem, constraint: CharSequence? ->
+    item.name?.text.toString().contains(constraint.toString(), ignoreCase = true)
+}
+```
+
+**Drag and drop**
+
+```kotlin
+// First, attach ItemTouchHelper to RecyclerView.
+val dragCallback = SimpleDragCallback()
+val touchHelper = ItemTouchHelper(dragCallback)
+touchHelper.attachToRecyclerView(recyclerView)
+
+// Implement ItemTouchCallback interface in your Activity, and override the itemTouchOnMove() method.
+override fun itemTouchOnMove(oldPosition: Int, newPosition: Int): Boolean {
+    DragDropUtil.onMove(fastItemAdapter.itemAdapter, oldPosition, newPosition) // change position
+    return true
+}
+```
+
+### FastAdapter. Different ViewHolders
+
+```kotlin
+val headerAdapter = ItemAdapter<Header>()
+val itemAdapter = GenericItemAdapter()
+
+// Order defines in which order the items will show up
+val fastAdapter: GenericFastAdapter = FastAdapter.with(headerAdapter, itemAdapter) 
+recyclerView.setAdapter(fastAdapter)
+```
+
+[Content](#recycler)
 # Epoxy [![Maven][epoxy-mavenbadge]][epoxy-maven] [![Source][epoxy-sourcebadge]][epoxy-source] ![epoxy-starsbadge]
 
 Library for building complex screens in a RecyclerView created by Airbnb.
@@ -345,6 +509,10 @@ https://github.com/airbnb/epoxy/wiki/Configuration
 
 https://github.com/sockeqwe/AdapterDelegates
 
+**FastAdapter**
+
+https://github.com/mikepenz/FastAdapter
+
 
 
 [epoxy-maven]: https://search.maven.org/artifact/com.airbnb.android/epoxy
@@ -358,3 +526,9 @@ https://github.com/sockeqwe/AdapterDelegates
 [adapterdelegates-source]: https://github.com/sockeqwe/AdapterDelegates
 [adapterdelegates-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [adapterdelegates-starsbadge]: https://img.shields.io/github/stars/sockeqwe/AdapterDelegates
+
+[fastadapter-maven]: https://search.maven.org/artifact/com.mikepenz/fastadapter
+[fastadapter-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.mikepenz/fastadapter/badge.svg
+[fastadapter-source]: https://github.com/mikepenz/FastAdapter
+[fastadapter-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[fastadapter-starsbadge]: https://img.shields.io/github/stars/mikepenz/FastAdapter
