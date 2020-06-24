@@ -26,6 +26,8 @@
 
 - [FastAdapter](recycler.md#fastadapter---) [![Maven][fastadapter-mavenbadge]][fastadapter-maven] [![Source][fastadapter-sourcebadge]][fastadapter-source] ![fastadapter-starsbadge]
 
+- [Groupie](recycler.md#groupie---) [![Maven][groupie-mavenbadge]][groupie-maven] [![Source][groupie-sourcebadge]][groupie-source] ![groupie-starsbadge]
+
 - [Epoxy](recycler.md#epoxy---) [![Maven][epoxy-mavenbadge]][epoxy-maven] [![Source][epoxy-sourcebadge]][epoxy-source] ![epoxy-starsbadge]
 
 ## Images
@@ -141,6 +143,12 @@
 [fastadapter-source]: https://github.com/mikepenz/FastAdapter
 [fastadapter-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [fastadapter-starsbadge]: https://img.shields.io/github/stars/mikepenz/FastAdapter
+
+[groupie-maven]: https://bintray.com/lisawray/maven/groupie/_latestVersion
+[groupie-mavenbadge]: https://api.bintray.com/packages/lisawray/maven/groupie/images/download.svg
+[groupie-source]: https://github.com/lisawray/groupie
+[groupie-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[groupie-starsbadge]: https://img.shields.io/github/stars/lisawray/groupie
 
 [epoxy-maven]: https://search.maven.org/artifact/com.airbnb.android/epoxy
 [epoxy-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.airbnb.android/epoxy/badge.svg
