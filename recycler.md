@@ -2,6 +2,7 @@
 
 - [AdapterDelegates](#adapterdelegates---)
 - [FastAdapter](#fastadapter---)
+- [Groupie](#groupie---)
 - [Epoxy](#epoxy---)
 - [Sources](#sources)
 
@@ -343,6 +344,89 @@ recyclerView.setAdapter(fastAdapter)
 ```
 
 [Content](#recycler)
+# Groupie [![Maven][groupie-mavenbadge]][groupie-maven] [![Source][groupie-sourcebadge]][groupie-source] ![groupie-starsbadge]
+
+Groupie is a simple, flexible library for complex RecyclerView layouts.
+
+```gradle
+dependencies {
+    implementation "com.xwray:groupie:2.8.0"
+    
+    implementation "com.xwray:groupie-kotlin-android-extensions:2.8.0" // for kotlin synthetics
+    implementation "com.xwray:groupie-viewbinding:2.8.0" // for databinding
+}
+```
+
+Groupie lets you treat your content as logical groups and handles change notifications for you - think sections with headers and footers, expandable groups, blocks of vertical columns, and much more. It makes it easy to handle asynchronous content updates and insertions and user-driven content changes. At the item level, it abstracts the boilerplate of item view types, item layouts, viewholders, and span sizes.
+
+### Groupie. Basic Usage
+
+Use a GroupAdapter anywhere you would normally use a RecyclerView.Adapter, and attach it to your RecyclerView as usual.
+
+```kotlin
+val adapter = GroupAdapter()
+recyclerView.setAdapter(adapter)
+adapter += HeaderItem()
+adapter += SomeItem()
+```
+
+### Groupie. Groups
+
+Groups are the building block of Groupie. An individual Item (the unit which an adapter inflates and recycles) is a Group of 1. You can add Groups and Items interchangeably to the adapter.
+
+```kotlin
+groupAdapter += HeaderItem()
+groupAdapter += CommentItem()
+
+val section = Section()
+section.setHeader(HeaderItem())
+section.addAll(bodyItems)
+groupAdapter += section
+```
+
+Modifying the contents of the GroupAdapter in any way automatically sends change notifications. Adding an item calls notifyItemAdded(); adding a group calls notifyItemRangeAdded(), etc.
+
+There are a few simple implementations of Groups within the library:
+
+* **Section**, a list of body content with an optional header group and footer group. It supports diffing and animating moves, updates and other changes.
+* **ExpandableGroup**, a single parent group with a list of body content that can be toggled hidden or shown.
+
+### Groupie. Items
+
+Each Item declares a view layout id, and gets a callback to bind the inflated layout.
+
+```kotlin
+class SongItem(private val song: Song) : Item() {
+
+    override fun getLayout() = R.layout.song
+
+    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+        viewHolder.title.text = song.title
+        viewHolder.artist.text = song.artist
+    }
+}
+```
+
+With data binding:
+
+```java
+public class SongItem extends BindableItem<SongBinding> {
+
+    public SongItem(Song song) {
+        this(song);
+    }    
+
+    @Override public void bind(SongBinding binding, int position) {
+        binding.setSong(song);
+    }
+
+    @Override public int getLayout() {
+        return R.layout.song;
+    }
+}
+```
+
+[Content](#recycler)
 # Epoxy [![Maven][epoxy-mavenbadge]][epoxy-maven] [![Source][epoxy-sourcebadge]][epoxy-source] ![epoxy-starsbadge]
 
 Library for building complex screens in a RecyclerView created by Airbnb.
@@ -513,6 +597,10 @@ https://github.com/sockeqwe/AdapterDelegates
 
 https://github.com/mikepenz/FastAdapter
 
+**Groupie**
+
+https://github.com/lisawray/groupie
+
 
 
 [epoxy-maven]: https://search.maven.org/artifact/com.airbnb.android/epoxy
@@ -532,3 +620,9 @@ https://github.com/mikepenz/FastAdapter
 [fastadapter-source]: https://github.com/mikepenz/FastAdapter
 [fastadapter-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [fastadapter-starsbadge]: https://img.shields.io/github/stars/mikepenz/FastAdapter
+
+[groupie-maven]: https://bintray.com/lisawray/maven/groupie/_latestVersion
+[groupie-mavenbadge]: https://api.bintray.com/packages/lisawray/maven/groupie/images/download.svg
+[groupie-source]: https://github.com/lisawray/groupie
+[groupie-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[groupie-starsbadge]: https://img.shields.io/github/stars/lisawray/groupie
