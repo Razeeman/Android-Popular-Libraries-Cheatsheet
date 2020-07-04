@@ -8,6 +8,7 @@
 - [Icepick](#icepick---)
 - [LeakCanary](#leakcanary---)
 - [Cicerone](#cicerone---)
+- [Litho](#litho---)
 - [Sources](#sources)
 
 
@@ -687,7 +688,59 @@ private Navigator navigator = new Navigator() {
 
 - **Replace** - Replaces the current screen.
 
+[Content](#misc)
+# Litho [![Maven][litho-mavenbadge]][litho-maven] [![Source][litho-sourcebadge]][litho-source] ![litho-starsbadge]
 
+Litho is a declarative framework for building efficient UIs on Android.
+
+```gradle
+dependencies {
+    implementation 'com.facebook.litho:litho-core:0.36.0'
+    implementation 'com.facebook.litho:litho-widget:0.36.0'
+
+    annotationProcessor 'com.facebook.litho:litho-processor:0.36.0'
+    
+    // SoLoader
+    implementation 'com.facebook.soloader:soloader:0.9.0'
+}
+```
+
+- **Declarative**: Litho uses a declarative API to define UI components. You simply describe the layout for your UI based on a set of immutable inputs and the framework takes care of the rest.
+- **Asynchronous layout**: Litho can measure and layout your UI ahead of time without blocking the UI thread.
+- **View flattening**: Litho uses Yoga for layout and automatically reduces the number of ViewGroups that your UI contains.
+- **Fine-grained recycling**: Any component such as a text or image can be recycled and reused anywhere in the UI.
+
+### Litho. Basic usage
+
+Initialize SoLoader in Application class.
+
+```java
+public class SampleApplication extends Application {
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    SoLoader.init(this, false);
+  }
+}
+```
+
+Create and display a component in your Activity
+
+```java
+@Override
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    final ComponentContext c = new ComponentContext(this);
+
+    final Component component = Text.create(c)
+        .text("Hello World")
+        .textSizeDip(50)
+        .build();
+
+    setContentView(LithoView.create(c, component));
+}
+```
 
 [Content](#misc)
 # Sources
@@ -717,6 +770,12 @@ https://github.com/frankiesardo/icepick/issues/47
 **LeakCanary**
 
 https://github.com/square/leakcanary
+
+**Litho**
+
+https://github.com/facebook/litho
+<br>
+https://fblitho.com/docs/intro
 
 
 
@@ -767,3 +826,9 @@ https://github.com/square/leakcanary
 [cicerone-source]: https://github.com/terrakok/Cicerone
 [cicerone-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [cicerone-starsbadge]: https://img.shields.io/github/stars/terrakok/Cicerone
+
+[litho-maven]: https://bintray.com/facebook/maven/com.facebook.litho:litho-core/_latestVersion
+[litho-mavenbadge]: https://api.bintray.com/packages/facebook/maven/com.facebook.litho:litho-core/images/download.svg
+[litho-source]: https://github.com/facebook/litho
+[litho-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[litho-starsbadge]: https://img.shields.io/github/stars/facebook/litho
