@@ -20,6 +20,8 @@
 
 - [Cicerone](misc.md#cicerone---) [![Maven][cicerone-mavenbadge]][cicerone-maven] [![Source][cicerone-sourcebadge]][cicerone-source] ![cicerone-starsbadge]
 
+- [Litho](misc.md#litho---) [![Maven][litho-mavenbadge]][litho-maven] [![Source][litho-sourcebadge]][litho-source] ![litho-starsbadge]
+
 ## Recycler View
 
 - [AdapterDelegates](recycler.md#adapterdelegates---) [![Maven][adapterdelegates-mavenbadge]][adapterdelegates-maven] [![Source][adapterdelegates-sourcebadge]][adapterdelegates-source] ![adapterdelegates-starsbadge]
@@ -131,6 +133,12 @@
 [cicerone-source]: https://github.com/terrakok/Cicerone
 [cicerone-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
 [cicerone-starsbadge]: https://img.shields.io/github/stars/terrakok/Cicerone
+
+[litho-maven]: https://bintray.com/facebook/maven/com.facebook.litho:litho-core/_latestVersion
+[litho-mavenbadge]: https://api.bintray.com/packages/facebook/maven/com.facebook.litho:litho-core/images/download.svg
+[litho-source]: https://github.com/facebook/litho
+[litho-sourcebadge]: https://img.shields.io/badge/source-github-orange.svg
+[litho-starsbadge]: https://img.shields.io/github/stars/facebook/litho
 
 [adapterdelegates-maven]: https://search.maven.org/artifact/com.hannesdorfmann/adapterdelegates4
 [adapterdelegates-mavenbadge]: https://maven-badges.herokuapp.com/maven-central/com.hannesdorfmann/adapterdelegates4/badge.svg
