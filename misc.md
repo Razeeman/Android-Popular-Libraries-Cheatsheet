@@ -712,7 +712,7 @@ dependencies {
 
 ### Litho. Basic usage
 
-Initialize SoLoader in Application class.
+Initialize SoLoader in Application class. Behind the scenes, Litho uses Yoga for layout. Yoga has native dependencies and SoLoader is brought in to take care of loading those. Initializing SoLoader here ensures that you’re not referencing unloaded libraries later on.
 
 ```java
 public class SampleApplication extends Application {
@@ -724,7 +724,7 @@ public class SampleApplication extends Application {
 }
 ```
 
-Create and display a component in your Activity
+Create and display a component in your Activity. **LithoView** is an Android ViewGroup that can render components; it is the bridge between Litho components and Android Views.
 
 ```java
 @Override
@@ -741,6 +741,135 @@ public void onCreate(Bundle savedInstanceState) {
     setContentView(LithoView.create(c, component));
 }
 ```
+
+### Litho. Custom components
+
+Write **Spec** classes to declare the layout for your components. A component spec class will be processed to generate a ComponentLifecycle subclass with the same name as the spec but without the Spec suffix. For example, a MyComponentSpec spec generates a MyComponent class. At runtime, all component instances of a certain type share the same ComponentLifecycle reference. This means that there will only be one spec instance per component type, not per component instance.
+
+There are two types of component specs:
+
+- **Layout spec**: combines other components into a specific layout. This is the equivalent of a ViewGroup on Android.
+- **Mount spec**: a component that can render a view or a drawable.
+
+Example component called ListItem and displays a title with a smaller subtitle underneath:
+
+```java
+@LayoutSpec
+public class ListItemSpec {
+
+  @OnCreateLayout
+  static Component onCreateLayout(ComponentContext c) {
+  
+    return Column.create(c)
+        .paddingDip(ALL, 16)
+        .backgroundColor(Color.WHITE)
+        .child(
+            Text.create(c)
+                .text("Hello world")
+                .textSizeSp(40))
+        .child(
+            Text.create(c)
+                .text("Litho tutorial")
+                .textSizeSp(20))
+        .build();
+  }
+}
+```
+
+```java
+final Component component = ListItem.create(c).build();
+```
+
+### Litho. Lists
+
+You can create lists by using the **RecyclerCollectionComponent** and the **Sections** library. **RecyclerCollectionComponent** is used for creating scrollable units in Litho and it hides some of the complexity of having to work directly with Android’s RecyclerView and Adapter concepts. With the **Sections** API, you group the items in your list into sections and write **GroupSectionSpec** classes to declare what each section renders and what data it uses.
+
+```java
+@GroupSectionSpec
+public class ListSectionSpec {
+
+  @OnCreateChildren
+  static Children onCreateChildren(final SectionContext c) {
+    Children.Builder builder = Children.create();
+
+    for (int i = 0; i < 32; i++) {
+      builder.child(
+          SingleComponentSection.create(c)
+              .key(String.valueOf(i))
+              .component(ListItem.create(c).build()));
+    }
+    return builder.build();
+  }
+}
+```
+
+**SingleComponentSection** is a core section that renders a single component. **ListSectionSpec** describes a section that has 32 child sections, each of which is responsible for rendering a ListItem. We can use this section with **RecyclerCollectionComponent** to render our list. RecyclerCollectionComponent takes a section as a prop and renders a RecyclerView containing whatever UI the section outputs. It also manages updates and changes from the section such as refreshing data and performing tail fetches.
+
+```java
+final Component component =
+    RecyclerCollectionComponent.create(c)
+        .section(ListSection.create(new SectionContext(c)).build())
+        .build();
+```
+
+### Litho. Component properties
+
+Props are parameters to methods of the component specification, annotated with the @Prop annotation. The processor generates methods on the component builder that correspond to the props.
+
+```java
+@OnCreateLayout
+static Component onCreateLayout(
+    ComponentContext c,
+    @Prop int color,
+    @Prop String title,
+    @Prop String subtitle) {
+
+  return Column.create(c)
+        .paddingDip(ALL, 16)
+        .backgroundColor(color)
+        .child(
+            Text.create(c)
+                .text(title)
+                .textSizeSp(40))
+        .child(
+            Text.create(c)
+                .text(subtitle)
+                .textSizeSp(20))
+        .build();
+}
+```
+
+```java
+ListItem.create(c)
+    .color(Color.WHITE)
+    .title("Hello, world!")
+    .subtitle("Litho tutorial")
+    .build()
+```
+
+You can specify more options to the @Prop annotation. This tells the annotation processor to construct a number of functions, such as shadowRadiusPx, shadowRadiusDip, shadowRadiusSp as well as shadowRadiusRes:
+
+```java
+@Prop(optional = true, resType = ResType.DIMEN_OFFSET) int shadowRadius
+```
+
+### Litho. Mount specs
+
+A mount spec defines a component that can render views or drawables. Mount here refers to the operation performed by all components in a layout tree to extract their rendered state (a View or a Drawable) to be displayed. Mount spec classes should be annotated with @MountSpec and implement at least an @OnCreateMountContent method. The other methods listed below are optional.
+
+The lifecycle of mount spec components is as follows:
+BG = occurs on BG thread when possible – do not modify the view hierarchy,
+UI = can occur on UI thread,
+PC = Performance critical – put as little work in it as possible, use BG methods instead
+
+- Run **@OnPrepare** once, before layout calculation. BG/UI
+- Run **@OnMeasure** optionally during layout calculation. This will not be called if Yoga has already determined your component’s bounds (e.g. a static width/height was set on the component). BG/UI
+- Run **@OnBoundsDefined** once, after layout calculation. This will be called whether or not @OnMeasure was called. BG/UI
+- Run **@OnCreateMountContent** before the component is attached to a hosting view. This content may be reused for other instances of this component. UI
+- Run **@OnMount** before the component is attached to a hosting view. This will happen when the component is about to become visible when incremental mount is enabled (it is enabled by default). UI/PC
+- Run **@OnBind** after the component is attached to a hosting view. UI/PC
+- Run **@OnUnbind** before the component is detached from a hosting view. UI/PC
+- Run **@OnUnmount** optionally after the component is detached from a hosting view. See incremental mount notes on @OnMount: they apply in reverse here. UI/PC
 
 [Content](#misc)
 # Sources
