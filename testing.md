@@ -305,6 +305,33 @@ onView(withId(R.id.some_view)).perform(scrollTo()).check(matches(isDisplayed()))
 // Scrolling RecyclerView.
 onView(withId(R.id.recycler_view))
     .perform(RecyclerViewActions.scrollTo(hasDescendant(withText(R.string.some_text))));
+    
+// Check for keyboard
+static boolean isKeyboardShown() {
+    Context targetContext = ApplicationProvider.getApplicationContext();
+    InputMethodManager inputMethodManager = (InputMethodManager) targetContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+    return inputMethodManager != null && inputMethodManager.isActive() && inputMethodManager.isAcceptingText();
+}
+
+// Check for toast
+static void toastTextShowing(String text) {
+    onView(withText(text)).inRoot(isToast()).check(matches(isDisplayed()));
+}
+
+private static Matcher<Root> isToast() {
+    return new TypeSafeMatcher<Root>() {
+        @Override
+        protected boolean matchesSafely(Root item) {
+            int type = item.getWindowLayoutParams().get().type;
+            return type == WindowManager.LayoutParams.TYPE_TOAST;
+        }
+
+        @Override
+        public void describeTo(Description description) {
+            description.appendText("is toast");
+        }
+    };
+}
 ```
 
 
