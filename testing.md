@@ -314,9 +314,7 @@ static boolean isKeyboardShown() {
 }
 
 // Check for toast
-static void toastTextShowing(String text) {
-    onView(withText(text)).inRoot(isToast()).check(matches(isDisplayed()));
-}
+onView(withText(R.string.some_text)).inRoot(isToast()).check(matches(isDisplayed()));
 
 private static Matcher<Root> isToast() {
     return new TypeSafeMatcher<Root>() {
