@@ -330,6 +330,89 @@ private static Matcher<Root> isToast() {
         }
     };
 }
+
+// Get text from textView
+static String getText(final Matcher<View> matcher) {
+    final String[] stringHolder = { null };
+    onView(matcher).perform(new ViewAction() {
+        @Override
+        public Matcher<View> getConstraints() {
+            return isAssignableFrom(TextView.class);
+        }
+
+        @Override
+        public String getDescription() {
+            return "getting text from a TextView";
+        }
+
+        @Override
+        public void perform(UiController uiController, View view) {
+            TextView tv = (TextView)view;
+            stringHolder[0] = tv.getText().toString();
+        }
+    });
+    return stringHolder[0];
+}
+
+// Get a child from viewGroup
+public static Matcher<View> nthChildOf(final Matcher<View> parentMatcher, final int childPosition) {
+    return new TypeSafeMatcher<View>() {
+        @Override
+        public void describeTo(Description description) {
+            description.appendText("with " + childPosition + " child view of type parentMatcher");
+        }
+
+        @Override
+        public boolean matchesSafely(View view) {
+            if (!(view.getParent() instanceof ViewGroup)) {
+                return parentMatcher.matches(view.getParent());
+            }
+
+            ViewGroup group = (ViewGroup) view.getParent();
+            return parentMatcher.matches(view.getParent()) && group.getChildAt(childPosition).equals(view);
+        }
+    };
+}
+```
+
+```kotlin
+// Check card color
+fun withCardColor(expectedId: Int): Matcher<View> =
+    object : BoundedMatcher<View, CardView>(CardView::class.java) {
+        override fun matchesSafely(view: CardView): Boolean {
+            val colorInt: Int = ContextCompat.getColor(view.context, expectedId)
+            return view.cardBackgroundColor.defaultColor == colorInt
+        }
+
+        override fun describeTo(description: Description) {
+            description.appendText("with card color: ")
+            description.appendValue(expectedId)
+        }
+    }
+    
+// Check tag
+fun withTag(tagValueMatcher: Int): Matcher<View> =
+    withTagValue(equalTo(tagValueMatcher))
+    
+// Select tab in tablayout
+fun selectTabAtPosition(tabIndex: Int): ViewAction {
+    return object : ViewAction {
+        override fun getDescription() = "with tab at index $tabIndex"
+
+        override fun getConstraints() = allOf(
+            isDisplayed(), isAssignableFrom(TabLayout::class.java)
+        )
+
+        override fun perform(uiController: UiController, view: View) {
+            val tabAtIndex: TabLayout.Tab = (view as TabLayout).getTabAt(tabIndex)
+                ?: throw PerformException.Builder()
+                    .withCause(Throwable("No tab at index $tabIndex"))
+                    .build()
+
+            tabAtIndex.select()
+        }
+    }
+}
 ```
 
 
